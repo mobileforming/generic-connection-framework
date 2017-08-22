@@ -19,6 +19,7 @@
 		DF46FAEE1F1FF4F0008641A2 /* GenericConnectionFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46FAE41F1FF4F0008641A2 /* GenericConnectionFramework.framework */; };
 		DF46FAF31F1FF4F0008641A2 /* GenericConnectionFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF46FAF21F1FF4F0008641A2 /* GenericConnectionFrameworkTests.swift */; };
 		DF46FAF51F1FF4F0008641A2 /* GenericConnectionFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = DF46FAE71F1FF4F0008641A2 /* GenericConnectionFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA0AA9776A4F847321933559 /* Pods_GenericConnectionFrameworkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43ECBC637CEBB9F3ADFE9194 /* Pods_GenericConnectionFrameworkTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		2B6FE839297F2767AAC232B4 /* Pods-GenericConnectionFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFramework.release.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFramework/Pods-GenericConnectionFramework.release.xcconfig"; sourceTree = "<group>"; };
 		397BCC93A9FCC0CD16EA17C2 /* Pods-GenericConnectionFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFramework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFramework/Pods-GenericConnectionFramework.debug.xcconfig"; sourceTree = "<group>"; };
 		3D3EF37B851D890CB9952397 /* Pods_GenericConnectionFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GenericConnectionFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43ECBC637CEBB9F3ADFE9194 /* Pods_GenericConnectionFrameworkTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GenericConnectionFrameworkTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		654CB7F21F2AC61000419E17 /* GenericConnectionFrameworkApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GenericConnectionFrameworkApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		654CB7F41F2AC61000419E17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		654CB7F61F2AC61000419E17 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,8 +65,10 @@
 		654CB8101F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GenericConnectionFrameworkAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		654CB8141F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericConnectionFrameworkAppUITests.swift; sourceTree = "<group>"; };
 		654CB8161F2AC61000419E17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		693462ABE4F5D7C6AA241D47 /* Pods-GenericConnectionFrameworkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFrameworkTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFrameworkTests/Pods-GenericConnectionFrameworkTests.release.xcconfig"; sourceTree = "<group>"; };
 		B70634EC6CD662F38076DE52 /* Pods-GenericConnectionFrameworkApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFrameworkApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFrameworkApp/Pods-GenericConnectionFrameworkApp.debug.xcconfig"; sourceTree = "<group>"; };
 		BF76D7D34B8EC839E9DF9BBF /* Pods_GenericConnectionFrameworkApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GenericConnectionFrameworkApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3D0A9852F5FB3269EE12FDF /* Pods-GenericConnectionFrameworkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFrameworkTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFrameworkTests/Pods-GenericConnectionFrameworkTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DF46FAE41F1FF4F0008641A2 /* GenericConnectionFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GenericConnectionFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF46FAE71F1FF4F0008641A2 /* GenericConnectionFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenericConnectionFramework.h; sourceTree = "<group>"; };
 		DF46FAE81F1FF4F0008641A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -109,6 +113,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF46FAEE1F1FF4F0008641A2 /* GenericConnectionFramework.framework in Frameworks */,
+				EA0AA9776A4F847321933559 /* Pods_GenericConnectionFrameworkTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +127,8 @@
 				2B6FE839297F2767AAC232B4 /* Pods-GenericConnectionFramework.release.xcconfig */,
 				B70634EC6CD662F38076DE52 /* Pods-GenericConnectionFrameworkApp.debug.xcconfig */,
 				23B9E4441B60B67D4CBE1DBB /* Pods-GenericConnectionFrameworkApp.release.xcconfig */,
+				D3D0A9852F5FB3269EE12FDF /* Pods-GenericConnectionFrameworkTests.debug.xcconfig */,
+				693462ABE4F5D7C6AA241D47 /* Pods-GenericConnectionFrameworkTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -162,6 +169,7 @@
 			children = (
 				3D3EF37B851D890CB9952397 /* Pods_GenericConnectionFramework.framework */,
 				BF76D7D34B8EC839E9DF9BBF /* Pods_GenericConnectionFrameworkApp.framework */,
+				43ECBC637CEBB9F3ADFE9194 /* Pods_GenericConnectionFrameworkTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -304,9 +312,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF46FAFB1F1FF4F0008641A2 /* Build configuration list for PBXNativeTarget "GenericConnectionFrameworkTests" */;
 			buildPhases = (
+				36AC4CA41F6295DDF315733C /* [CP] Check Pods Manifest.lock */,
 				DF46FAE91F1FF4F0008641A2 /* Sources */,
 				DF46FAEA1F1FF4F0008641A2 /* Frameworks */,
 				DF46FAEB1F1FF4F0008641A2 /* Resources */,
+				9D11F4B060B08136EBDDDB77 /* [CP] Embed Pods Frameworks */,
+				3501EDB92D6B82FE5FA52D10 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -452,6 +463,36 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GenericConnectionFrameworkApp/Pods-GenericConnectionFrameworkApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3501EDB92D6B82FE5FA52D10 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GenericConnectionFrameworkTests/Pods-GenericConnectionFrameworkTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		36AC4CA41F6295DDF315733C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		80CC08E8D8A2933A5D4B71B4 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -465,6 +506,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GenericConnectionFrameworkApp/Pods-GenericConnectionFrameworkApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D11F4B060B08136EBDDDB77 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GenericConnectionFrameworkTests/Pods-GenericConnectionFrameworkTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A4237F71ED6830C1448416DE /* [CP] Check Pods Manifest.lock */ = {
@@ -827,6 +883,7 @@
 		};
 		DF46FAFC1F1FF4F0008641A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3D0A9852F5FB3269EE12FDF /* Pods-GenericConnectionFrameworkTests.debug.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 45BQ97BH8P;
 				INFOPLIST_FILE = GenericConnectionFrameworkTests/Info.plist;
@@ -840,6 +897,7 @@
 		};
 		DF46FAFD1F1FF4F0008641A2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 693462ABE4F5D7C6AA241D47 /* Pods-GenericConnectionFrameworkTests.release.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 45BQ97BH8P;
 				INFOPLIST_FILE = GenericConnectionFrameworkTests/Info.plist;

@@ -6,7 +6,11 @@ use_frameworks!
 target 'GenericConnectionFramework' do
   pod 'RxSwift', '~> 3.2'
   pod 'RxCocoa', '~> 3.2'
-  pod 'OHHTTPStubs/Swift'
+
+  target 'GenericConnectionFrameworkTests' do
+  inherit! :search_paths
+  #pod 'OHHTTPStubs/Swift'
+  end
 end
 
 target 'GenericConnectionFrameworkApp' do
