@@ -13,19 +13,21 @@ class RoutableTests: XCTestCase {
     func testExampleRoutableEnum() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        XCTAssertTrue(Router.readUsers.path == "/getUsers")
-        XCTAssertTrue(Router.home.path == "/")
-        XCTAssertTrue(Router.readUsers.method == "GET")
-        XCTAssertTrue(Router.home.method == "GET")
-        XCTAssertTrue(Router.readUsers.header == nil)
-        XCTAssertTrue(Router.home.header == nil)
-        XCTAssertTrue(Router.readUsers.parameters == nil)
-        XCTAssertTrue(Router.home.parameters == nil)
+        XCTAssertEqual(Router.readUsers.path, "/getUsers")
+        XCTAssertEqual(Router.home.path, "/")
+        XCTAssertEqual(Router.readUsers.method, "GET")
+        XCTAssertEqual(Router.home.method, "GET")
+        XCTAssertNil(Router.readUsers.header)
+        XCTAssertNil(Router.home.header)
+        XCTAssertNil(Router.readUsers.parameters)
+        XCTAssertNil(Router.home.parameters)
+        XCTAssertNil(Router.readUsers.body)
+        XCTAssertNil(Router.home.body)
     }
     
 }
 
-enum Router : Routable {
+enum Router : Routable {    
     
     case readUsers
     case home
@@ -59,4 +61,10 @@ enum Router : Routable {
         }
     }
     
+    var body: [String : Any]? {
+        switch self {
+        default:
+            return nil
+        }
+    }
 }
