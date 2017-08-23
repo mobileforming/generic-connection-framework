@@ -15,6 +15,12 @@
 		654CB7FF1F2AC61000419E17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654CB7FD1F2AC61000419E17 /* LaunchScreen.storyboard */; };
 		654CB80A1F2AC61000419E17 /* GenericConnectionFrameworkAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654CB8091F2AC61000419E17 /* GenericConnectionFrameworkAppTests.swift */; };
 		654CB8151F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654CB8141F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.swift */; };
+		83BCB6CF1F47766E005241EA /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6CE1F47766E005241EA /* Routable.swift */; };
+		83BCB6D01F47766E005241EA /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6CE1F47766E005241EA /* Routable.swift */; };
+		83BCB6D11F47766E005241EA /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6CE1F47766E005241EA /* Routable.swift */; };
+		83BCB6D21F47766E005241EA /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6CE1F47766E005241EA /* Routable.swift */; };
+		83BCB6D31F47766E005241EA /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6CE1F47766E005241EA /* Routable.swift */; };
+		83BCB6D51F4779F9005241EA /* RoutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6D41F4779F9005241EA /* RoutableTests.swift */; };
 		A92F972479EF732955DE4561 /* Pods_GenericConnectionFrameworkApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF76D7D34B8EC839E9DF9BBF /* Pods_GenericConnectionFrameworkApp.framework */; };
 		DF46FAEE1F1FF4F0008641A2 /* GenericConnectionFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46FAE41F1FF4F0008641A2 /* GenericConnectionFramework.framework */; };
 		DF46FAF31F1FF4F0008641A2 /* GenericConnectionFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF46FAF21F1FF4F0008641A2 /* GenericConnectionFrameworkTests.swift */; };
@@ -66,6 +72,8 @@
 		654CB8141F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericConnectionFrameworkAppUITests.swift; sourceTree = "<group>"; };
 		654CB8161F2AC61000419E17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		693462ABE4F5D7C6AA241D47 /* Pods-GenericConnectionFrameworkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFrameworkTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFrameworkTests/Pods-GenericConnectionFrameworkTests.release.xcconfig"; sourceTree = "<group>"; };
+		83BCB6CE1F47766E005241EA /* Routable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routable.swift; sourceTree = "<group>"; };
+		83BCB6D41F4779F9005241EA /* RoutableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutableTests.swift; sourceTree = "<group>"; };
 		B70634EC6CD662F38076DE52 /* Pods-GenericConnectionFrameworkApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFrameworkApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFrameworkApp/Pods-GenericConnectionFrameworkApp.debug.xcconfig"; sourceTree = "<group>"; };
 		BF76D7D34B8EC839E9DF9BBF /* Pods_GenericConnectionFrameworkApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GenericConnectionFrameworkApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3D0A9852F5FB3269EE12FDF /* Pods-GenericConnectionFrameworkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFrameworkTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFrameworkTests/Pods-GenericConnectionFrameworkTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -205,6 +213,7 @@
 			children = (
 				DF46FAE71F1FF4F0008641A2 /* GenericConnectionFramework.h */,
 				DF46FAE81F1FF4F0008641A2 /* Info.plist */,
+				83BCB6CE1F47766E005241EA /* Routable.swift */,
 			);
 			path = GenericConnectionFramework;
 			sourceTree = "<group>";
@@ -214,6 +223,7 @@
 			children = (
 				DF46FAF21F1FF4F0008641A2 /* GenericConnectionFrameworkTests.swift */,
 				DF46FAF41F1FF4F0008641A2 /* Info.plist */,
+				83BCB6D41F4779F9005241EA /* RoutableTests.swift */,
 			);
 			path = GenericConnectionFrameworkTests;
 			sourceTree = "<group>";
@@ -359,6 +369,7 @@
 					DF46FAE31F1FF4F0008641A2 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 45BQ97BH8P;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					DF46FAEC1F1FF4F0008641A2 = {
@@ -454,9 +465,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-GenericConnectionFrameworkApp/Pods-GenericConnectionFrameworkApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa-iOS10.3/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS10.3/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -484,13 +502,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GenericConnectionFrameworkTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		80CC08E8D8A2933A5D4B71B4 /* [CP] Copy Pods Resources */ = {
@@ -514,9 +535,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-GenericConnectionFrameworkTests/Pods-GenericConnectionFrameworkTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa-iOS11.0/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS11.0/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -529,13 +555,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GenericConnectionFrameworkApp-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F5E8FEBAD38D25D9DA1740F8 /* [CP] Check Pods Manifest.lock */ = {
@@ -544,13 +573,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GenericConnectionFramework-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -562,6 +594,7 @@
 			files = (
 				654CB7F71F2AC61000419E17 /* ViewController.swift in Sources */,
 				654CB7F51F2AC61000419E17 /* AppDelegate.swift in Sources */,
+				83BCB6D11F47766E005241EA /* Routable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,6 +603,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				654CB80A1F2AC61000419E17 /* GenericConnectionFrameworkAppTests.swift in Sources */,
+				83BCB6D21F47766E005241EA /* Routable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,6 +612,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				654CB8151F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.swift in Sources */,
+				83BCB6D31F47766E005241EA /* Routable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,6 +620,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83BCB6CF1F47766E005241EA /* Routable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +629,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF46FAF31F1FF4F0008641A2 /* GenericConnectionFrameworkTests.swift in Sources */,
+				83BCB6D51F4779F9005241EA /* RoutableTests.swift in Sources */,
+				83BCB6D01F47766E005241EA /* Routable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
