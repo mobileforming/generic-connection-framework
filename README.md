@@ -10,7 +10,7 @@ Description...
 - Easier/quicker API integration
 - Less fragile (no string literal parameters for creating a request)
 - Supports standard completion block pattern or Rx/observable pattern
-- The client of the GCF owns the domain specific knowledge (actual url, parsed data models, etc), encouraging modular design
+- Encourages modular design
 
 ## Features
 
@@ -19,10 +19,10 @@ Description...
 - Flexible plugin architecture
 - Swift Decodable support
 - Robust test coverage (ongoing)
-- Authentication support (propsed)
-- Credential management (proposed)
-- Request queueing (proposed)
-- Retry logic (proposed)
+- Authentication support (planned)
+- Credential management (planned)
+- Request queueing (planned)
+- Retry logic (planned)
 
 ## Dependencies
 
