@@ -41,7 +41,7 @@ Description...
 
 ## Usage
 
-### Creating Routables
+### Routables
 
 ```swift
 //Routable interface
@@ -89,7 +89,7 @@ public enum ExampleAPI: Routable {
 }
 ```
 
-### Creating a GCF
+### GCF Instance
 
 ```swift
 //GCF Error
@@ -134,7 +134,7 @@ class ExampleGCF: GCF {
 }
 ```
 
-### Creating a GCF Plugin
+### GCF Plugin
 
 ```swift
 //Plugin Error/State
