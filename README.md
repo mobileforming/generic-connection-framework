@@ -165,10 +165,13 @@ class ExamplePlugin: GCFPlugin {
 let gcf = GCF(baseURL: "https://somebaseurl.com")
 ```
 ```swift
-//using completion
+//using completion, LoginObject: Decodable
+gcf.sendRequest(for: ExampleAPI.login) { (response: LoginObject?, error) in
+}
 ```
 ```swift
-//using observable
+//using observable, LoginObject: Decodable
+let loginObservable: Observable<LoginObject> = gcf.sendRequest(for: ExampleAPI.login)
 ```
 
 
