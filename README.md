@@ -52,7 +52,8 @@ public protocol Routable {
     var parameters: [String : String]? { get }
     var body: [String : Any]? { get }
 }
-
+```
+```swift
 //Routable implementation
 public enum ExampleAPI: Routable {
     case login
@@ -96,7 +97,8 @@ public enum GCFError: Error {
 	case parsingError
 	case requestError
 }
-
+```
+```swift
 //GCF Interface
 public protocol GCF: class {
 	var baseURL: String { get }
@@ -107,7 +109,8 @@ public protocol GCF: class {
 	func sendRequest<T: Decodable>(for routable: Routable) -> Observable<T>
 	func sendRequest<T: Decodable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void)
 }
-
+```
+```swift
 //GCF Implementation
 class ExampleGCF: GCF {
     var baseURL: String
@@ -140,13 +143,15 @@ enum GCFPluginError: Error {
 	case failureCompleteRequest		//don't process remaining plugins, finish the request
 	case failureContinue			//continue with remaining plugins
 }
-
+```
+```swift
 //Plugin interface
 protocol GCFPlugin {
 	func willSendRequest(_ request: inout URLRequest)
 	func didRecieve(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) throws
 }
-
+```
+```swift
 //Plugin implementation
 class ExamplePlugin: GCFPlugin {
     
@@ -158,9 +163,11 @@ class ExamplePlugin: GCFPlugin {
 ```swift
 //create an instance of the GCF
 let gcf = GCF(baseURL: "https://somebaseurl.com")
-
+```
+```swift
 //using completion
-
+```
+```swift
 //using observable
 ```
 
