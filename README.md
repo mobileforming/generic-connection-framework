@@ -11,6 +11,7 @@ Description...
 - Less fragile (no string literal parameters for creating a request)
 - Supports standard completion block pattern or Rx/observable pattern
 - Encourages modular design
+- Bain says so...
 
 ## Features
 
