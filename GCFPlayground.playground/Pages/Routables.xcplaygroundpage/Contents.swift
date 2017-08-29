@@ -23,13 +23,13 @@ http://jsonplaceholder.typicode.com
 
 enum JSONPlaceholderAPI: Routable {
 	case posts
-	case posts(String)
+	case post(String)
 	
 	var path: String {
 		switch self {
 		case .posts:
 			return "/posts"
-		case .posts(let postID):
+		case .post(let postID):
 			return "/posts/\(postID)"
 		}
 	}
@@ -38,7 +38,7 @@ enum JSONPlaceholderAPI: Routable {
 		switch self {
 		case .posts:
 			return "GET"
-		case .posts(_):
+		case .post(_):
 			return "PUT"
 		}
 	}
