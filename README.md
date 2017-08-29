@@ -1,6 +1,6 @@
 # General Connection Framework
 
-Description...
+The General Connection Framework (GCF) is part of mobileforming's modularization effort.  The end result will be less time spent writing duplicated code across projects through the use of this library.  Every project utilizing the GCF will have an increased level of confidence in the network code, in addition to other shared benefits.
 
 ## Why Use GCF?
 
@@ -42,10 +42,11 @@ Description...
 
 ## Usage
 
-### Routables
+See playground for more detailed explanation and examples
+
+### Routable
 
 ```swift
-//Routable interface
 public protocol Routable {
     var path: String { get }
     var method: String { get }
@@ -54,108 +55,30 @@ public protocol Routable {
     var body: [String : Any]? { get }
 }
 ```
-```swift
-//Routable implementation
-public enum ExampleAPI: Routable {
-    case login
-    case userList
-    case user(String)
-    
-    var path: String {
-        switch self {
-        case login:
-            return "/login"
-        case userList:
-            return "/users"
-        case user(let userID):
-            return "/users/\(userID)"
-        }
-    }
-    
-    var method: String {
-        return "GET"
-    }
-    
-    var header: [String : String]? {
-        return nil
-    }
-    
-    var parameters: [String : String]? {
-        return nil
-    }
-    
-    var body: [String : Any]? {
-        return nil
-    }
-}
-```
 
-### GCF Instance
+### GCF
 
 ```swift
-//GCF Error
-public enum GCFError: Error {
-	case parsingError
-	case requestError
-}
-```
-```swift
-//GCF Interface
-public protocol GCF: class {
+protocol GCF: class {
 	var baseURL: String { get }
 	var urlSession: URLSession { get }
 	var decoder: JSONDecoder { get }
 	var plugin: GCFPlugin? { get }
-	
+
+	init(baseURL: String)
 	func sendRequest<T: Decodable>(for routable: Routable) -> Observable<T>
 	func sendRequest<T: Decodable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void)
-}
-```
-```swift
-//GCF Implementation
-class ExampleGCF: GCF {
-    var baseURL: String
-    var urlSession: URLSession
-    var decoder: JSONDecoder
-    var plugin: GCFPlugin?
-    
-    init(baseURL: String) {
-        guard !baseURL.isEmpty else { fatalError("need baseurl") }
-        self.baseURL = baseURL
-		urlSession = URLSession(configuration: .default)
-		decoder = JSONDecoder()
-    }
-    
-    func sendRequest<T: Decodable>(for routable: Routable) -> Observable<T> {
-        //...
-    }
-	func sendRequest<T: Decodable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void) {
-	    //...
-    }
+	func constructURL(from routable: Routable) -> URL
+	func parseData<T: Decodable>(from data: Data) throws -> T
 }
 ```
 
 ### GCF Plugin
-
-```swift
-//Plugin Error/State
-enum GCFPluginError: Error {
-	case failureAbortRequest		//fail entire request
-	case failureCompleteRequest		//don't process remaining plugins, finish the request
-	case failureContinue			//continue with remaining plugins
-}
-```
 ```swift
 //Plugin interface
 protocol GCFPlugin {
 	func willSendRequest(_ request: inout URLRequest)
 	func didRecieve(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) throws
-}
-```
-```swift
-//Plugin implementation
-class ExamplePlugin: GCFPlugin {
-    
 }
 ```
 

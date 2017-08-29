@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0DA44D95895723C4900C74CD /* Pods_GenericConnectionFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3EF37B851D890CB9952397 /* Pods_GenericConnectionFramework.framework */; };
+		342133191F55E9180046BC62 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 342133181F55E9180046BC62 /* README.md */; };
+		34BF37F21F5609AC0045613A /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F11F5609AC0045613A /* Routable.swift */; };
+		34BF37F41F560ECE0045613A /* GCFPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F31F560ECE0045613A /* GCFPlugin.swift */; };
+		34BF37F61F5610ED0045613A /* GCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F51F5610ED0045613A /* GCF.swift */; };
+		34C22FA91F5620340059BB14 /* ExampleGCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C22FA81F5620340059BB14 /* ExampleGCF.swift */; };
 		654CB7F51F2AC61000419E17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654CB7F41F2AC61000419E17 /* AppDelegate.swift */; };
 		654CB7F71F2AC61000419E17 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654CB7F61F2AC61000419E17 /* ViewController.swift */; };
 		654CB7FA1F2AC61000419E17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654CB7F81F2AC61000419E17 /* Main.storyboard */; };
@@ -15,11 +20,6 @@
 		654CB7FF1F2AC61000419E17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654CB7FD1F2AC61000419E17 /* LaunchScreen.storyboard */; };
 		654CB80A1F2AC61000419E17 /* GenericConnectionFrameworkAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654CB8091F2AC61000419E17 /* GenericConnectionFrameworkAppTests.swift */; };
 		654CB8151F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654CB8141F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.swift */; };
-		83BCB6CF1F47766E005241EA /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6CE1F47766E005241EA /* Routable.swift */; };
-		83BCB6D01F47766E005241EA /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6CE1F47766E005241EA /* Routable.swift */; };
-		83BCB6D11F47766E005241EA /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6CE1F47766E005241EA /* Routable.swift */; };
-		83BCB6D21F47766E005241EA /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6CE1F47766E005241EA /* Routable.swift */; };
-		83BCB6D31F47766E005241EA /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6CE1F47766E005241EA /* Routable.swift */; };
 		83BCB6D51F4779F9005241EA /* RoutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6D41F4779F9005241EA /* RoutableTests.swift */; };
 		A92F972479EF732955DE4561 /* Pods_GenericConnectionFrameworkApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF76D7D34B8EC839E9DF9BBF /* Pods_GenericConnectionFrameworkApp.framework */; };
 		DF46FAEE1F1FF4F0008641A2 /* GenericConnectionFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46FAE41F1FF4F0008641A2 /* GenericConnectionFramework.framework */; };
@@ -55,6 +55,11 @@
 /* Begin PBXFileReference section */
 		23B9E4441B60B67D4CBE1DBB /* Pods-GenericConnectionFrameworkApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFrameworkApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFrameworkApp/Pods-GenericConnectionFrameworkApp.release.xcconfig"; sourceTree = "<group>"; };
 		2B6FE839297F2767AAC232B4 /* Pods-GenericConnectionFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFramework.release.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFramework/Pods-GenericConnectionFramework.release.xcconfig"; sourceTree = "<group>"; };
+		342133181F55E9180046BC62 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		34BF37F11F5609AC0045613A /* Routable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routable.swift; sourceTree = "<group>"; };
+		34BF37F31F560ECE0045613A /* GCFPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCFPlugin.swift; sourceTree = "<group>"; };
+		34BF37F51F5610ED0045613A /* GCF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCF.swift; sourceTree = "<group>"; };
+		34C22FA81F5620340059BB14 /* ExampleGCF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleGCF.swift; sourceTree = "<group>"; };
 		397BCC93A9FCC0CD16EA17C2 /* Pods-GenericConnectionFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFramework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFramework/Pods-GenericConnectionFramework.debug.xcconfig"; sourceTree = "<group>"; };
 		3D3EF37B851D890CB9952397 /* Pods_GenericConnectionFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GenericConnectionFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43ECBC637CEBB9F3ADFE9194 /* Pods_GenericConnectionFrameworkTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GenericConnectionFrameworkTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,7 +77,6 @@
 		654CB8141F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericConnectionFrameworkAppUITests.swift; sourceTree = "<group>"; };
 		654CB8161F2AC61000419E17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		693462ABE4F5D7C6AA241D47 /* Pods-GenericConnectionFrameworkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFrameworkTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFrameworkTests/Pods-GenericConnectionFrameworkTests.release.xcconfig"; sourceTree = "<group>"; };
-		83BCB6CE1F47766E005241EA /* Routable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routable.swift; sourceTree = "<group>"; };
 		83BCB6D41F4779F9005241EA /* RoutableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutableTests.swift; sourceTree = "<group>"; };
 		B70634EC6CD662F38076DE52 /* Pods-GenericConnectionFrameworkApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFrameworkApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFrameworkApp/Pods-GenericConnectionFrameworkApp.debug.xcconfig"; sourceTree = "<group>"; };
 		BF76D7D34B8EC839E9DF9BBF /* Pods_GenericConnectionFrameworkApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GenericConnectionFrameworkApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +189,7 @@
 		DF46FADA1F1FF4F0008641A2 = {
 			isa = PBXGroup;
 			children = (
+				342133181F55E9180046BC62 /* README.md */,
 				DF46FAE61F1FF4F0008641A2 /* GenericConnectionFramework */,
 				DF46FAF11F1FF4F0008641A2 /* GenericConnectionFrameworkTests */,
 				654CB7F31F2AC61000419E17 /* GenericConnectionFrameworkApp */,
@@ -211,9 +216,12 @@
 		DF46FAE61F1FF4F0008641A2 /* GenericConnectionFramework */ = {
 			isa = PBXGroup;
 			children = (
+				34C22FA81F5620340059BB14 /* ExampleGCF.swift */,
+				34BF37F11F5609AC0045613A /* Routable.swift */,
+				34BF37F31F560ECE0045613A /* GCFPlugin.swift */,
 				DF46FAE71F1FF4F0008641A2 /* GenericConnectionFramework.h */,
 				DF46FAE81F1FF4F0008641A2 /* Info.plist */,
-				83BCB6CE1F47766E005241EA /* Routable.swift */,
+				34BF37F51F5610ED0045613A /* GCF.swift */,
 			);
 			path = GenericConnectionFramework;
 			sourceTree = "<group>";
@@ -511,7 +519,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		80CC08E8D8A2933A5D4B71B4 /* [CP] Copy Pods Resources */ = {
@@ -564,7 +572,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		F5E8FEBAD38D25D9DA1740F8 /* [CP] Check Pods Manifest.lock */ = {
@@ -582,7 +590,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -594,7 +602,6 @@
 			files = (
 				654CB7F71F2AC61000419E17 /* ViewController.swift in Sources */,
 				654CB7F51F2AC61000419E17 /* AppDelegate.swift in Sources */,
-				83BCB6D11F47766E005241EA /* Routable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,7 +610,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				654CB80A1F2AC61000419E17 /* GenericConnectionFrameworkAppTests.swift in Sources */,
-				83BCB6D21F47766E005241EA /* Routable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,7 +618,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				654CB8151F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.swift in Sources */,
-				83BCB6D31F47766E005241EA /* Routable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,7 +625,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83BCB6CF1F47766E005241EA /* Routable.swift in Sources */,
+				34BF37F61F5610ED0045613A /* GCF.swift in Sources */,
+				34BF37F41F560ECE0045613A /* GCFPlugin.swift in Sources */,
+				34C22FA91F5620340059BB14 /* ExampleGCF.swift in Sources */,
+				342133191F55E9180046BC62 /* README.md in Sources */,
+				34BF37F21F5609AC0045613A /* Routable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,7 +639,6 @@
 			files = (
 				DF46FAF31F1FF4F0008641A2 /* GenericConnectionFrameworkTests.swift in Sources */,
 				83BCB6D51F4779F9005241EA /* RoutableTests.swift in Sources */,
-				83BCB6D01F47766E005241EA /* Routable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -923,6 +931,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D3D0A9852F5FB3269EE12FDF /* Pods-GenericConnectionFrameworkTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 45BQ97BH8P;
 				INFOPLIST_FILE = GenericConnectionFrameworkTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -937,6 +946,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 693462ABE4F5D7C6AA241D47 /* Pods-GenericConnectionFrameworkTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 45BQ97BH8P;
 				INFOPLIST_FILE = GenericConnectionFrameworkTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -957,6 +967,7 @@
 				654CB8181F2AC61000419E17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		654CB81E1F2AC61000419E17 /* Build configuration list for PBXNativeTarget "GenericConnectionFrameworkAppTests" */ = {
 			isa = XCConfigurationList;
@@ -965,6 +976,7 @@
 				654CB81A1F2AC61000419E17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		654CB81F1F2AC61000419E17 /* Build configuration list for PBXNativeTarget "GenericConnectionFrameworkAppUITests" */ = {
 			isa = XCConfigurationList;
@@ -973,6 +985,7 @@
 				654CB81C1F2AC61000419E17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DF46FADE1F1FF4F0008641A2 /* Build configuration list for PBXProject "GenericConnectionFramework" */ = {
 			isa = XCConfigurationList;
