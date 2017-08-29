@@ -12,7 +12,6 @@
 		34BF37F21F5609AC0045613A /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F11F5609AC0045613A /* Routable.swift */; };
 		34BF37F41F560ECE0045613A /* GCFPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F31F560ECE0045613A /* GCFPlugin.swift */; };
 		34BF37F61F5610ED0045613A /* GCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F51F5610ED0045613A /* GCF.swift */; };
-		34C22FA91F5620340059BB14 /* ExampleGCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C22FA81F5620340059BB14 /* ExampleGCF.swift */; };
 		654CB7F51F2AC61000419E17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654CB7F41F2AC61000419E17 /* AppDelegate.swift */; };
 		654CB7F71F2AC61000419E17 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654CB7F61F2AC61000419E17 /* ViewController.swift */; };
 		654CB7FA1F2AC61000419E17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654CB7F81F2AC61000419E17 /* Main.storyboard */; };
@@ -59,7 +58,6 @@
 		34BF37F11F5609AC0045613A /* Routable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routable.swift; sourceTree = "<group>"; };
 		34BF37F31F560ECE0045613A /* GCFPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCFPlugin.swift; sourceTree = "<group>"; };
 		34BF37F51F5610ED0045613A /* GCF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCF.swift; sourceTree = "<group>"; };
-		34C22FA81F5620340059BB14 /* ExampleGCF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleGCF.swift; sourceTree = "<group>"; };
 		397BCC93A9FCC0CD16EA17C2 /* Pods-GenericConnectionFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFramework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFramework/Pods-GenericConnectionFramework.debug.xcconfig"; sourceTree = "<group>"; };
 		3D3EF37B851D890CB9952397 /* Pods_GenericConnectionFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GenericConnectionFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43ECBC637CEBB9F3ADFE9194 /* Pods_GenericConnectionFrameworkTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GenericConnectionFrameworkTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,12 +214,11 @@
 		DF46FAE61F1FF4F0008641A2 /* GenericConnectionFramework */ = {
 			isa = PBXGroup;
 			children = (
-				34C22FA81F5620340059BB14 /* ExampleGCF.swift */,
+				34BF37F51F5610ED0045613A /* GCF.swift */,
 				34BF37F11F5609AC0045613A /* Routable.swift */,
 				34BF37F31F560ECE0045613A /* GCFPlugin.swift */,
 				DF46FAE71F1FF4F0008641A2 /* GenericConnectionFramework.h */,
 				DF46FAE81F1FF4F0008641A2 /* Info.plist */,
-				34BF37F51F5610ED0045613A /* GCF.swift */,
 			);
 			path = GenericConnectionFramework;
 			sourceTree = "<group>";
@@ -627,7 +624,6 @@
 			files = (
 				34BF37F61F5610ED0045613A /* GCF.swift in Sources */,
 				34BF37F41F560ECE0045613A /* GCFPlugin.swift in Sources */,
-				34C22FA91F5620340059BB14 /* ExampleGCF.swift in Sources */,
 				342133191F55E9180046BC62 /* README.md in Sources */,
 				34BF37F21F5609AC0045613A /* Routable.swift in Sources */,
 			);

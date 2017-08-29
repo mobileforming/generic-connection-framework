@@ -1,11 +1,3 @@
-//
-//  GCF.swift
-//  GenericConnectionFramework
-//
-//  Created by Alan Downs on 8/29/17.
-//  Copyright © 2017 mobileforming LLC. All rights reserved.
-//
-
 import UIKit
 import RxSwift
 
@@ -124,6 +116,6 @@ open class ExampleGCF: GCF {
 			} else {
 				completion(nil,GCFError.requestError)
 			}
-			}.resume()
+		}.resume()
 	}
 }
