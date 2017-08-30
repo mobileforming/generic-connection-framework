@@ -63,6 +63,6 @@ let observable: Observable<Posts> = gcf.sendRequest(for: JSONPlaceholderAPI.post
 //observable.subscribe(<#T##observer: ObserverType##ObserverType#>)
 //: > Closure pattern
 gcf.sendRequest(for: JSONPlaceholderAPI.posts) { (postsObject: Posts?, error) in
-	print(postsObject)
+//	print(postsObject)
 	currentPage.finishExecution()
 }
