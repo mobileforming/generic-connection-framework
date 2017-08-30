@@ -49,22 +49,23 @@ class ExampleGCF: GCF {
 	}
 }
 ```
-
-Finish instantiating GCF using our example api (https://jsonplaceholder.typicode.com) as the base url below:
-
 */
-let gcf = ExampleGCF(baseURL: <#T##String#>)
-//: Using the two examples below, you can play around with GCF:
-import UIKit
+import Foundation
 import RxSwift
 import PlaygroundSupport
 let currentPage = PlaygroundPage.current
 currentPage.needsIndefiniteExecution = true
 
+//: Finish instantiating GCF using our example api (https://jsonplaceholder.typicode.com) as the base url below:
+let gcf = ExampleGCF(baseURL: <#T##String#>)
+
+//: Using the two examples below, you can play around with GCF:
 //: > Observable pattern
 let observable: Observable<[Post]> = gcf.sendRequest(for: JSONPlaceholderAPI.posts)
 observable.subscribe { (event) in
-//	print(event.element?.first?.title)
+//	if !event.isCompleted {
+//		print(event.element?.first?.title)
+//	}
 }
 //: > Closure pattern
 gcf.sendRequest(for: JSONPlaceholderAPI.posts) { (postsObject: [Post]?, error) in

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import GenericConnectionFramework
 
 class RoutableTests: XCTestCase {
     
@@ -24,10 +25,9 @@ class RoutableTests: XCTestCase {
         XCTAssertNil(Router.readUsers.body)
         XCTAssertNil(Router.home.body)
     }
-    
 }
 
-enum Router : Routable {    
+enum Router: Routable {
     
     case readUsers
     case home

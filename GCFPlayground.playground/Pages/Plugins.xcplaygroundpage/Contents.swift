@@ -19,7 +19,7 @@ public protocol GCFPlugin {
 
 Take a look at a simple plugin that logs the request.  Can you implement logging any response errors?
 */
-import UIKit
+import Foundation
 class LoggerPlugin: GCFPlugin {
 	func willSendRequest(_ request: inout URLRequest) {
 		print(request.url?.absoluteString)
