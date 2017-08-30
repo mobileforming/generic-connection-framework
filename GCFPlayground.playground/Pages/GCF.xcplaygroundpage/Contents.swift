@@ -5,22 +5,22 @@ Most of the GCF implementation comes along with the protocol, so a GCF implement
 
 ```swift
 public enum GCFError: Error {
-case parsingError
-case requestError
-case pluginError
+    case parsingError
+    case requestError
+    case pluginError
 }
 
 public protocol GCF: class {
-var baseURL: String { get }
-var urlSession: URLSession { get }
-var decoder: JSONDecoder { get }
-var plugin: GCFPlugin? { get }
+    var baseURL: String { get }
+    var urlSession: URLSession { get }
+    var decoder: JSONDecoder { get }
+    var plugin: GCFPlugin? { get }
 
-init(baseURL: String)
-func sendRequest<T: Decodable>(for routable: Routable) -> Observable<T>
-func sendRequest<T: Decodable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void)
-func constructURL(from routable: Routable) -> URL
-func parseData<T: Decodable>(from data: Data) throws -> T
+    init(baseURL: String)
+    func sendRequest<T: Decodable>(for routable: Routable) -> Observable<T>
+    func sendRequest<T: Decodable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void)
+    func constructURL(from routable: Routable) -> URL
+    func parseData<T: Decodable>(from data: Data) throws -> T
 }
 ```
 
