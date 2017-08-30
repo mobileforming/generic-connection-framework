@@ -1,3 +1,5 @@
+import Foundation
+
 public protocol Routable {
     var path: String { get }
     var method: String { get }

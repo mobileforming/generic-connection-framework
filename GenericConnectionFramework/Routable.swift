@@ -7,6 +7,8 @@
 //  Created by Christopher Luc on 8/18/17.
 //  Copyright © 2017 mobileforming LLC. All rights reserved.
 //
+import Foundation
+
 public protocol Routable {
     var path: String { get }
     var method: String { get }
