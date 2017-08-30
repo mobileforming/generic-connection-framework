@@ -50,7 +50,8 @@ class ExampleGCF: GCF {
 }
 ```
 
-Finish instantiating GCF with a base url below:
+Finish instantiating GCF using our example api (https://jsonplaceholder.typicode.com) as the base url below:
+
 */
 let gcf = ExampleGCF(baseURL: <#T##String#>)
 //: Using the two examples below, you can play around with GCF:

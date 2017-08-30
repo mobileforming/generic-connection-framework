@@ -16,7 +16,7 @@ public protocol Routable {
 
 By implementing the routable protocol with an enum, different paths can be grouped together.  Let's try completing the implementation below:
 
-http://jsonplaceholder.typicode.com
+https://jsonplaceholder.typicode.com
 * posts GET
 * posts/{id} PUT
 * comments GET
