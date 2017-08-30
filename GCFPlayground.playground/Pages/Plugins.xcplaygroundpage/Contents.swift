@@ -32,7 +32,7 @@ class LoggerPlugin: GCFPlugin {
 
 //: > Plugins can also be composed of other plugins.  Using the logging plugin above, can you finish implementing the plugin below that logs 3 times?
 
-class SuperLoggerPlugin: GCFPlugin {
+class TripleLoggerPlugin: GCFPlugin {
 	
 	var plugins: [GCFPlugin]?
 	

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		0DA44D95895723C4900C74CD /* Pods_GenericConnectionFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3EF37B851D890CB9952397 /* Pods_GenericConnectionFramework.framework */; };
 		342133191F55E9180046BC62 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 342133181F55E9180046BC62 /* README.md */; };
+		343921B01F571F04008ED5CC /* RxGCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921AF1F571F04008ED5CC /* RxGCF.swift */; };
+		343921B21F572113008ED5CC /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921B11F572113008ED5CC /* MockURLSession.swift */; };
+		343921B51F572228008ED5CC /* GCFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921B41F572228008ED5CC /* GCFTests.swift */; };
+		343921B71F57225D008ED5CC /* MockGCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921B61F57225D008ED5CC /* MockGCF.swift */; };
 		34BF37F21F5609AC0045613A /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F11F5609AC0045613A /* Routable.swift */; };
 		34BF37F41F560ECE0045613A /* GCFPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F31F560ECE0045613A /* GCFPlugin.swift */; };
 		34BF37F61F5610ED0045613A /* GCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F51F5610ED0045613A /* GCF.swift */; };
@@ -23,7 +27,6 @@
 		83BCB6D51F4779F9005241EA /* RoutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6D41F4779F9005241EA /* RoutableTests.swift */; };
 		A92F972479EF732955DE4561 /* Pods_GenericConnectionFrameworkApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF76D7D34B8EC839E9DF9BBF /* Pods_GenericConnectionFrameworkApp.framework */; };
 		DF46FAEE1F1FF4F0008641A2 /* GenericConnectionFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46FAE41F1FF4F0008641A2 /* GenericConnectionFramework.framework */; };
-		DF46FAF31F1FF4F0008641A2 /* GenericConnectionFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF46FAF21F1FF4F0008641A2 /* GenericConnectionFrameworkTests.swift */; };
 		DF46FAF51F1FF4F0008641A2 /* GenericConnectionFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = DF46FAE71F1FF4F0008641A2 /* GenericConnectionFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EA0AA9776A4F847321933559 /* Pods_GenericConnectionFrameworkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43ECBC637CEBB9F3ADFE9194 /* Pods_GenericConnectionFrameworkTests.framework */; };
 /* End PBXBuildFile section */
@@ -56,6 +59,10 @@
 		23B9E4441B60B67D4CBE1DBB /* Pods-GenericConnectionFrameworkApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFrameworkApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFrameworkApp/Pods-GenericConnectionFrameworkApp.release.xcconfig"; sourceTree = "<group>"; };
 		2B6FE839297F2767AAC232B4 /* Pods-GenericConnectionFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFramework.release.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFramework/Pods-GenericConnectionFramework.release.xcconfig"; sourceTree = "<group>"; };
 		342133181F55E9180046BC62 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		343921AF1F571F04008ED5CC /* RxGCF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxGCF.swift; sourceTree = "<group>"; };
+		343921B11F572113008ED5CC /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
+		343921B41F572228008ED5CC /* GCFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCFTests.swift; sourceTree = "<group>"; };
+		343921B61F57225D008ED5CC /* MockGCF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGCF.swift; sourceTree = "<group>"; };
 		34BF37F11F5609AC0045613A /* Routable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routable.swift; sourceTree = "<group>"; };
 		34BF37F31F560ECE0045613A /* GCFPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCFPlugin.swift; sourceTree = "<group>"; };
 		34BF37F51F5610ED0045613A /* GCF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCF.swift; sourceTree = "<group>"; };
@@ -85,7 +92,6 @@
 		DF46FAE71F1FF4F0008641A2 /* GenericConnectionFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenericConnectionFramework.h; sourceTree = "<group>"; };
 		DF46FAE81F1FF4F0008641A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF46FAED1F1FF4F0008641A2 /* GenericConnectionFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GenericConnectionFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF46FAF21F1FF4F0008641A2 /* GenericConnectionFrameworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericConnectionFrameworkTests.swift; sourceTree = "<group>"; };
 		DF46FAF41F1FF4F0008641A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +138,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		343921B31F572182008ED5CC /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				343921B11F572113008ED5CC /* MockURLSession.swift */,
+				343921B61F57225D008ED5CC /* MockGCF.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		5FE8AFC09156B38E41507110 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				34C5F7DB1F563A40003893B0 /* DefaultGCF.swift */,
+				343921AF1F571F04008ED5CC /* RxGCF.swift */,
 				34BF37F51F5610ED0045613A /* GCF.swift */,
 				34BF37F11F5609AC0045613A /* Routable.swift */,
 				34BF37F31F560ECE0045613A /* GCFPlugin.swift */,
@@ -229,9 +245,10 @@
 		DF46FAF11F1FF4F0008641A2 /* GenericConnectionFrameworkTests */ = {
 			isa = PBXGroup;
 			children = (
-				DF46FAF21F1FF4F0008641A2 /* GenericConnectionFrameworkTests.swift */,
 				DF46FAF41F1FF4F0008641A2 /* Info.plist */,
 				83BCB6D41F4779F9005241EA /* RoutableTests.swift */,
+				343921B41F572228008ED5CC /* GCFTests.swift */,
+				343921B31F572182008ED5CC /* Mocks */,
 			);
 			path = GenericConnectionFrameworkTests;
 			sourceTree = "<group>";
@@ -627,6 +644,7 @@
 			files = (
 				34BF37F61F5610ED0045613A /* GCF.swift in Sources */,
 				34BF37F41F560ECE0045613A /* GCFPlugin.swift in Sources */,
+				343921B01F571F04008ED5CC /* RxGCF.swift in Sources */,
 				342133191F55E9180046BC62 /* README.md in Sources */,
 				34C5F7DC1F563A40003893B0 /* DefaultGCF.swift in Sources */,
 				34BF37F21F5609AC0045613A /* Routable.swift in Sources */,
@@ -637,7 +655,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF46FAF31F1FF4F0008641A2 /* GenericConnectionFrameworkTests.swift in Sources */,
+				343921B51F572228008ED5CC /* GCFTests.swift in Sources */,
+				343921B21F572113008ED5CC /* MockURLSession.swift in Sources */,
+				343921B71F57225D008ED5CC /* MockGCF.swift in Sources */,
 				83BCB6D51F4779F9005241EA /* RoutableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

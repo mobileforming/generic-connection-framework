@@ -57,4 +57,8 @@ enum JSONPlaceholderAPI: Routable {
 	}
 }
 
+//: Now, the above API is represented by the JSONPlaceholderAPI enum, and each endpoint a case within the enum.
+JSONPlaceholderAPI.posts
+JSONPlaceholderAPI.post("postID")
+
 //: [Next: Plugins](@next)

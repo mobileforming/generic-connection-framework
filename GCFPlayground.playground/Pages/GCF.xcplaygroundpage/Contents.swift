@@ -49,7 +49,8 @@ class ExampleGCF: GCF {
 	}
 }
 ```
-> Finish instantiating GCF with a base url below:
+
+Finish instantiating GCF with a base url below:
 */
 let gcf = ExampleGCF(baseURL: <#T##String#>)
 //: Using the two examples below, you can play around with GCF:
@@ -60,10 +61,12 @@ let currentPage = PlaygroundPage.current
 currentPage.needsIndefiniteExecution = true
 
 //: > Observable pattern
-let observable: Observable<Posts> = gcf.sendRequest(for: JSONPlaceholderAPI.posts)
-//observable.subscribe(<#T##observer: ObserverType##ObserverType#>)
+let observable: Observable<[Post]> = gcf.sendRequest(for: JSONPlaceholderAPI.posts)
+observable.subscribe { (event) in
+//	print(event.element?.first?.title)
+}
 //: > Closure pattern
-gcf.sendRequest(for: JSONPlaceholderAPI.posts) { (postsObject: Posts?, error) in
-//	print(postsObject)
+gcf.sendRequest(for: JSONPlaceholderAPI.posts) { (postsObject: [Post]?, error) in
+//	print(postsObject!.first!.body)
 	currentPage.finishExecution()
 }

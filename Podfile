@@ -10,6 +10,7 @@ target 'GenericConnectionFramework' do
   target 'GenericConnectionFrameworkTests' do
   inherit! :search_paths
   #pod 'OHHTTPStubs/Swift'
+  #pod 'RxTest'
   end
 end
 
