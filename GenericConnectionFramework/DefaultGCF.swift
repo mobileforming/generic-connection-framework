@@ -10,16 +10,16 @@ import Foundation
 import RxSwift
 
 open class DefaultGCF: GCF {
-	public var baseURL: String
-	public var urlSession: URLSession
-	public var decoder: JSONDecoder
-	public var plugin: GCFPlugin?
+	var baseURL: String
+	var urlSession: URLSession
+	var decoder: JSONDecoder
+	var plugin: GCFPlugin?
 	
-	public required init(baseURL: String) {
+    public required init(baseURL: String) {
 		guard !baseURL.isEmpty else { fatalError("invalid base url") }
 		
 		self.baseURL = baseURL
-		urlSession = URLSession(configuration: .default)
+        self.urlSession = URLSession(configuration: .default)
 		decoder = JSONDecoder()
 	}
 	

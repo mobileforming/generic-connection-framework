@@ -15,13 +15,13 @@ public enum GCFError: Error {
 	case pluginError
 }
 
-public protocol GCF: class {
+protocol GCF: class {
 	var baseURL: String { get }
 	var urlSession: URLSession { get }
 	var decoder: JSONDecoder { get }
 	var plugin: GCFPlugin? { get }
 	
-	init(baseURL: String)
+    init(baseURL: String)
 	func sendRequest<T: Decodable>(for routable: Routable) -> Observable<T>
 	func sendRequest<T: Decodable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void)
 	func constructURL(from routable: Routable) -> URL
