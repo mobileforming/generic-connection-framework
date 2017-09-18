@@ -10,19 +10,18 @@ import Foundation
 import RxSwift
 
 open class RxGCF: GCF {
-	public var baseURL: String
-	public var urlSession: URLSession
-	public var decoderType: GCFDecoderType
-	public var plugin: GCFPlugin?
+	var baseURL: String
+	var urlSession: URLSession
+	var plugin: GCFPlugin?
+	var decoder: JSONDecoder
 	internal var disposeBag = DisposeBag()
 	
-    public required init(baseURL: String, urlSession: URLSession, decoderType: GCFDecoderType, plugin: GCFPlugin?) {
+    public required init(baseURL: String) {
 		guard !baseURL.isEmpty else { fatalError("invalid base url") }
 		
 		self.baseURL = baseURL
-        self.urlSession = urlSession
-        self.decoderType = decoderType
-        self.plugin = plugin
+        self.urlSession = URLSession(configuration: .default)
+		decoder = JSONDecoder()
     }
 	
 	public func sendRequest<T: Decodable>(for routable: Routable) -> Observable<T> {
