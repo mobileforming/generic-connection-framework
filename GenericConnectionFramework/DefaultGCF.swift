@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-open class DefaultGCF: GCF {
+public class DefaultGCF: GCF {
 	var baseURL: String
 	var urlSession: URLSession
 	var decoder: JSONDecoder

@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-open class RxGCF: GCF {
+public class RxGCF: GCF {
 	var baseURL: String
 	var urlSession: URLSession
 	var plugin: GCFPlugin?
