@@ -26,9 +26,9 @@ public class RxGCF: GCF {
 	
 	public func sendRequest<T: Decodable>(for routable: Routable) -> Observable<T> {
 		var urlRequest = URLRequest(url: constructURL(from: routable))
-		urlRequest.httpMethod = routable.method
+		urlRequest.httpMethod = routable.method.rawValue
 		
-		if let body = routable.body, (routable.method == "POST" || routable.method == "PUT") {
+		if let body = routable.body, (routable.method == .post || routable.method == .put) {
 			urlRequest.httpBody = try! JSONSerialization.data(withJSONObject: body, options: [])
 		}
 		
@@ -60,7 +60,10 @@ public class RxGCF: GCF {
 				} else {
 					observer.onError(GCFError.requestError)
 				}
-				}.resume()
+				
+				observer.onCompleted()
+				
+			}.resume()
 			
 			return Disposables.create()
 		}
@@ -69,10 +72,13 @@ public class RxGCF: GCF {
 	public func sendRequest<T: Decodable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void) {
 		let observable: Observable<T> = sendRequest(for: routable)
 		observable.subscribe { (event) in
-			if let object = event.element {
-				completion(object, event.error)
-			} else {
-				completion(nil, event.error)
+			switch event {
+			case .next(let object):
+				completion(object, nil)
+			case .error(let error):
+				completion(nil, error)
+			case .completed:
+				break
 			}
 		}.addDisposableTo(disposeBag)
 	}

@@ -39,6 +39,8 @@ public class DefaultGCF: GCF {
 				} else {
 					observer.onError(GCFError.requestError)
 				}
+				
+				observer.onCompleted()
 			})
 			
 			return Disposables.create()
@@ -47,9 +49,9 @@ public class DefaultGCF: GCF {
 	
 	public func sendRequest<T: Decodable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void) {
 		var urlRequest = URLRequest(url: constructURL(from: routable))
-		urlRequest.httpMethod = routable.method
+		urlRequest.httpMethod = routable.method.rawValue
 		
-		if let body = routable.body, (routable.method == "POST" || routable.method == "PUT") {
+		if let body = routable.body, (routable.method == .post || routable.method == .put) {
 			urlRequest.httpBody = try! JSONSerialization.data(withJSONObject: body, options: [])
 		}
 		

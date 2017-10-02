@@ -24,16 +24,49 @@ protocol GCF: class {
     init(baseURL: String)
 	func sendRequest<T: Decodable>(for routable: Routable) -> Observable<T>
 	func sendRequest<T: Decodable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void)
+	func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void)
 	func constructURL(from routable: Routable) -> URL
 	func parseData<T: Decodable>(from data: Data) throws -> T
 }
 
 extension GCF {
 	
+	func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void) {
+		var urlRequest = URLRequest(url: constructURL(from: routable))
+		urlRequest.httpMethod = routable.method.rawValue
+
+		if let body = routable.body, (routable.method == .post || routable.method == .put) {
+			urlRequest.httpBody = try! JSONSerialization.data(withJSONObject: body, options: [])
+		}
+
+		plugin?.willSendRequest(&urlRequest)
+
+		urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
+			guard let strongself = self else { return }
+
+			do {
+				try strongself.plugin?.didRecieve(data: data, response: response, error: error, forRequest: &urlRequest)
+			} catch GCFPluginError.failureAbortRequest {
+				completion(false, GCFError.pluginError)
+			} catch {
+				//continue
+			}
+
+			if data != nil, error == nil {
+				completion(true, nil)
+			} else {
+				completion(false, error)
+			}
+		}.resume()
+	}
+	
 	internal func constructURL(from routable: Routable) -> URL {
 		if var urlComponents = URLComponents(string: baseURL) {
 			urlComponents.path = routable.path
-			urlComponents.queryItems = routable.parameters?.map({ URLQueryItem(name: $0.0, value: $0.1) })
+			
+			if let parameters = routable.parameters, parameters.keys.count > 0 {
+				urlComponents.queryItems = parameters.map({ URLQueryItem(name: $0.0, value: $0.1) })
+			}
 			return urlComponents.url!
 		}
 		fatalError("cant construct url")
