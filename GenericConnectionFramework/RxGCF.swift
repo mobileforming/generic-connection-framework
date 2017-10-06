@@ -80,7 +80,7 @@ public class RxGCF: GCF {
 			case .completed:
 				break
 			}
-		}.addDisposableTo(disposeBag)
+		}.disposed(by: disposeBag)
 	}
 }
 
