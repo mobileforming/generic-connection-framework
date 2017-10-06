@@ -10,14 +10,127 @@ import XCTest
 @testable import GenericConnectionFramework
 
 class GCFTests: XCTestCase {
+	
+	struct TestRoutable: Routable {
+		var path: String
+		var method: HTTPMethod
+		var header: [String : String]?
+		var parameters: [String : String]?
+		var body: [String : Any]?
+	}
+	
+	struct TestObject: Codable {
+		var identifier: String
+	}
+	
+	var gcf: MockGCF?
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+		gcf = MockGCF(baseURL: "https://google.com")
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        gcf = nil
         super.tearDown()
     }
+	
+	func testConstructURLNoParams() {
+		let routable = TestRoutable(path: "/noparams", method: .get, header: nil, parameters: nil, body: nil)
+		let url = gcf!.constructURL(from: routable)
+		
+		XCTAssertTrue(url.absoluteString.contains(gcf!.baseURL))
+		XCTAssertTrue(url.absoluteString.contains(routable.path))
+		XCTAssertFalse(url.absoluteString.contains("?"))
+		XCTAssertFalse(url.absoluteString.contains("&"))
+	}
+	
+	func testConstructURLNilParams() {
+		let routable = TestRoutable(path: "/noparams", method: .get, header: nil, parameters: [:], body: nil)
+		let url = gcf!.constructURL(from: routable)
+		
+		XCTAssertTrue(url.absoluteString.contains(gcf!.baseURL))
+		XCTAssertTrue(url.absoluteString.contains(routable.path))
+		XCTAssertFalse(url.absoluteString.contains("?"))
+		XCTAssertFalse(url.absoluteString.contains("&"))
+	}
+	
+	func testConstructURLSingleParam() {
+		let routable = TestRoutable(path: "/singleparam,", method: .get, header: nil, parameters: ["test":"true"], body: nil)
+		let url = gcf!.constructURL(from: routable)
+		
+		XCTAssertTrue(url.absoluteString.contains(gcf!.baseURL))
+		XCTAssertTrue(url.absoluteString.contains(routable.path))
+		XCTAssertTrue(url.absoluteString.contains("?"))
+		XCTAssertTrue(url.absoluteString.contains("test=true"))
+		XCTAssertFalse(url.absoluteString.contains("&"))
+	}
+	
+	func testConstructURLMultipleParams() {
+		let routable = TestRoutable(path: "/multipleparams,", method: .get, header: nil, parameters: ["test": "true", "test2": "false"], body: nil)
+		let url = gcf!.constructURL(from: routable)
+		
+		XCTAssertTrue(url.absoluteString.contains(gcf!.baseURL))
+		XCTAssertTrue(url.absoluteString.contains(routable.path))
+		XCTAssertTrue(url.absoluteString.contains("?"))
+		XCTAssertTrue(url.absoluteString.contains("test=true"))
+		XCTAssertTrue(url.absoluteString.contains("&"))
+		XCTAssertTrue(url.absoluteString.contains("test2=false"))
+	}
+	
+	func testParseDataEmpty() {
+		do {
+			let results: TestObject = try gcf!.parseData(from: Data())
+			XCTFail("should not proceed to this point")
+		} catch {
+			print("expected")
+		}
+	}
+	
+	func testParseDataCorrupted() {
+		let testData = Data(bytes: [1, 2, 3, 4, 5])
+
+		do {
+			let results: TestObject = try gcf!.parseData(from: testData)
+			XCTFail("should not proceed to this point")
+		} catch {
+			print("expected")
+		}
+	}
+	
+	func testParseDataMissingKey() {
+		let testValues = ["test": "test"]
+		let testData = try! JSONSerialization.data(withJSONObject: testValues, options: [])
+		
+		do {
+			let results: TestObject = try gcf!.parseData(from: testData)
+			XCTFail("should not proceed to this point")
+		} catch {
+			print("expected")
+		}
+	}
+	
+	func testParseDataTypeMismatch() {
+		let testValues = [["test": "test"]]
+		let testData = try! JSONSerialization.data(withJSONObject: testValues, options: [])
+		
+		do {
+			let results: TestObject = try gcf!.parseData(from: testData)
+			XCTFail("should not proceed to this point")
+		} catch {
+			print("expected")
+		}
+	}
+	
+	func testParseData() {
+		let testValues = ["identifier": "test"]
+		let testData = try! JSONSerialization.data(withJSONObject: testValues, options: [])
+		
+		do {
+			let results: TestObject = try gcf!.parseData(from: testData)
+			XCTAssertEqual(results.identifier, "test")
+		} catch {
+			XCTFail("should not proceed to this point")
+		}
+	}
 }
