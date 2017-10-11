@@ -62,7 +62,9 @@ extension GCF {
         urlRequest.httpMethod = routable.method.rawValue
         
         if let headers = routable.headers {
-            urlRequest.allHTTPHeaderFields = headers
+            for (key, value) in headers {
+                urlRequest.setValue(value, forHTTPHeaderField: key)
+            }
         }
         
         if let body = routable.body, (routable.method == .post || routable.method == .put) {
