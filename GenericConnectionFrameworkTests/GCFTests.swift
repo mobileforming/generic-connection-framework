@@ -14,7 +14,7 @@ class GCFTests: XCTestCase {
 	struct TestRoutable: Routable {
 		var path: String
 		var method: HTTPMethod
-		var header: [String : String]?
+		var headers: [String : String]?
 		var parameters: [String : String]?
 		var body: [String : Any]?
 	}
@@ -36,7 +36,7 @@ class GCFTests: XCTestCase {
     }
 	
 	func testConstructURLNoParams() {
-		let routable = TestRoutable(path: "/noparams", method: .get, header: nil, parameters: nil, body: nil)
+		let routable = TestRoutable(path: "/noparams", method: .get, headers: nil, parameters: nil, body: nil)
 		let url = gcf!.constructURL(from: routable)
 		
 		XCTAssertTrue(url.absoluteString.contains(gcf!.baseURL))
@@ -46,7 +46,7 @@ class GCFTests: XCTestCase {
 	}
 	
 	func testConstructURLNilParams() {
-		let routable = TestRoutable(path: "/noparams", method: .get, header: nil, parameters: [:], body: nil)
+		let routable = TestRoutable(path: "/noparams", method: .get, headers: nil, parameters: [:], body: nil)
 		let url = gcf!.constructURL(from: routable)
 		
 		XCTAssertTrue(url.absoluteString.contains(gcf!.baseURL))
@@ -56,7 +56,7 @@ class GCFTests: XCTestCase {
 	}
 	
 	func testConstructURLSingleParam() {
-		let routable = TestRoutable(path: "/singleparam,", method: .get, header: nil, parameters: ["test":"true"], body: nil)
+		let routable = TestRoutable(path: "/singleparam,", method: .get, headers: nil, parameters: ["test":"true"], body: nil)
 		let url = gcf!.constructURL(from: routable)
 		
 		XCTAssertTrue(url.absoluteString.contains(gcf!.baseURL))
@@ -67,7 +67,7 @@ class GCFTests: XCTestCase {
 	}
 	
 	func testConstructURLMultipleParams() {
-		let routable = TestRoutable(path: "/multipleparams,", method: .get, header: nil, parameters: ["test": "true", "test2": "false"], body: nil)
+		let routable = TestRoutable(path: "/multipleparams,", method: .get, headers: nil, parameters: ["test": "true", "test2": "false"], body: nil)
 		let url = gcf!.constructURL(from: routable)
 		
 		XCTAssertTrue(url.absoluteString.contains(gcf!.baseURL))
@@ -80,7 +80,7 @@ class GCFTests: XCTestCase {
 	
 	func testParseDataEmpty() {
 		do {
-			let results: TestObject = try gcf!.parseData(from: Data())
+			let _ : TestObject = try gcf!.parseData(from: Data())
 			XCTFail("should not proceed to this point")
 		} catch {
 			print("expected")
@@ -91,7 +91,7 @@ class GCFTests: XCTestCase {
 		let testData = Data(bytes: [1, 2, 3, 4, 5])
 
 		do {
-			let results: TestObject = try gcf!.parseData(from: testData)
+			let _ : TestObject = try gcf!.parseData(from: testData)
 			XCTFail("should not proceed to this point")
 		} catch {
 			print("expected")
@@ -103,7 +103,7 @@ class GCFTests: XCTestCase {
 		let testData = try! JSONSerialization.data(withJSONObject: testValues, options: [])
 		
 		do {
-			let results: TestObject = try gcf!.parseData(from: testData)
+			let _ : TestObject = try gcf!.parseData(from: testData)
 			XCTFail("should not proceed to this point")
 		} catch {
 			print("expected")
@@ -115,7 +115,7 @@ class GCFTests: XCTestCase {
 		let testData = try! JSONSerialization.data(withJSONObject: testValues, options: [])
 		
 		do {
-			let results: TestObject = try gcf!.parseData(from: testData)
+			let _ : TestObject = try gcf!.parseData(from: testData)
 			XCTFail("should not proceed to this point")
 		} catch {
 			print("expected")

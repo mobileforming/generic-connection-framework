@@ -18,8 +18,8 @@ class RoutableTests: XCTestCase {
         XCTAssertEqual(Router.home.path, "/")
         XCTAssertEqual(Router.readUsers.method, HTTPMethod.get)
         XCTAssertEqual(Router.home.method, HTTPMethod.get)
-        XCTAssertNil(Router.readUsers.header)
-        XCTAssertNil(Router.home.header)
+        XCTAssertNil(Router.readUsers.headers)
+        XCTAssertNil(Router.home.headers)
         XCTAssertNil(Router.readUsers.parameters)
         XCTAssertNil(Router.home.parameters)
         XCTAssertNil(Router.readUsers.body)
@@ -44,7 +44,7 @@ enum Router: Routable {
         return .get
     }
     
-    var header: [String : String]? {
+    var headers: [String : String]? {
         switch self {
         default:
             return nil
