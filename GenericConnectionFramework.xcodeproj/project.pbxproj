@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		160F2E1383AAB455FBEEBF1E /* Pods_GenericConnectionFrameworkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8827F205C029CDDBE0B0FBD /* Pods_GenericConnectionFrameworkTests.framework */; };
-		342133191F55E9180046BC62 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 342133181F55E9180046BC62 /* README.md */; };
 		343921B01F571F04008ED5CC /* RxGCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921AF1F571F04008ED5CC /* RxGCF.swift */; };
 		343921B21F572113008ED5CC /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921B11F572113008ED5CC /* MockURLSession.swift */; };
 		343921B51F572228008ED5CC /* GCFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921B41F572228008ED5CC /* GCFTests.swift */; };
@@ -654,7 +653,6 @@
 				34BF37F61F5610ED0045613A /* GCF.swift in Sources */,
 				34BF37F41F560ECE0045613A /* GCFPlugin.swift in Sources */,
 				343921B01F571F04008ED5CC /* RxGCF.swift in Sources */,
-				342133191F55E9180046BC62 /* README.md in Sources */,
 				34C5F7DC1F563A40003893B0 /* DefaultGCF.swift in Sources */,
 				34BF37F21F5609AC0045613A /* Routable.swift in Sources */,
 			);

@@ -32,12 +32,7 @@ protocol GCF: class {
 extension GCF {
 	
 	func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void) {
-		var urlRequest = URLRequest(url: constructURL(from: routable))
-		urlRequest.httpMethod = routable.method.rawValue
-
-		if let body = routable.body, (routable.method == .post || routable.method == .put) {
-			urlRequest.httpBody = try! JSONSerialization.data(withJSONObject: body, options: [])
-		}
+		var urlRequest = constructURLRequest(from: routable)
 
 		plugin?.willSendRequest(&urlRequest)
 
@@ -60,6 +55,23 @@ extension GCF {
 		}.resume()
 	}
 	
+    internal func constructURLRequest(from routable: Routable) -> URLRequest {
+        let url = constructURL(from: routable)
+        
+        var urlRequest = URLRequest(url: url, cachePolicy: routable.cachePolicy, timeoutInterval: routable.defaultTimeout)
+        urlRequest.httpMethod = routable.method.rawValue
+        
+        if let headers = routable.headers {
+            urlRequest.allHTTPHeaderFields = headers
+        }
+        
+        if let body = routable.body, (routable.method == .post || routable.method == .put) {
+            urlRequest.httpBody = try! JSONSerialization.data(withJSONObject: body, options: [])
+        }
+        
+        return urlRequest
+    }
+    
 	internal func constructURL(from routable: Routable) -> URL {
 		if var urlComponents = URLComponents(string: baseURL) {
 			urlComponents.path = routable.path

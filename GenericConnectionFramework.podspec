@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
 
 s.name         = "GenericConnectionFramework"
-s.version      = "0.1.1"
+s.version      = "0.1.2"
 s.summary      = "mobileforming internal library for handling web service connections."
-s.description  = "Module to be used for mobileforming development."
+s.description  = "Module to be used for mobileforming development.  RxSwift compatibile this should bootstrap all future iOS web service development."
 s.homepage     = "https://gitlab.mobileforming.com/mp/mobileforming-ios-module-gcf.git"
 s.license          = { :type => 'INTERNAL', :file => 'LICENSE' }
 s.author             = "mobileforming LLC"

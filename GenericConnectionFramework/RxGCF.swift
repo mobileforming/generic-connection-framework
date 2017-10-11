@@ -25,12 +25,7 @@ public class RxGCF: GCF {
     }
 	
 	public func sendRequest<T: Decodable>(for routable: Routable) -> Observable<T> {
-		var urlRequest = URLRequest(url: constructURL(from: routable))
-		urlRequest.httpMethod = routable.method.rawValue
-		
-		if let body = routable.body, (routable.method == .post || routable.method == .put) {
-			urlRequest.httpBody = try! JSONSerialization.data(withJSONObject: body, options: [])
-		}
+		var urlRequest = constructURLRequest(from: routable)
 		
 		plugin?.willSendRequest(&urlRequest)
 		

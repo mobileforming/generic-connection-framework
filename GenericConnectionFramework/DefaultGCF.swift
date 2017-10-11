@@ -13,7 +13,8 @@ public class DefaultGCF: GCF {
 	var baseURL: String
 	var urlSession: URLSession
 	var decoder: JSONDecoder
-	var plugin: GCFPlugin?
+	
+    open var plugin: GCFPlugin?
 	
     public required init(baseURL: String) {
 		guard !baseURL.isEmpty else { fatalError("invalid base url") }
@@ -48,13 +49,8 @@ public class DefaultGCF: GCF {
 	}
 	
 	public func sendRequest<T: Decodable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void) {
-		var urlRequest = URLRequest(url: constructURL(from: routable))
-		urlRequest.httpMethod = routable.method.rawValue
-		
-		if let body = routable.body, (routable.method == .post || routable.method == .put) {
-			urlRequest.httpBody = try! JSONSerialization.data(withJSONObject: body, options: [])
-		}
-		
+		var urlRequest = constructURLRequest(from: routable)
+        
 		plugin?.willSendRequest(&urlRequest)
 		
 		urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
