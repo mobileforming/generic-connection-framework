@@ -22,11 +22,11 @@ public protocol Routable {
 }
 
 extension Routable {
-    var defaultTimeout: TimeInterval {
+    public var defaultTimeout: TimeInterval {
         return 60
     }
     
-    var cachePolicy: URLRequest.CachePolicy {
+    public var cachePolicy: URLRequest.CachePolicy {
         return .useProtocolCachePolicy
     }
 }
