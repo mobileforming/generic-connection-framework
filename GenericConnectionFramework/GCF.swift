@@ -22,9 +22,9 @@ protocol GCF: class {
 	var plugin: GCFPlugin? { get }
 	
     init(baseURL: String)
-	func sendRequest<T: Decodable>(for routable: Routable) -> Observable<T>
-	func sendRequest<T: Decodable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void)
-	func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void)
+    func sendRequest<T: Routable, U: Decodable>(for routable: T) -> Observable<U>
+    func sendRequest<T: Routable, U: Decodable>(for routable: T, completion: @escaping (U?, Error?) -> Void)
+    func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void)
 	func constructURL(from routable: Routable) -> URL
 	func parseData<T: Decodable>(from data: Data) throws -> T
 }
