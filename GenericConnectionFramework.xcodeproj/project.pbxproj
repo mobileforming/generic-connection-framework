@@ -17,7 +17,6 @@
 		34BF37F61F5610ED0045613A /* GCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F51F5610ED0045613A /* GCF.swift */; };
 		34EDA5061F82BA81009DA63C /* RxGCFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EDA5051F82BA81009DA63C /* RxGCFTests.swift */; };
 		4755E8D52C89A73690CCF150 /* Pods_GenericConnectionFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9FD525C124E2694F9684CB /* Pods_GenericConnectionFramework.framework */; };
-		650D45551F8ED8220076F595 /* HashableRoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650D45541F8ED8220076F595 /* HashableRoutable.swift */; };
 		654CB7F51F2AC61000419E17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654CB7F41F2AC61000419E17 /* AppDelegate.swift */; };
 		654CB7F71F2AC61000419E17 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654CB7F61F2AC61000419E17 /* ViewController.swift */; };
 		654CB7FA1F2AC61000419E17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654CB7F81F2AC61000419E17 /* Main.storyboard */; };
@@ -75,7 +74,6 @@
 		34BF37F51F5610ED0045613A /* GCF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCF.swift; sourceTree = "<group>"; };
 		34EDA5051F82BA81009DA63C /* RxGCFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxGCFTests.swift; sourceTree = "<group>"; };
 		3B9FD525C124E2694F9684CB /* Pods_GenericConnectionFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GenericConnectionFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		650D45541F8ED8220076F595 /* HashableRoutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashableRoutable.swift; sourceTree = "<group>"; };
 		654CB7F21F2AC61000419E17 /* GenericConnectionFrameworkApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GenericConnectionFrameworkApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		654CB7F41F2AC61000419E17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		654CB7F61F2AC61000419E17 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -232,7 +230,6 @@
 				34BF37F31F560ECE0045613A /* GCFPlugin.swift */,
 				DF46FAE71F1FF4F0008641A2 /* GenericConnectionFramework.h */,
 				DF46FAE81F1FF4F0008641A2 /* Info.plist */,
-				650D45541F8ED8220076F595 /* HashableRoutable.swift */,
 			);
 			path = GenericConnectionFramework;
 			sourceTree = "<group>";
@@ -656,7 +653,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				34BF37F61F5610ED0045613A /* GCF.swift in Sources */,
-				650D45551F8ED8220076F595 /* HashableRoutable.swift in Sources */,
 				34BF37F41F560ECE0045613A /* GCFPlugin.swift in Sources */,
 				343921B01F571F04008ED5CC /* RxGCF.swift in Sources */,
 				34BF37F21F5609AC0045613A /* Routable.swift in Sources */,

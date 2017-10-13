@@ -15,7 +15,7 @@ public class RxGCF: GCF {
 	var plugin: GCFPlugin?
 	var decoder: JSONDecoder
 	internal var disposeBag = DisposeBag()
-	var liveObservables: [HashableRoutable: Any] = [:]
+	var liveObservables: [URLRequest: Any] = [:]
     
     public required init(baseURL: String) {
 		guard !baseURL.isEmpty else { fatalError("invalid base url") }
@@ -27,14 +27,13 @@ public class RxGCF: GCF {
 	
 	public func sendRequest<T: Routable, U: Decodable>(for routable: T) -> Observable<U> {
         
-        // Check to see if we already have an existing observable for this route
-        let hashableRoutable = HashableRoutable(routable: routable)
-        if let storedObservable = liveObservables[hashableRoutable] as? Observable<U> {
+        var urlRequest = constructURLRequest(from: routable)
+        
+        // Check to see if we already have an existing observable for this request
+        if let storedObservable = liveObservables[urlRequest] as? Observable<U> {
             return storedObservable
         }
         
-		var urlRequest = constructURLRequest(from: routable)
-		
 		plugin?.willSendRequest(&urlRequest)
 		
 		let observable = Observable<U>.create { [weak self] observer in
@@ -46,9 +45,6 @@ public class RxGCF: GCF {
 			strongself.urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
 				guard let strongself = self else { return }
 				
-                // The request is no longer in flight, so we can remove our saved observable
-                strongself.liveObservables.removeValue(forKey: hashableRoutable)
-                
 				do {
 					try strongself.plugin?.didRecieve(data: data, response: response, error: error, forRequest: &urlRequest)
 				} catch GCFPluginError.failureAbortRequest {
@@ -66,6 +62,9 @@ public class RxGCF: GCF {
 				} else {
 					observer.onError(GCFError.requestError)
 				}
+                
+                // The request is no longer in flight, so we can remove our saved observable
+                strongself.liveObservables.removeValue(forKey: urlRequest)
 				
 				observer.onCompleted()
 				
@@ -75,7 +74,7 @@ public class RxGCF: GCF {
 		}.share()
         
         // Keep this observable around until the request is done
-        liveObservables[hashableRoutable] = observable
+        liveObservables[urlRequest] = observable
         
         return observable
 	}
