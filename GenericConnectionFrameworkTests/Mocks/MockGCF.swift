@@ -16,21 +16,21 @@ open class MockGCF: GCF {
 	public var decoder: JSONDecoder
 	public var plugin: GCFPlugin?
 	
-	public required init(baseURL: String) {
-		guard !baseURL.isEmpty else { fatalError("invalid base url") }
-		
-		self.baseURL = baseURL
-		urlSession = MockURLSession()
-		decoder = JSONDecoder()
-	}
-	
-	public func sendRequest<T>(for routable: Routable) -> Observable<T> where T : Decodable {
-		return Observable.create({ (observer) -> Disposable in
-			return Disposables.create()
-		})
-	}
-	
-	public func sendRequest<T>(for routable: Routable, completion: @escaping (T?, Error?) -> Void) where T : Decodable {
-		completion(nil, nil)
-	}
+    public required init(baseURL: String) {
+        guard !baseURL.isEmpty else { fatalError("invalid base url") }
+        
+        self.baseURL = baseURL
+        urlSession = MockURLSession()
+        decoder = JSONDecoder()
+    }
+    
+    public func sendRequest<T: Routable, U: Decodable>(for routable: T) -> Observable<U> {
+        return Observable.create({ (observer) -> Disposable in
+            return Disposables.create()
+        })
+    }
+    
+    public func sendRequest<T: Routable, U: Decodable>(for routable: T, completion: @escaping (U?, Error?) -> Void) {
+        completion(nil, nil)
+    }
 }

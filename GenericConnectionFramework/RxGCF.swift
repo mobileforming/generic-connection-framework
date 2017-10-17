@@ -15,7 +15,8 @@ public class RxGCF: GCF {
 	var plugin: GCFPlugin?
 	var decoder: JSONDecoder
 	internal var disposeBag = DisposeBag()
-	
+	var liveObservables: [URLRequest: Any] = [:]
+    
     public required init(baseURL: String) {
 		guard !baseURL.isEmpty else { fatalError("invalid base url") }
 		
@@ -24,12 +25,18 @@ public class RxGCF: GCF {
 		decoder = JSONDecoder()
     }
 	
-	public func sendRequest<T: Decodable>(for routable: Routable) -> Observable<T> {
-		var urlRequest = constructURLRequest(from: routable)
-		
+	public func sendRequest<T: Routable, U: Decodable>(for routable: T) -> Observable<U> {
+        
+        var urlRequest = constructURLRequest(from: routable)
+        
+        // Check to see if we already have an existing observable for this request
+        if let storedObservable = liveObservables[urlRequest] as? Observable<U> {
+            return storedObservable
+        }
+        
 		plugin?.willSendRequest(&urlRequest)
 		
-		return Observable.create { [weak self] observer in
+		let observable = Observable<U>.create { [weak self] observer in
 			guard let strongself = self else {
 				observer.onError(GCFError.requestError)
 				return Disposables.create()
@@ -55,17 +62,25 @@ public class RxGCF: GCF {
 				} else {
 					observer.onError(GCFError.requestError)
 				}
+                
+                // The request is no longer in flight, so we can remove our saved observable
+                strongself.liveObservables.removeValue(forKey: urlRequest)
 				
 				observer.onCompleted()
 				
 			}.resume()
 			
 			return Disposables.create()
-		}
+		}.share()
+        
+        // Keep this observable around until the request is done
+        liveObservables[urlRequest] = observable
+        
+        return observable
 	}
 	
-	public func sendRequest<T: Decodable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void) {
-		let observable: Observable<T> = sendRequest(for: routable)
+	func sendRequest<T: Routable, U: Decodable>(for routable: T, completion: @escaping (U?, Error?) -> Void) {
+		let observable: Observable<U> = sendRequest(for: routable)
 		observable.subscribe { (event) in
 			switch event {
 			case .next(let object):

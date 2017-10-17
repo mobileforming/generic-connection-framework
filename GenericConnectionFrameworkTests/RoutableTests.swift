@@ -16,6 +16,7 @@ class RoutableTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         XCTAssertEqual(Router.readUsers.path, "/getUsers")
         XCTAssertEqual(Router.home.path, "/")
+        XCTAssertEqual(Router.die(method: "botulism").path, "/die/botulism")
         XCTAssertEqual(Router.readUsers.method, HTTPMethod.get)
         XCTAssertEqual(Router.home.method, HTTPMethod.get)
         XCTAssertNil(Router.readUsers.headers)
@@ -25,12 +26,14 @@ class RoutableTests: XCTestCase {
         XCTAssertNil(Router.readUsers.body)
         XCTAssertNil(Router.home.body)
     }
+    
 }
 
 enum Router: Routable {
     
     case readUsers
     case home
+    case die(method: String)
     
     var path: String {
         switch self {
@@ -38,10 +41,15 @@ enum Router: Routable {
             return "/getUsers"
         case .home:
             return "/"
+        case .die(let method):
+            return "/die/\(method)"
         }
     }
     var method: HTTPMethod {
-        return .get
+        switch self {
+        default:
+            return .get
+        }
     }
     
     var headers: [String : String]? {

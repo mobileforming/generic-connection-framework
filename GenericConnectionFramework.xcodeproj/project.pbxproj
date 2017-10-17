@@ -12,11 +12,9 @@
 		343921B21F572113008ED5CC /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921B11F572113008ED5CC /* MockURLSession.swift */; };
 		343921B51F572228008ED5CC /* GCFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921B41F572228008ED5CC /* GCFTests.swift */; };
 		343921B71F57225D008ED5CC /* MockGCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921B61F57225D008ED5CC /* MockGCF.swift */; };
-		343A3CD11F75D92600AEA84F /* DefaultGCFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343A3CD01F75D92600AEA84F /* DefaultGCFTests.swift */; };
 		34BF37F21F5609AC0045613A /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F11F5609AC0045613A /* Routable.swift */; };
 		34BF37F41F560ECE0045613A /* GCFPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F31F560ECE0045613A /* GCFPlugin.swift */; };
 		34BF37F61F5610ED0045613A /* GCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F51F5610ED0045613A /* GCF.swift */; };
-		34C5F7DC1F563A40003893B0 /* DefaultGCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5F7DB1F563A40003893B0 /* DefaultGCF.swift */; };
 		34EDA5061F82BA81009DA63C /* RxGCFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EDA5051F82BA81009DA63C /* RxGCFTests.swift */; };
 		4755E8D52C89A73690CCF150 /* Pods_GenericConnectionFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9FD525C124E2694F9684CB /* Pods_GenericConnectionFramework.framework */; };
 		654CB7F51F2AC61000419E17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654CB7F41F2AC61000419E17 /* AppDelegate.swift */; };
@@ -47,6 +45,13 @@
 			remoteGlobalIDString = 654CB7F11F2AC61000419E17;
 			remoteInfo = GenericConnectionFrameworkApp;
 		};
+		65DF7FAF1F8EE922008665B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF46FADB1F1FF4F0008641A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF46FAE31F1FF4F0008641A2;
+			remoteInfo = GenericConnectionFramework;
+		};
 		DF46FAEF1F1FF4F0008641A2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DF46FADB1F1FF4F0008641A2 /* Project object */;
@@ -64,11 +69,9 @@
 		343921B11F572113008ED5CC /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		343921B41F572228008ED5CC /* GCFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCFTests.swift; sourceTree = "<group>"; };
 		343921B61F57225D008ED5CC /* MockGCF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGCF.swift; sourceTree = "<group>"; };
-		343A3CD01F75D92600AEA84F /* DefaultGCFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGCFTests.swift; sourceTree = "<group>"; };
 		34BF37F11F5609AC0045613A /* Routable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routable.swift; sourceTree = "<group>"; };
 		34BF37F31F560ECE0045613A /* GCFPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCFPlugin.swift; sourceTree = "<group>"; };
 		34BF37F51F5610ED0045613A /* GCF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCF.swift; sourceTree = "<group>"; };
-		34C5F7DB1F563A40003893B0 /* DefaultGCF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGCF.swift; sourceTree = "<group>"; };
 		34EDA5051F82BA81009DA63C /* RxGCFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxGCFTests.swift; sourceTree = "<group>"; };
 		3B9FD525C124E2694F9684CB /* Pods_GenericConnectionFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GenericConnectionFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		654CB7F21F2AC61000419E17 /* GenericConnectionFrameworkApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GenericConnectionFrameworkApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,7 +224,6 @@
 		DF46FAE61F1FF4F0008641A2 /* GenericConnectionFramework */ = {
 			isa = PBXGroup;
 			children = (
-				34C5F7DB1F563A40003893B0 /* DefaultGCF.swift */,
 				343921AF1F571F04008ED5CC /* RxGCF.swift */,
 				34BF37F51F5610ED0045613A /* GCF.swift */,
 				34BF37F11F5609AC0045613A /* Routable.swift */,
@@ -238,7 +240,6 @@
 				DF46FAF41F1FF4F0008641A2 /* Info.plist */,
 				83BCB6D41F4779F9005241EA /* RoutableTests.swift */,
 				343921B41F572228008ED5CC /* GCFTests.swift */,
-				343A3CD01F75D92600AEA84F /* DefaultGCFTests.swift */,
 				34EDA5051F82BA81009DA63C /* RxGCFTests.swift */,
 				343921B31F572182008ED5CC /* Mocks */,
 			);
@@ -286,6 +287,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				65DF7FB01F8EE922008665B6 /* PBXTargetDependency */,
 			);
 			name = GenericConnectionFrameworkApp;
 			productName = GenericConnectionFrameworkApp;
@@ -653,7 +655,6 @@
 				34BF37F61F5610ED0045613A /* GCF.swift in Sources */,
 				34BF37F41F560ECE0045613A /* GCFPlugin.swift in Sources */,
 				343921B01F571F04008ED5CC /* RxGCF.swift in Sources */,
-				34C5F7DC1F563A40003893B0 /* DefaultGCF.swift in Sources */,
 				34BF37F21F5609AC0045613A /* Routable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -663,7 +664,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				343921B51F572228008ED5CC /* GCFTests.swift in Sources */,
-				343A3CD11F75D92600AEA84F /* DefaultGCFTests.swift in Sources */,
 				343921B21F572113008ED5CC /* MockURLSession.swift in Sources */,
 				343921B71F57225D008ED5CC /* MockGCF.swift in Sources */,
 				34EDA5061F82BA81009DA63C /* RxGCFTests.swift in Sources */,
@@ -683,6 +683,11 @@
 			isa = PBXTargetDependency;
 			target = 654CB7F11F2AC61000419E17 /* GenericConnectionFrameworkApp */;
 			targetProxy = 654CB8111F2AC61000419E17 /* PBXContainerItemProxy */;
+		};
+		65DF7FB01F8EE922008665B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF46FAE31F1FF4F0008641A2 /* GenericConnectionFramework */;
+			targetProxy = 65DF7FAF1F8EE922008665B6 /* PBXContainerItemProxy */;
 		};
 		DF46FAF01F1FF4F0008641A2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -718,7 +723,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 45BQ97BH8P;
 				INFOPLIST_FILE = GenericConnectionFrameworkApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobileforming.GenericConnectionFrameworkApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -734,7 +739,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 45BQ97BH8P;
 				INFOPLIST_FILE = GenericConnectionFrameworkApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobileforming.GenericConnectionFrameworkApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -859,7 +864,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -912,7 +917,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
