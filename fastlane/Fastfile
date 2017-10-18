@@ -1,0 +1,59 @@
+# Customise this file, documentation can be found here:
+# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
+# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby 
+# All lines starting with a # are ignored when running `fastlane`
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# Update this, if you use features of a newer version
+fastlane_version "1.105.0"
+
+
+# Pull in MF commonly used lanes
+import_from_git(url: 'git@gitlab.mobileforming.com:commons/ios-fastlane.git', branch: 'master', path: 'fastlane/Fastfile')
+
+default_platform :ios
+
+platform :ios do
+  before_all do
+    cocoapods
+    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+  end
+  
+  # Method to load keys from a separate "keys" file
+  def load_keys
+      begin
+        import("keys")
+      rescue => exception
+        UI.error("fastlane/keys file not found. To use this Fastfile, copy fastlane/keys.template into fastlane/keys and fill in the values")
+        raise exception
+      end
+  end
+ 
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
+
+
+ 
+
+# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
+# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
+
+# fastlane reports which actions are used
+# No personal data is recorded. Learn more at https://github.com/fastlane/enhancer
