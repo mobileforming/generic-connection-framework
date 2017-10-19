@@ -79,7 +79,7 @@ public class RxGCF: GCF {
         return observable
 	}
 	
-	func sendRequest<T: Routable, U: Decodable>(for routable: T, completion: @escaping (U?, Error?) -> Void) {
+	public func sendRequest<T: Routable, U: Decodable>(for routable: T, completion: @escaping (U?, Error?) -> Void) {
 		let observable: Observable<U> = sendRequest(for: routable)
 		observable.subscribe { (event) in
 			switch event {
