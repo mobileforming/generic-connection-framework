@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		34ED793B1F98313C0001300E /* Framework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 34ED793E1F98313C0001300E /* Build configuration list for PBXAggregateTarget "Framework" */;
+			buildPhases = (
+				34ED793F1F9831400001300E /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Framework;
+			productName = Framework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		160F2E1383AAB455FBEEBF1E /* Pods_GenericConnectionFrameworkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8827F205C029CDDBE0B0FBD /* Pods_GenericConnectionFrameworkTests.framework */; };
 		343921B01F571F04008ED5CC /* RxGCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921AF1F571F04008ED5CC /* RxGCF.swift */; };
@@ -381,6 +395,10 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "mobileforming LLC";
 				TargetAttributes = {
+					34ED793B1F98313C0001300E = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+					};
 					654CB7F11F2AC61000419E17 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 45BQ97BH8P;
@@ -433,6 +451,7 @@
 				654CB7F11F2AC61000419E17 /* GenericConnectionFrameworkApp */,
 				654CB8041F2AC61000419E17 /* GenericConnectionFrameworkAppTests */,
 				654CB80F1F2AC61000419E17 /* GenericConnectionFrameworkAppUITests */,
+				34ED793B1F98313C0001300E /* Framework */,
 			);
 		};
 /* End PBXProject section */
@@ -514,6 +533,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		34ED793F1F9831400001300E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Set bash script to exit immediately if any commands fail.\nset -e\nFRAMEWORK_NAME=${PROJECT_NAME}\n\n# Cleanup\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n\n# Build the framework for device and for simulator\nxcodebuild -workspace ${PROJECT_NAME}.xcworkspace -scheme ${PROJECT_NAME} -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\" clean build\nxcodebuild -workspace ${PROJECT_NAME}.xcworkspace -scheme ${PROJECT_NAME} -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\" clean build\n\nmkdir -p \"${SRCROOT}/build/\"\ncp -R \"${BUILD_DIR}/Release-iphoneos/\" \"${SRCROOT}/build/Release-iphoneos/\"\ncp -R \"${BUILD_DIR}/Release-iphonesimulator/\" \"${SRCROOT}/build/Release-iphonesimulator/\"\n\n# Remove .framework file if exists fromprevious run.\nif [ -d \"${SRCROOT}/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"${SRCROOT}/${FRAMEWORK_NAME}.framework\"\nfi\n\n# Compile fat framework\nmkdir \"${SRCROOT}/${FRAMEWORK_NAME}.framework\"\nlipo -create -output \"${SRCROOT}/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# Copy the Swift module mappings\nmkdir \"${SRCROOT}/${FRAMEWORK_NAME}.framework/Modules\"\ncp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${SRCROOT}/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# Cleanup\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi";
 		};
 		4983F88261CE7638607C11D1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -716,6 +748,22 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		34ED793C1F98313C0001300E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		34ED793D1F98313C0001300E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		654CB8171F2AC61000419E17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C37A1133633F405C2EBCD94E /* Pods-GenericConnectionFrameworkApp.debug.xcconfig */;
@@ -996,6 +1044,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		34ED793E1F98313C0001300E /* Build configuration list for PBXAggregateTarget "Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34ED793C1F98313C0001300E /* Debug */,
+				34ED793D1F98313C0001300E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		654CB81D1F2AC61000419E17 /* Build configuration list for PBXNativeTarget "GenericConnectionFrameworkApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
