@@ -31,7 +31,7 @@ protocol GCF: class {
 
 extension GCF {
 	
-	func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void) {
+	public func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void) {
 		var urlRequest = constructURLRequest(from: routable)
 
 		plugin?.willSendRequest(&urlRequest)
