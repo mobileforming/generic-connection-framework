@@ -5,8 +5,8 @@
 # Define all build job variable parameters here
 ################################################################################
 MOBILEOS="ios"
-BUILD_KEYS="tbd"
-SCHEME="gcf"
+BUILD_KEYS="mf-ios-gcf-keys"
+SCHEME="GenericConnectionFrameworkApp"
 CONFIGURATION="Debug"
 RUNLANE="coverageModule"
 

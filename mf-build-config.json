@@ -1,0 +1,8 @@
+{
+  "seedJobName":"seed-jobs/seed-fastlane-ios-build-job-v001-lab",
+  "executeLane":"coverageModule",
+  "sonarQubeScannerName":"sonar",
+  "fastlaneKeysName":"mf-ios-gcf-keys",
+  "parseURLtoFolders":"true",
+  "jobFolderLayout":""
+}
