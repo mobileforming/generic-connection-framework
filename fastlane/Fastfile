@@ -33,6 +33,58 @@ platform :ios do
         raise exception
       end
   end
+  
+  ################################################################################
+  # Coverage lane - Coverage for module that includes Xcode 9 workaround
+  ################################################################################
+  desc "Runs Sonar Swift code coverage analysis for modules"
+  override_lane :coverageModule do |options|
+    # Prior simulator state was causing failures, kill all simulators and clean state before testing
+    #sh "killall 'Simulator' 2> /dev/null; xcrun simctl erase all"
+    scan(
+      clean: true,
+      scheme: options[:scheme],
+      device: 'iPhone 7',
+      configuration: options[:configuration],
+      code_coverage: true,
+      xcargs: "CLANG_COVERAGE_PROFILE_FILE='Build/Coverage.profdata'",
+      derived_data_path: "."
+    )
+    sh "bash ./coverageprofdata.sh"
+    sh "xcrun llvm-cov show -instr-profile=../Build/Coverage.profdata ../Build/Products/#{options[:configuration]}-iphonesimulator/#{options[:scheme]}.framework/#{options[:scheme]} > ../Coverage.report"
+  end
+  
+  ################################################################################
+  # Nexus upload lane - Upload to staging repo in Nexus
+  ################################################################################
+  desc "Build framework and upload to Nexus"
+  lane :artifactUploadNexus do |options|
+    load_keys
+    version = identifier = get_info_plist_value(path: options[:plistPath], key: "CFBundleShortVersionString")
+    identifier = get_info_plist_value(path: options[:plistPath], key: "CFBundleIdentifier")
+    artifact = identifier.split(".").last
+    group = identifier.chomp("." + artifact)
+    xcodebuild(
+      scheme: options[:scheme],
+      configuration: options[:configuration],
+      workspace: options[:workspace],
+      archive: false
+    )
+    zip(
+      path: "",
+      output_path: ""
+    )
+    nexus_upload(
+      file: "/path/to/file.zip",
+      repo_id: "Staging",
+      repo_group_id: group,
+      repo_project_name: artifact,
+      repo_project_version: version,
+      endpoint: ENV["NEXUS_PATH"],
+      username: ENV["NEXUS_USERNAME"],
+      password: ENV["NEXUS_PASSWORD"]
+    )
+  end
  
   after_all do |lane|
     # This block is called, only if the executed lane was successful
