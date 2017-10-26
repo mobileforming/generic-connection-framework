@@ -64,18 +64,20 @@ platform :ios do
     identifier = get_info_plist_value(path: options[:plistPath], key: "CFBundleIdentifier")
     artifact = identifier.split(".").last
     group = identifier.chomp("." + artifact)
+    upload_path="#{options[:framework]}.zip"
     xcodebuild(
+      clean: true,
       scheme: options[:scheme],
       configuration: options[:configuration],
       workspace: options[:workspace],
-      archive: false
+      build: true
     )
     zip(
-      path: "",
-      output_path: ""
+      path: options[:framework],
+      output_path: upload_path
     )
     nexus_upload(
-      file: "/path/to/file.zip",
+      file: upload_path,
       repo_id: "Staging",
       repo_group_id: group,
       repo_project_name: artifact,

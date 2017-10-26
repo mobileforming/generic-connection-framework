@@ -11,6 +11,7 @@ CONFIGURATION="Debug"
 RUNLANE="artifactUploadNexus"
 PLIST_PATH="GenericConnectionFramework/Info.plist"
 XC_WORKSPACE_PATH="GenericConnectionFramework.xcworkspace"
+FRAMEWORK_NAME="GenericConnectionFramework.framework"
 
 
 echo "## Jenkins Build shell execution for ${WORKSPACE}"
@@ -39,4 +40,9 @@ if [ "$MOBILEOS" == "ios" ]; then
 fi
 
 echo "## Running Fastlane ${RUNLANE}"
-fastlane ${MOBILEOS} ${RUNLANE} scheme:${SCHEME} configuration:${CONFIGURATION}
+fastlane "${MOBILEOS}" "${RUNLANE}" \
+	scheme:"${SCHEME}" \
+	configuration:"${CONFIGURATION}" \
+	workspace:"${XC_WORKSPACE_PATH}" \
+	plistPath:"${PLIST_PATH}" \
+	framework:"${FRAMEWORK_NAME}"
