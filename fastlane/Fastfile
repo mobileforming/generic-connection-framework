@@ -79,11 +79,11 @@ platform :ios do
     nexus_upload(
       verbose: true,
       file: upload_path,
-      repo_id: "Staging",
+      repo_id: "staging",
       repo_group_id: group,
       repo_project_name: artifact,
       repo_project_version: version,
-      endpoint: "https://nexus.mobileforming.com/content/repositories",
+      endpoint: ENV["NEXUS_PATH"],
       username: ENV["NEXUS_USERNAME"],
       password: ENV["NEXUS_PASSWORD"]
     )
