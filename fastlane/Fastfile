@@ -60,11 +60,6 @@ platform :ios do
   desc "Build framework and upload to Nexus"
   lane :artifactUploadNexus do |options|
     load_keys
-    version = identifier = get_info_plist_value(path: options[:plistPath], key: "CFBundleShortVersionString")
-    identifier = get_info_plist_value(path: options[:plistPath], key: "CFBundleIdentifier")
-    artifact = identifier.split(".").last
-    group = identifier.chomp("." + artifact)
-    upload_path="#{options[:framework]}.zip"
     xcodebuild(
       clean: true,
       scheme: options[:scheme],
@@ -72,6 +67,11 @@ platform :ios do
       workspace: options[:workspace],
       build: true
     )
+    version = identifier = get_info_plist_value(path: options[:plistPath], key: "CFBundleShortVersionString")
+    identifier = get_info_plist_value(path: options[:plistPath], key: "CFBundleIdentifier")
+    artifact = identifier.split(".").last
+    group = identifier.chomp("." + artifact)
+    upload_path="#{options[:framework]}.zip"
     zip(
       path: options[:framework],
       output_path: upload_path
