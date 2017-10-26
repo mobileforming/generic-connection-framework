@@ -83,7 +83,7 @@ platform :ios do
       repo_group_id: group,
       repo_project_name: artifact,
       repo_project_version: version,
-      endpoint: ENV["NEXUS_PATH"],
+      endpoint: "https://nexus.mobileforming.com/content/repositories",
       username: ENV["NEXUS_USERNAME"],
       password: ENV["NEXUS_PASSWORD"]
     )
