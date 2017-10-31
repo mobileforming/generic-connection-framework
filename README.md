@@ -101,3 +101,4 @@ let loginObservable: Observable<LoginObject> = gcf.sendRequest(for: ExampleAPI.l
 
 [RxSwift]: https://github.com/ReactiveX/RxSwift/
 [CocoaPods]: https://github.com/CocoaPods/CocoaPods
+
