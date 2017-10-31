@@ -18,18 +18,28 @@ public enum GCFError: Error {
 protocol GCF: class {
 	var baseURL: String { get }
 	var urlSession: URLSession { get }
-	var decoder: JSONDecoder { get }
-	var plugin: GCFPlugin? { get }
+	var decoder: JSONDecoder { get set }
+	var plugin: GCFPlugin? { get set }
 	
-    init(baseURL: String)
-    func sendRequest<T: Routable, U: Decodable>(for routable: T) -> Observable<U>
-    func sendRequest<T: Routable, U: Decodable>(for routable: T, completion: @escaping (U?, Error?) -> Void)
+	init(baseURL: String, decoder: JSONDecoder)
+    func sendRequest<T: Codable>(for routable: Routable) -> Observable<T>
+    func sendRequest<T: Codable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void)
     func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void)
 	func constructURL(from routable: Routable) -> URL
-	func parseData<T: Decodable>(from data: Data) throws -> T
+	func parseData<T: Codable>(from data: Data) throws -> T
+	func configurePlugin(_ plugin: GCFPlugin)
+	func configurePlugins(_ plugins: [GCFPlugin])
 }
 
 extension GCF {
+	
+	public func configurePlugin(_ plugin: GCFPlugin) {
+		self.plugin = plugin
+	}
+	
+	public func configurePlugins(_ plugins: [GCFPlugin]) {
+		self.plugin = AggregatePlugin(plugins: plugins)
+	}
 	
 	public func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void) {
 		var urlRequest = constructURLRequest(from: routable)
@@ -86,7 +96,7 @@ extension GCF {
 		fatalError("cant construct url")
 	}
 	
-	internal func parseData<T: Decodable>(from data: Data) throws -> T {
+	internal func parseData<T: Codable>(from data: Data) throws -> T {
 		do {
 			return try decoder.decode(T.self, from: data)
 		} catch DecodingError.dataCorrupted(let error) {

@@ -1,35 +1,16 @@
 PODS:
-  - OHHTTPStubs/Core (6.0.0)
-  - OHHTTPStubs/Default (6.0.0):
-    - OHHTTPStubs/Core
-    - OHHTTPStubs/JSON
-    - OHHTTPStubs/NSURLSession
-    - OHHTTPStubs/OHPathHelpers
-  - OHHTTPStubs/JSON (6.0.0):
-    - OHHTTPStubs/Core
-  - OHHTTPStubs/NSURLSession (6.0.0):
-    - OHHTTPStubs/Core
-  - OHHTTPStubs/OHPathHelpers (6.0.0)
-  - OHHTTPStubs/Swift (6.0.0):
-    - OHHTTPStubs/Default
-  - RxCocoa (4.0.0-beta.1):
-    - RxSwift (~> 4.0.0-beta.1)
-  - RxSwift (4.0.0-beta.1)
-  - RxTest (4.0.0-beta.1):
-    - RxSwift (~> 4.0.0-beta.1)
+  - RxCocoa (4.0.0):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.0.0)
 
 DEPENDENCIES:
-  - OHHTTPStubs/Swift
-  - RxCocoa (= 4.0.0-beta.1)
-  - RxSwift (= 4.0.0-beta.1)
-  - RxTest (= 4.0.0-beta.1)
+  - RxCocoa (~> 4.0)
+  - RxSwift (~> 4.0)
 
 SPEC CHECKSUMS:
-  OHHTTPStubs: 752f9b11fd810a15162d50f11c06ff94f8e012eb
-  RxCocoa: ca6cc0f4453145d90002d80df8f9c83dd8fb7338
-  RxSwift: 29f07e0e72cc5b40f146c64cc520ea6a6a0c73e9
-  RxTest: 56fcfdb52108edb20eea5ed662a3cdd6c6f55b3f
+  RxCocoa: d62846ca96495d862fa4c59ea7d87e5031d7340e
+  RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
 
-PODFILE CHECKSUM: b9ecb61a36b0a1567710fbc1c89901369467438a
+PODFILE CHECKSUM: 1d3534c1cf65c9885dfe6d5b3f4c32781d32a2cf
 
 COCOAPODS: 1.3.1

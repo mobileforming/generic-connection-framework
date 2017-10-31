@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 
 public class RxGCF: GCF {
+	
 	var baseURL: String
 	var urlSession: URLSession
 	var plugin: GCFPlugin?
@@ -17,26 +18,26 @@ public class RxGCF: GCF {
 	internal var disposeBag = DisposeBag()
 	var liveObservables: [URLRequest: Any] = [:]
     
-    public required init(baseURL: String) {
+	public required init(baseURL: String, decoder: JSONDecoder = JSONDecoder()) {
 		guard !baseURL.isEmpty else { fatalError("invalid base url") }
 		
 		self.baseURL = baseURL
         self.urlSession = URLSession(configuration: .default)
-		decoder = JSONDecoder()
+		self.decoder = decoder
     }
 	
-	public func sendRequest<T: Routable, U: Decodable>(for routable: T) -> Observable<U> {
+	public func sendRequest<T: Codable>(for routable: Routable) -> Observable<T> {
         
         var urlRequest = constructURLRequest(from: routable)
         
         // Check to see if we already have an existing observable for this request
-        if let storedObservable = liveObservables[urlRequest] as? Observable<U> {
+        if let storedObservable = liveObservables[urlRequest] as? Observable<T> {
             return storedObservable
         }
         
 		plugin?.willSendRequest(&urlRequest)
 		
-		let observable = Observable<U>.create { [weak self] observer in
+		let observable = Observable<T>.create { [weak self] observer in
 			guard let strongself = self else {
 				observer.onError(GCFError.requestError)
 				return Disposables.create()
@@ -79,8 +80,8 @@ public class RxGCF: GCF {
         return observable
 	}
 	
-	public func sendRequest<T: Routable, U: Decodable>(for routable: T, completion: @escaping (U?, Error?) -> Void) {
-		let observable: Observable<U> = sendRequest(for: routable)
+	public func sendRequest<T: Codable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void) {
+		let observable: Observable<T> = sendRequest(for: routable)
 		observable.subscribe { (event) in
 			switch event {
 			case .next(let object):
