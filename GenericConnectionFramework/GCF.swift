@@ -33,14 +33,6 @@ protocol GCF: class {
 
 extension GCF {
 	
-	public func configurePlugin(_ plugin: GCFPlugin) {
-		self.plugin = plugin
-	}
-	
-	public func configurePlugins(_ plugins: [GCFPlugin]) {
-		self.plugin = AggregatePlugin(plugins: plugins)
-	}
-	
 	public func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void) {
 		var urlRequest = constructURLRequest(from: routable)
 

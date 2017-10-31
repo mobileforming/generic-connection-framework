@@ -26,6 +26,14 @@ public class RxGCF: GCF {
 		self.decoder = decoder
     }
 	
+	public func configurePlugin(_ plugin: GCFPlugin) {
+		self.plugin = plugin
+	}
+	
+	public func configurePlugins(_ plugins: [GCFPlugin]) {
+		self.plugin = AggregatePlugin(plugins: plugins)
+	}
+	
 	public func sendRequest<T: Codable>(for routable: Routable) -> Observable<T> {
         
         var urlRequest = constructURLRequest(from: routable)
