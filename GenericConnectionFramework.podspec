@@ -8,8 +8,8 @@ s.homepage     = "https://gitlab.mobileforming.com/mp/mobileforming-ios-module-g
 s.license          = { :type => 'INTERNAL', :file => 'LICENSE' }
 s.author             = "mobileforming LLC"
 s.platform     = :ios, "9.0"
-s.source       = { :git => "https://gitlab.mobileforming.com/mp/mobileforming-ios-module-gcf.git", :tag => "#{s.version}" }
-s.source_files  = "GenericConnectionFramework/*.{h,m,swift}", "GenericConnectionFramework/**/*.{h,m,swift}"
+s.source       = { :http => 'http://nexus.mf.internal/com/mobileforming/ios/module/gcf/0.0.1/gcf-0.0.1.zip' }
+s.vendored_frameworks = 'GenericConnectionFramework.framework'
 s.dependency "RxSwift", "~> 4.0"
 
 end
