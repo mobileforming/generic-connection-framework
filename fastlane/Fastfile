@@ -70,14 +70,14 @@ platform :ios do
     group = identifier.chomp("." + artifact)
     
     # Modify podspec with version number and artifact
-    spec = File.read(options[:podspec])
+    spec = File.read("../#{options[:podspec]}")
     changeVersion = spec.gsub("projectVersion", version)
-    File.open(options[:podspec], "w") do |f|
+    File.open("../#{options[:podspec]}", "w") do |f|
       f.write(changeVersion)
     end
-    spec = File.read(options[:podspec])
+    spec = File.read("../#{options[:podspec]}")
     changeArtifact = spec.gsub("nexusArtifact", artifact)
-    File.open(options[:podspec], "w") do |f|
+    File.open("../#{options[:podspec]}", "w") do |f|
       f.write(changeArtifact)
     end
     
