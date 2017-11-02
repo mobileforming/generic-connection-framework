@@ -94,7 +94,7 @@ platform :ios do
     )
     nexus_upload(
       verbose: true,
-      file: upload_path,
+      file: "#{options[:framework]}.zip",
       repo_id: "staging",
       repo_group_id: group,
       repo_project_name: artifact,
