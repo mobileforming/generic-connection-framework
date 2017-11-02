@@ -12,6 +12,7 @@ RUNLANE="artifactUploadNexus"
 PLIST_PATH="GenericConnectionFramework/Info.plist"
 XC_WORKSPACE_PATH="GenericConnectionFramework.xcworkspace"
 FRAMEWORK_NAME="GenericConnectionFramework.framework"
+PODSPEC_PATH="GenericConnectionFramework.podspec"
 
 
 echo "## Jenkins Build shell execution for ${WORKSPACE}"
@@ -45,4 +46,5 @@ fastlane "${MOBILEOS}" "${RUNLANE}" \
 	configuration:"${CONFIGURATION}" \
 	workspace:"${XC_WORKSPACE_PATH}" \
 	plistPath:"${PLIST_PATH}" \
-	framework:"${FRAMEWORK_NAME}"
+	framework:"${FRAMEWORK_NAME}" \
+	podspec:"${PODSPEC_PATH}"
