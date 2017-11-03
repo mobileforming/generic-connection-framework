@@ -116,10 +116,10 @@ platform :ios do
     mofo_urls = options[:mofoRepos].split(",")
     client_repos = options[:clientRepos].split(",")
     for url in mofo_urls
-      sh "pod repo push #{url} MF#{options[:podspec]}"
+      sh "pod repo push #{url} ../MF#{options[:podspec]}"
     end
     for clientUrl in client_repos
-      sh "pod repo push #{url} #{options[:podspec]}"
+      sh "pod repo push #{url} ../#{options[:podspec]}"
     end
   end
  
