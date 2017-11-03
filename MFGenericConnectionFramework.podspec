@@ -11,8 +11,8 @@ Pod::Spec.new do |s|
   
   s.dependency "RxSwift", "~> 4.0"
 
-  s.source 		 = { :http => 'http://nexus.mf.internal/com/mobileforming/ios/module/nexusArtifact/projectVersion/nexusArtifact-projectVersion.zip' }
-  s.vendored_frameworks = 'GenericConnectionFramework.framework'
-	
-
+  s.source 		 = { :http => 'https://gitlab.mobileforming.com/mp/mobileforming-ios-module-gcf.git', :tag => s.version.to_s }
+  s.source_files = "GenericConnectionFramework/*.{h,m,swift}", "GenericConnectionFramework/**/*.{h,m,swift}"  
+  
 end
+  
