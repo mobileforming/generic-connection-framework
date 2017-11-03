@@ -14,8 +14,8 @@ XC_WORKSPACE_PATH="GenericConnectionFramework.xcworkspace"
 FRAMEWORK_NAME="GenericConnectionFramework.framework"
 PODSPEC_PATH="GenericConnectionFramework.podspec"
 # Separate multipe repo urls with a comma, no spaces
-MOFO_UPLOAD_REPOS=""
-CLIENT_UPLOAD_REPOS="https"
+MOFO_UPLOAD_REPOS="https://gitlab.mobileforming.com/mp/mobileforming-ios-podspecs.git"
+CLIENT_UPLOAD_REPOS="https://gitlab.mobileforming.com/blizzard/mobileforming-blizzard-ios-podspecs.git"
 
 
 echo "## Jenkins Build shell execution for ${WORKSPACE}"
@@ -51,5 +51,5 @@ fastlane "${MOBILEOS}" "${RUNLANE}" \
 	plistPath:"${PLIST_PATH}" \
 	framework:"${FRAMEWORK_NAME}" \
 	podspec:"${PODSPEC_PATH}" \
-	mofoRepo:"${MOFO_UPLOAD_REPOS}" \
-	clientRepo:"${CLIENT_UPLOAD_REPOS}"
+	mofoRepos:"${MOFO_UPLOAD_REPOS}" \
+	clientRepos:"${CLIENT_UPLOAD_REPOS}"
