@@ -111,6 +111,16 @@ platform :ios do
       username: ENV["NEXUS_USERNAME"],
       password: ENV["NEXUS_PASSWORD"]
     )
+    
+    # Upload podspecs to their respective repos
+    mofo_urls = options[:mofoRepos].split(",")
+    client_repos = options[:clientRepos].split(",")
+    for url in mofo_urls
+      sh "pod repo push #{url} MF#{options[:podspec]}"
+    end
+    for clientUrl in client_repos
+      sh "pod repo push #{url} #{options[:podspec]}"
+    end
   end
  
   after_all do |lane|
