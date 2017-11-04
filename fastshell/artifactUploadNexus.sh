@@ -36,11 +36,6 @@ bundle install
 if [ "$MOBILEOS" == "ios" ]; then
   echo "## iOS: Unlock the MAC keychain as the slave runs as a daemon"
   security unlock-keychain -p ${keychainPass} ~/Library/Keychains/login.keychain
-
-  echo "## iOS: Update cocoapod repo shared by slave"
-  cd ~ ; pwd
-  pod repo update
-  cd -
 fi
 
 echo "## Running Fastlane ${RUNLANE}"
