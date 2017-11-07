@@ -16,7 +16,7 @@ public enum GCFPluginError: Error {
 
 public protocol GCFPlugin {
 	func willSendRequest(_ request: inout URLRequest)
-	func didRecieve(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) throws
+	func didReceive(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) throws
 }
 
 class AggregatePlugin: GCFPlugin {
@@ -30,7 +30,7 @@ class AggregatePlugin: GCFPlugin {
 		plugins.forEach({ $0.willSendRequest(&request) })
 	}
 	
-	func didRecieve(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) throws {
-		try plugins.reversed().forEach({ try $0.didRecieve(data: data, response: response, error: error, forRequest: &request) })
+	func didReceive(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) throws {
+		try plugins.reversed().forEach({ try $0.didReceive(data: data, response: response, error: error, forRequest: &request) })
 	}
 }

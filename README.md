@@ -78,7 +78,7 @@ protocol GCF: class {
 //Plugin interface
 protocol GCFPlugin {
 	func willSendRequest(_ request: inout URLRequest)
-	func didRecieve(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) throws
+	func didReceive(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) throws
 }
 ```
 

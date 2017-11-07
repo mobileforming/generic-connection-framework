@@ -16,5 +16,5 @@ public enum GCFPluginError: Error {
 
 public protocol GCFPlugin {
 	func willSendRequest(_ request: inout URLRequest)
-	func didRecieve(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) throws
+	func didReceive(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) throws
 }

@@ -55,7 +55,7 @@ public class RxGCF: GCF {
 				guard let strongself = self else { return }
 				
 				do {
-					try strongself.plugin?.didRecieve(data: data, response: response, error: error, forRequest: &urlRequest)
+					try strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest)
 				} catch GCFPluginError.failureAbortRequest {
 					observer.onError(GCFPluginError.failureAbortRequest)
 				} catch {
