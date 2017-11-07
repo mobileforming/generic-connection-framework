@@ -60,11 +60,34 @@ platform :ios do
   desc "Build framework and upload to Nexus"
   lane :artifactUploadNexus do |options|
     load_keys
+    
+    # Get version from plist
     version = get_info_plist_value(path: options[:plistPath], key: "CFBundleShortVersionString")
+    
+    # Parse group name and articaft from bundle ID
     identifier = ENV["BUNDLE_ID"]
     artifact = identifier.split(".").last
     group = identifier.chomp("." + artifact)
-    upload_path="#{options[:framework]}.zip"
+    
+    # Modify binary podspec with version number and artifact
+    spec = File.read("../#{options[:podspec]}")
+    changeVersion = spec.gsub("projectVersion", version)
+    File.open("../#{options[:podspec]}", "w") do |f|
+      f.write(changeVersion)
+    end
+    spec = File.read("../#{options[:podspec]}")
+    changeArtifact = spec.gsub("nexusArtifact", artifact)
+    File.open("../#{options[:podspec]}", "w") do |f|
+      f.write(changeArtifact)
+    end
+    
+    # Modify mofo podspec with version number
+    spec = File.read("../MF#{options[:podspec]}")
+    changeVersion = spec.gsub("projectVersion", version)
+    File.open("../MF#{options[:podspec]}", "w") do |f|
+      f.write(changeVersion)
+    end
+    
     xcodebuild(
       clean: true,
       scheme: options[:scheme],
@@ -74,11 +97,11 @@ platform :ios do
     )
     zip(
       path: options[:framework],
-      output_path: upload_path
+      output_path: "#{options[:framework]}.zip"
     )
     nexus_upload(
       verbose: true,
-      file: upload_path,
+      file: "#{options[:framework]}.zip",
       repo_id: "staging",
       repo_group_id: group,
       repo_project_name: artifact,
@@ -88,6 +111,18 @@ platform :ios do
       username: ENV["NEXUS_USERNAME"],
       password: ENV["NEXUS_PASSWORD"]
     )
+    
+    # Upload podspecs to their respective repos
+    mofo_urls = options[:mofoRepos].split(",")
+    client_repos = options[:clientRepos].split(",")
+    for clientUrl in client_repos
+      sh "pod repo push #{clientUrl} ../#{options[:podspec]}"
+    end
+    sh "rm ../#{options[:podspec]}"
+    sh "mv ../MF#{options[:podspec]} ../#{options[:podspec]}"
+    for url in mofo_urls
+      sh "pod repo push #{url} ../#{options[:podspec]}"
+    end
   end
  
   after_all do |lane|

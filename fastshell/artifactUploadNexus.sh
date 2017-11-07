@@ -12,6 +12,10 @@ RUNLANE="artifactUploadNexus"
 PLIST_PATH="GenericConnectionFramework/Info.plist"
 XC_WORKSPACE_PATH="GenericConnectionFramework.xcworkspace"
 FRAMEWORK_NAME="GenericConnectionFramework.framework"
+PODSPEC_PATH="GenericConnectionFramework.podspec"
+# Separate multipe repo urls with a comma, no spaces
+MOFO_UPLOAD_REPOS="https://gitlab.mobileforming.com/mp/mobileforming-ios-podspecs.git"
+CLIENT_UPLOAD_REPOS="https://gitlab.mobileforming.com/blizzard/mobileforming-blizzard-ios-podspecs.git"
 
 
 echo "## Jenkins Build shell execution for ${WORKSPACE}"
@@ -32,11 +36,6 @@ bundle install
 if [ "$MOBILEOS" == "ios" ]; then
   echo "## iOS: Unlock the MAC keychain as the slave runs as a daemon"
   security unlock-keychain -p ${keychainPass} ~/Library/Keychains/login.keychain
-
-  echo "## iOS: Update cocoapod repo shared by slave"
-  cd ~ ; pwd
-  pod repo update
-  cd -
 fi
 
 echo "## Running Fastlane ${RUNLANE}"
@@ -45,4 +44,7 @@ fastlane "${MOBILEOS}" "${RUNLANE}" \
 	configuration:"${CONFIGURATION}" \
 	workspace:"${XC_WORKSPACE_PATH}" \
 	plistPath:"${PLIST_PATH}" \
-	framework:"${FRAMEWORK_NAME}"
+	framework:"${FRAMEWORK_NAME}" \
+	podspec:"${PODSPEC_PATH}" \
+	mofoRepos:"${MOFO_UPLOAD_REPOS}" \
+	clientRepos:"${CLIENT_UPLOAD_REPOS}"
