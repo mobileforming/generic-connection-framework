@@ -35,6 +35,10 @@ open class MockGCF: GCF {
         completion(nil, nil)
     }
 	
+	public func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void) {
+		completion(false, nil)
+	}
+	
 	public func configurePlugin(_ plugin: GCFPlugin) {
 		
 	}

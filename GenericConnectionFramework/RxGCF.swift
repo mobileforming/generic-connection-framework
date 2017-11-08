@@ -101,5 +101,29 @@ public class RxGCF: GCF {
 			}
 		}.disposed(by: disposeBag)
 	}
+	
+	public func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void) {
+		var urlRequest = constructURLRequest(from: routable)
+		
+		plugin?.willSendRequest(&urlRequest)
+		
+		urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
+			guard let strongself = self else { return }
+			
+			do {
+				try strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest)
+			} catch GCFPluginError.failureAbortRequest {
+				completion(false, GCFError.pluginError)
+			} catch {
+				//continue
+			}
+			
+			if data != nil, error == nil {
+				completion(true, nil)
+			} else {
+				completion(false, error)
+			}
+			}.resume()
+	}
 }
 
