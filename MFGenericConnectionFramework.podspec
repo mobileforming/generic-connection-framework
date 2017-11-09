@@ -11,8 +11,8 @@ Pod::Spec.new do |s|
   
   s.dependency "RxSwift", "~> 4.0"
 
-  s.source 		 = { :git => "https://gitlab.mobileforming.com/mp/mobileforming-ios-module-gcf.git", :tag => "#{s.version}" }
-  s.source_files = "GenericConnectionFramework/*.{h,m,swift}", "GenericConnectionFramework/**/*.{h,m,swift}"  
+  s.source 		 = { :git => 'https://gitlab.mobileforming.com/mp/mobileforming-ios-module-gcf.git', :tag => "#{s.version}" }
+  s.source_files = 'GenericConnectionFramework/*.{h,m,swift}', 'GenericConnectionFramework/**/*.{h,m,swift}' 
   
 end
   
