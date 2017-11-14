@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   
   s.dependency "RxSwift", "~> 4.0"
 
-  s.source 		 = { :http => 'https://nexus.mobileforming.com/content/repositories/releases/com/mobileforming/ios/module/nexusArtifact/projectVersion/nexusArtifact-projectVersion.zip' }
+  s.source 		 = { :http => 'https://nexus.mobileforming.com/content/repositories/staging/com/mobileforming/ios/module/nexusArtifact/projectVersion/nexusArtifact-projectVersion.zip' }
   s.vendored_frameworks = 'GenericConnectionFramework.framework'
 	
 
