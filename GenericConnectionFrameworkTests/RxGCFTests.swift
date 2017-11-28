@@ -23,7 +23,7 @@ class RxGCFTests: XCTestCase {
 	struct TestPost: Codable {
 		var title: String
 	}
-	
+    
 	var gcf: RxGCF?
 	let urlSession = MockURLSession()
 	let disposeBag = DisposeBag()
@@ -121,4 +121,14 @@ class RxGCFTests: XCTestCase {
 		
 		waitForExpectations(timeout: 10, handler: nil)
 	}
+    
+    func testConfigurePlugin() {
+        gcf!.configurePlugin(MockGCFPlugin())
+        XCTAssertNotNil(gcf!.plugin)
+    }
+    
+    func testConfigurePlugins() {
+        gcf!.configurePlugins([MockGCFPlugin(), MockGCFPlugin()])
+        XCTAssertNotNil(gcf!.plugin)
+    }
 }
