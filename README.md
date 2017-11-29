@@ -47,8 +47,8 @@ The General Connection Framework (GCF) is part of mobileforming's modularization
  4. Add the correct nexus credentials to the computer if you're using the static framework
    - Must get these from Techops
    - in terminal:  echo "machine nexus.mobileforming.com login {username} password {password}" >> ~/.netrc
- 5. pod install
- 6. open workspace, clean, build
+ 5. Run pod install (may need to run pod update first)
+ 6. Open the workspace, clean, and build
 
 ## Usage
 
