@@ -42,11 +42,13 @@ The General Connection Framework (GCF) is part of mobileforming's modularization
    - This will either be the internal mobileforming spec repo or a client specific spec repo
  2. Also add the master spec repo source url since this will no longer be implicitly added
    - source 'https://github.com/CocoaPods/Specs.git'
- 3. Add the correct nexus credentials to the computer if you're using the static framework
+ 3. Specify the correct GCF version for the target(s) in the podfile.
+   - pod 'GenericConnectionFramework', '~> 1.0'
+ 4. Add the correct nexus credentials to the computer if you're using the static framework
    - Must get these from Techops
    - in terminal:  echo "machine nexus.mobileforming.com login {username} password {password}" >> ~/.netrc
- 4. pod install
- 5. open workspace, clean, build
+ 5. pod install
+ 6. open workspace, clean, build
 
 ## Usage
 
