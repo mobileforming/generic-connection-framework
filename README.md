@@ -22,7 +22,7 @@ The General Connection Framework (GCF) is part of mobileforming's modularization
 - Robust test coverage (ongoing)
 - Authentication support (planned)
 - Credential management (planned)
-- Request queueing (planned)
+- Request queueing
 - Retry logic (planned)
 
 ## Dependencies
@@ -38,7 +38,15 @@ The General Connection Framework (GCF) is part of mobileforming's modularization
 
 ## Installation
 
- - TBD
+ 1. Add the correct podspec source url to the project's podfile
+   - This will either be the internal mobileforming spec repo or a client specific spec repo
+ 2. Also add the master spec repo source url since this will no longer be implicitly added
+   - source 'https://github.com/CocoaPods/Specs.git'
+ 3. Add the correct nexus credentials to the computer if you're using the static framework
+   - Must get these from Techops
+   - in terminal:  echo "machine nexus.mobileforming.com login {username} password {password}" >> ~/.netrc
+ 4. pod install
+ 5. open workspace, clean, build
 
 ## Usage
 
@@ -49,10 +57,12 @@ See playground for more detailed explanation and examples
 ```swift
 public protocol Routable {
     var path: String { get }
-    var method: String { get }
-    var header: [String : String]? { get }
+    var method: HTTPMethod { get }
+    var headers: [String : String]? { get }
     var parameters: [String : String]? { get }
     var body: [String : Any]? { get }
+    var defaultTimeout: TimeInterval { get }
+    var cachePolicy: URLRequest.CachePolicy { get }
 }
 ```
 
@@ -65,11 +75,14 @@ protocol GCF: class {
 	var decoder: JSONDecoder { get }
 	var plugin: GCFPlugin? { get }
 
-	init(baseURL: String)
-	func sendRequest<T: Decodable>(for routable: Routable) -> Observable<T>
-	func sendRequest<T: Decodable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void)
+	init(baseURL: String, decoder: JSONDecoder)
+	func sendRequest<T: Codable>(for routable: Routable) -> Observable<T>
+	func sendRequest<T: Codable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void)
+	func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void)
 	func constructURL(from routable: Routable) -> URL
-	func parseData<T: Decodable>(from data: Data) throws -> T
+	func parseData<T: Codable>(from data: Data) throws -> T
+	func configurePlugin(_ plugin: GCFPlugin)
+	func configurePlugins(_ plugins: [GCFPlugin])
 }
 ```
 
@@ -86,10 +99,23 @@ protocol GCFPlugin {
 
 ```swift
 //create an instance of the GCF
-let gcf = GCF(baseURL: "https://somebaseurl.com")
+let gcf = RxGCF(baseURL: "https://somebaseurl.com")
+
+//or you can optionally provide an instance of JSONDecoder for GCF to use (allows you to configure the data or date format)
+let decoder = JSONDecoder()
+decoder.dateDecodingStrategy = .millisecondsSince1970
+let gcf = RxGCF(baseURL: "https://somebaseurl.com", decoder: decoder)
 ```
 ```swift
-//using completion, LoginObject: Decodable
+//Configure plugin
+gcf.configurePlugin(plugin)
+
+//or you can optionally apply any plugins (1 or more) to this gcf instance.  
+//GCF will process the plugins in order for willSend, and reverse order for didReceive
+gcf.configurePlugins([plugin1, plugin2, plugin3])
+```
+```swift
+//using completion, LoginObject: Codable
 gcf.sendRequest(for: ExampleAPI.login) { (response: LoginObject?, error) in
 }
 ```
