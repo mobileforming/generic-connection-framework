@@ -20,10 +20,13 @@ The General Connection Framework (GCF) is part of mobileforming's modularization
 - Flexible plugin architecture
 - Swift Decodable support
 - Robust test coverage (ongoing)
-- Authentication support (planned)
-- Credential management (planned)
 - Request queueing
-- Retry logic (planned)
+
+## Planned Features
+
+- Authentication support
+- Credential management
+- Retry logic
 
 ## Dependencies
 
