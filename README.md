@@ -100,7 +100,7 @@ protocol GCFPlugin {
 ### Using the GCF in Your App
 
 ```swift
-//create an instance of the GCF
+//1. create an instance of the GCF
 let gcf = RxGCF(baseURL: "https://somebaseurl.com")
 
 //or you can optionally provide an instance of JSONDecoder for GCF to use (allows you to configure the data or date format)
@@ -109,7 +109,7 @@ decoder.dateDecodingStrategy = .millisecondsSince1970
 let gcf = RxGCF(baseURL: "https://somebaseurl.com", decoder: decoder)
 ```
 ```swift
-//Configure plugin
+//2. Configure plugin
 gcf.configurePlugin(plugin)
 
 //or you can optionally apply any plugins (1 or more) to this gcf instance.  
@@ -117,12 +117,12 @@ gcf.configurePlugin(plugin)
 gcf.configurePlugins([plugin1, plugin2, plugin3])
 ```
 ```swift
-//using completion, LoginObject: Codable
+//3. use with completion, LoginObject: Codable
 gcf.sendRequest(for: ExampleAPI.login) { (response: LoginObject?, error) in
 }
 ```
 ```swift
-//using observable, LoginObject: Decodable
+//or use as observable, LoginObject: Decodable
 let loginObservable: Observable<LoginObject> = gcf.sendRequest(for: ExampleAPI.login)
 ```
 
