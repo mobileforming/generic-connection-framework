@@ -39,8 +39,6 @@
 		654CB7FA1F2AC61000419E17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654CB7F81F2AC61000419E17 /* Main.storyboard */; };
 		654CB7FC1F2AC61000419E17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654CB7FB1F2AC61000419E17 /* Assets.xcassets */; };
 		654CB7FF1F2AC61000419E17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654CB7FD1F2AC61000419E17 /* LaunchScreen.storyboard */; };
-		654CB80A1F2AC61000419E17 /* GenericConnectionFrameworkAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654CB8091F2AC61000419E17 /* GenericConnectionFrameworkAppTests.swift */; };
-		654CB8151F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654CB8141F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.swift */; };
 		6C7B1355585C69DB758E9872 /* Pods_GenericConnectionFrameworkApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29C41B6148E885343B1F9AC5 /* Pods_GenericConnectionFrameworkApp.framework */; };
 		83BCB6D51F4779F9005241EA /* RoutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6D41F4779F9005241EA /* RoutableTests.swift */; };
 		DF46FAEE1F1FF4F0008641A2 /* GenericConnectionFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46FAE41F1FF4F0008641A2 /* GenericConnectionFramework.framework */; };
@@ -48,20 +46,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		654CB8061F2AC61000419E17 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DF46FADB1F1FF4F0008641A2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 654CB7F11F2AC61000419E17;
-			remoteInfo = GenericConnectionFrameworkApp;
-		};
-		654CB8111F2AC61000419E17 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DF46FADB1F1FF4F0008641A2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 654CB7F11F2AC61000419E17;
-			remoteInfo = GenericConnectionFrameworkApp;
-		};
 		65DF7FAF1F8EE922008665B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DF46FADB1F1FF4F0008641A2 /* Project object */;
@@ -101,11 +85,7 @@
 		654CB7FB1F2AC61000419E17 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		654CB7FE1F2AC61000419E17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		654CB8001F2AC61000419E17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		654CB8051F2AC61000419E17 /* GenericConnectionFrameworkAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GenericConnectionFrameworkAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		654CB8091F2AC61000419E17 /* GenericConnectionFrameworkAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericConnectionFrameworkAppTests.swift; sourceTree = "<group>"; };
 		654CB80B1F2AC61000419E17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		654CB8101F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GenericConnectionFrameworkAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		654CB8141F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericConnectionFrameworkAppUITests.swift; sourceTree = "<group>"; };
 		654CB8161F2AC61000419E17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79CDBDB0B484D6724F08D6D7 /* Pods-GenericConnectionFrameworkApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFrameworkApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFrameworkApp/Pods-GenericConnectionFrameworkApp.release.xcconfig"; sourceTree = "<group>"; };
 		83BCB6D41F4779F9005241EA /* RoutableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutableTests.swift; sourceTree = "<group>"; };
@@ -127,20 +107,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C7B1355585C69DB758E9872 /* Pods_GenericConnectionFrameworkApp.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		654CB8021F2AC61000419E17 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		654CB80D1F2AC61000419E17 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,7 +156,6 @@
 		654CB8081F2AC61000419E17 /* GenericConnectionFrameworkAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				654CB8091F2AC61000419E17 /* GenericConnectionFrameworkAppTests.swift */,
 				654CB80B1F2AC61000419E17 /* Info.plist */,
 			);
 			path = GenericConnectionFrameworkAppTests;
@@ -199,7 +164,6 @@
 		654CB8131F2AC61000419E17 /* GenericConnectionFrameworkAppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				654CB8141F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.swift */,
 				654CB8161F2AC61000419E17 /* Info.plist */,
 			);
 			path = GenericConnectionFrameworkAppUITests;
@@ -236,8 +200,6 @@
 				DF46FAE41F1FF4F0008641A2 /* GenericConnectionFramework.framework */,
 				DF46FAED1F1FF4F0008641A2 /* GenericConnectionFrameworkTests.xctest */,
 				654CB7F21F2AC61000419E17 /* GenericConnectionFrameworkApp.app */,
-				654CB8051F2AC61000419E17 /* GenericConnectionFrameworkAppTests.xctest */,
-				654CB8101F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -317,42 +279,6 @@
 			productReference = 654CB7F21F2AC61000419E17 /* GenericConnectionFrameworkApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		654CB8041F2AC61000419E17 /* GenericConnectionFrameworkAppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 654CB81E1F2AC61000419E17 /* Build configuration list for PBXNativeTarget "GenericConnectionFrameworkAppTests" */;
-			buildPhases = (
-				654CB8011F2AC61000419E17 /* Sources */,
-				654CB8021F2AC61000419E17 /* Frameworks */,
-				654CB8031F2AC61000419E17 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				654CB8071F2AC61000419E17 /* PBXTargetDependency */,
-			);
-			name = GenericConnectionFrameworkAppTests;
-			productName = GenericConnectionFrameworkAppTests;
-			productReference = 654CB8051F2AC61000419E17 /* GenericConnectionFrameworkAppTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		654CB80F1F2AC61000419E17 /* GenericConnectionFrameworkAppUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 654CB81F1F2AC61000419E17 /* Build configuration list for PBXNativeTarget "GenericConnectionFrameworkAppUITests" */;
-			buildPhases = (
-				654CB80C1F2AC61000419E17 /* Sources */,
-				654CB80D1F2AC61000419E17 /* Frameworks */,
-				654CB80E1F2AC61000419E17 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				654CB8121F2AC61000419E17 /* PBXTargetDependency */,
-			);
-			name = GenericConnectionFrameworkAppUITests;
-			productName = GenericConnectionFrameworkAppUITests;
-			productReference = 654CB8101F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		DF46FAE31F1FF4F0008641A2 /* GenericConnectionFramework */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF46FAF81F1FF4F0008641A2 /* Build configuration list for PBXNativeTarget "GenericConnectionFramework" */;
@@ -414,20 +340,6 @@
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
-					654CB8041F2AC61000419E17 = {
-						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 45BQ97BH8P;
-						LastSwiftMigration = 0900;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 654CB7F11F2AC61000419E17;
-					};
-					654CB80F1F2AC61000419E17 = {
-						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 45BQ97BH8P;
-						LastSwiftMigration = 0900;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 654CB7F11F2AC61000419E17;
-					};
 					DF46FAE31F1FF4F0008641A2 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 45BQ97BH8P;
@@ -458,8 +370,6 @@
 				DF46FAE31F1FF4F0008641A2 /* GenericConnectionFramework */,
 				DF46FAEC1F1FF4F0008641A2 /* GenericConnectionFrameworkTests */,
 				654CB7F11F2AC61000419E17 /* GenericConnectionFrameworkApp */,
-				654CB8041F2AC61000419E17 /* GenericConnectionFrameworkAppTests */,
-				654CB80F1F2AC61000419E17 /* GenericConnectionFrameworkAppUITests */,
 				34ED793B1F98313C0001300E /* Framework */,
 			);
 		};
@@ -473,20 +383,6 @@
 				654CB7FF1F2AC61000419E17 /* LaunchScreen.storyboard in Resources */,
 				654CB7FC1F2AC61000419E17 /* Assets.xcassets in Resources */,
 				654CB7FA1F2AC61000419E17 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		654CB8031F2AC61000419E17 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		654CB80E1F2AC61000419E17 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,22 +566,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		654CB8011F2AC61000419E17 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				654CB80A1F2AC61000419E17 /* GenericConnectionFrameworkAppTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		654CB80C1F2AC61000419E17 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				654CB8151F2AC61000419E17 /* GenericConnectionFrameworkAppUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DF46FADF1F1FF4F0008641A2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -714,16 +594,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		654CB8071F2AC61000419E17 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 654CB7F11F2AC61000419E17 /* GenericConnectionFrameworkApp */;
-			targetProxy = 654CB8061F2AC61000419E17 /* PBXContainerItemProxy */;
-		};
-		654CB8121F2AC61000419E17 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 654CB7F11F2AC61000419E17 /* GenericConnectionFrameworkApp */;
-			targetProxy = 654CB8111F2AC61000419E17 /* PBXContainerItemProxy */;
-		};
 		65DF7FB01F8EE922008665B6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DF46FAE31F1FF4F0008641A2 /* GenericConnectionFramework */;
@@ -805,68 +675,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
-			};
-			name = Release;
-		};
-		654CB8191F2AC61000419E17 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 45BQ97BH8P;
-				INFOPLIST_FILE = GenericConnectionFrameworkAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobileforming.GenericConnectionFrameworkAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GenericConnectionFrameworkApp.app/GenericConnectionFrameworkApp";
-			};
-			name = Debug;
-		};
-		654CB81A1F2AC61000419E17 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 45BQ97BH8P;
-				INFOPLIST_FILE = GenericConnectionFrameworkAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobileforming.GenericConnectionFrameworkAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GenericConnectionFrameworkApp.app/GenericConnectionFrameworkApp";
-			};
-			name = Release;
-		};
-		654CB81B1F2AC61000419E17 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEVELOPMENT_TEAM = 45BQ97BH8P;
-				INFOPLIST_FILE = GenericConnectionFrameworkAppUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobileforming.GenericConnectionFrameworkAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
-				TEST_TARGET_NAME = GenericConnectionFrameworkApp;
-			};
-			name = Debug;
-		};
-		654CB81C1F2AC61000419E17 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEVELOPMENT_TEAM = 45BQ97BH8P;
-				INFOPLIST_FILE = GenericConnectionFrameworkAppUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobileforming.GenericConnectionFrameworkAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
-				TEST_TARGET_NAME = GenericConnectionFrameworkApp;
 			};
 			name = Release;
 		};
@@ -1070,24 +878,6 @@
 			buildConfigurations = (
 				654CB8171F2AC61000419E17 /* Debug */,
 				654CB8181F2AC61000419E17 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		654CB81E1F2AC61000419E17 /* Build configuration list for PBXNativeTarget "GenericConnectionFrameworkAppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				654CB8191F2AC61000419E17 /* Debug */,
-				654CB81A1F2AC61000419E17 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		654CB81F1F2AC61000419E17 /* Build configuration list for PBXNativeTarget "GenericConnectionFrameworkAppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				654CB81B1F2AC61000419E17 /* Debug */,
-				654CB81C1F2AC61000419E17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
