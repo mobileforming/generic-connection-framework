@@ -33,19 +33,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "654CB8041F2AC61000419E17"
-               BuildableName = "GenericConnectionFrameworkAppTests.xctest"
-               BlueprintName = "GenericConnectionFrameworkAppTests"
-               ReferencedContainer = "container:GenericConnectionFramework.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "654CB80F1F2AC61000419E17"
-               BuildableName = "GenericConnectionFrameworkAppUITests.xctest"
-               BlueprintName = "GenericConnectionFrameworkAppUITests"
+               BlueprintIdentifier = "DF46FAEC1F1FF4F0008641A2"
+               BuildableName = "GenericConnectionFrameworkTests.xctest"
+               BlueprintName = "GenericConnectionFrameworkTests"
                ReferencedContainer = "container:GenericConnectionFramework.xcodeproj">
             </BuildableReference>
          </TestableReference>
