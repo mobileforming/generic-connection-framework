@@ -53,7 +53,9 @@ public class RxGCF: GCF {
 			
 			strongself.urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
 				guard let strongself = self else { return }
+				guard let data = data, error == nil else { return observer.onError(GCFError.requestError) }
 				
+				//plugins
 				do {
 					try strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest)
 				} catch GCFPluginError.failureAbortRequest {
@@ -62,14 +64,11 @@ public class RxGCF: GCF {
 					//continue
 				}
 				
-				if let data = data, error == nil {
-					do {
-						observer.onNext(try strongself.parseData(from: data))
-					} catch {
-						observer.onError(GCFError.parsingError)
-					}
-				} else {
-					observer.onError(GCFError.requestError)
+				//serialize data
+				do {
+					observer.onNext(try strongself.parseData(from: data))
+				} catch {
+					observer.onError(GCFError.parsingError)
 				}
                 
                 // The request is no longer in flight, so we can remove our saved observable
@@ -123,7 +122,7 @@ public class RxGCF: GCF {
 			} else {
 				completion(false, error)
 			}
-			}.resume()
+		}.resume()
 	}
 }
 

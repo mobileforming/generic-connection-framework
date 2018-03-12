@@ -6,7 +6,7 @@
 ################################################################################
 MOBILEOS="ios"
 BUILD_KEYS="mf-ios-gcf-keys"
-SCHEME="GenericConnectionFrameworkApp"
+SCHEME="Tests"
 CONFIGURATION="Debug"
 RUNLANE="coverageModule"
 

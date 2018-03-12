@@ -38,12 +38,7 @@ extension GCF {
         
         var urlRequest = URLRequest(url: url, cachePolicy: routable.cachePolicy, timeoutInterval: routable.defaultTimeout)
         urlRequest.httpMethod = routable.method.rawValue
-        
-        if let headers = routable.headers {
-            for (key, value) in headers {
-                urlRequest.setValue(value, forHTTPHeaderField: key)
-            }
-        }
+		routable.headers?.forEach({ urlRequest.addValue($1, forHTTPHeaderField: $0) })
         
         if let body = routable.body, (routable.method == .post || routable.method == .put) {
             urlRequest.httpBody = try! JSONSerialization.data(withJSONObject: body, options: [])

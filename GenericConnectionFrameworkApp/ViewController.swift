@@ -17,21 +17,28 @@ struct TestRoute: Routable {
 	var body: [String : Any]?
 }
 
-struct TestObject: Codable {
-	var identifier: String
+struct Product: Codable {
+	var productId: String
+	var name: String
+	var price: Int
+	
+	enum CodingKeys: String, CodingKey {
+		case productId = "id"
+		case name
+		case price
+	}
 }
 
 class ViewController: UIViewController {
+	
+	let gcf = RxGCF(baseURL: "http://172.33.22.42:9000/api/poc/square/products")
 
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		let gcf = RxGCF(baseURL: "https://google.com")
-		let test = TestRoute(path: "", method: .get, headers: nil, parameters: nil, body: nil)
-		gcf.sendRequest(for: test) { (result: TestObject?, error) in
-			if let error = error {
-				
-			}
+		let vend = TestRoute(path: "", method: .get, headers: nil, parameters: nil, body: nil)
+		gcf.sendRequest(for: vend) { (result: [Product]?, error) in
+			print(result)
 		}
     }
 }
