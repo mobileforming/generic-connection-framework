@@ -9,12 +9,6 @@
 import Foundation
 import RxSwift
 
-public enum GCFError: Error {
-	case parsingError
-	case requestError
-	case pluginError
-}
-
 protocol GCF: class {
 	var baseURL: String { get }
 	var urlSession: URLSession { get }

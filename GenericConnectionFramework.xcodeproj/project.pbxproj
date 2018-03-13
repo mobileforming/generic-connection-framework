@@ -26,6 +26,7 @@
 		343921B21F572113008ED5CC /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921B11F572113008ED5CC /* MockURLSession.swift */; };
 		343921B51F572228008ED5CC /* GCFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921B41F572228008ED5CC /* GCFTests.swift */; };
 		343921B71F57225D008ED5CC /* MockGCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921B61F57225D008ED5CC /* MockGCF.swift */; };
+		3464CE4620585EB8000C6944 /* GCFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3464CE4520585EB8000C6944 /* GCFError.swift */; };
 		34904E821F99011400998A5D /* ios-strip-framework.sh in Resources */ = {isa = PBXBuildFile; fileRef = 34904E811F99011400998A5D /* ios-strip-framework.sh */; };
 		34BF37F21F5609AC0045613A /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F11F5609AC0045613A /* Routable.swift */; };
 		34BF37F41F560ECE0045613A /* GCFPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F31F560ECE0045613A /* GCFPlugin.swift */; };
@@ -70,6 +71,7 @@
 		343921B11F572113008ED5CC /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		343921B41F572228008ED5CC /* GCFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCFTests.swift; sourceTree = "<group>"; };
 		343921B61F57225D008ED5CC /* MockGCF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGCF.swift; sourceTree = "<group>"; };
+		3464CE4520585EB8000C6944 /* GCFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCFError.swift; sourceTree = "<group>"; };
 		34904E811F99011400998A5D /* ios-strip-framework.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "ios-strip-framework.sh"; sourceTree = "<group>"; };
 		34BF37F11F5609AC0045613A /* Routable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routable.swift; sourceTree = "<group>"; };
 		34BF37F31F560ECE0045613A /* GCFPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCFPlugin.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 			children = (
 				34904E811F99011400998A5D /* ios-strip-framework.sh */,
 				343921AF1F571F04008ED5CC /* RxGCF.swift */,
+				3464CE4520585EB8000C6944 /* GCFError.swift */,
 				34BF37F51F5610ED0045613A /* GCF.swift */,
 				34BF37F11F5609AC0045613A /* Routable.swift */,
 				34BF37F31F560ECE0045613A /* GCFPlugin.swift */,
@@ -571,6 +574,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34BF37F61F5610ED0045613A /* GCF.swift in Sources */,
+				3464CE4620585EB8000C6944 /* GCFError.swift in Sources */,
 				34BF37F41F560ECE0045613A /* GCFPlugin.swift in Sources */,
 				343921B01F571F04008ED5CC /* RxGCF.swift in Sources */,
 				34BF37F21F5609AC0045613A /* Routable.swift in Sources */,
@@ -808,6 +812,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-driver-show-incremental\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobileforming.ios.module.gcf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -829,6 +834,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-driver-show-incremental\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobileforming.ios.module.gcf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

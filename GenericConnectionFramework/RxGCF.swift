@@ -58,8 +58,8 @@ public class RxGCF: GCF {
 				//plugins
 				do {
 					try strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest)
-				} catch GCFPluginError.failureAbortRequest {
-					observer.onError(GCFPluginError.failureAbortRequest)
+				} catch GCFError.PluginError.failureAbortRequest {
+					observer.onError(GCFError.PluginError.failureAbortRequest)
 				} catch {
 					//continue
 				}
@@ -111,7 +111,7 @@ public class RxGCF: GCF {
 			
 			do {
 				try strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest)
-			} catch GCFPluginError.failureAbortRequest {
+			} catch GCFError.PluginError.failureAbortRequest {
 				completion(false, GCFError.pluginError)
 			} catch {
 				//continue
