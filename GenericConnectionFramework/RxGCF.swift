@@ -16,11 +16,12 @@ public class RxGCF: GCF {
 	var plugin: GCFPlugin?
 	var decoder: JSONDecoder
 	internal var disposeBag = DisposeBag()
-	var liveObservables: [URLRequest: Any] = [:]
-    
+	var liveObservables: [URLRequest:Any] = [:]
+	let dispatchQueue = DispatchQueue.global(qos: .default)
+	
 	public required init(baseURL: String, decoder: JSONDecoder = JSONDecoder()) {
 		guard !baseURL.isEmpty else { fatalError("invalid base url") }
-		
+	
 		self.baseURL = baseURL
         self.urlSession = URLSession(configuration: .default)
 		self.decoder = decoder
@@ -35,15 +36,12 @@ public class RxGCF: GCF {
 	}
 	
 	public func sendRequest<T: Codable>(for routable: Routable) -> Observable<T> {
-        
         var urlRequest = constructURLRequest(from: routable)
         
         // Check to see if we already have an existing observable for this request
         if let storedObservable = liveObservables[urlRequest] as? Observable<T> {
             return storedObservable
         }
-        
-		plugin?.willSendRequest(&urlRequest)
 		
 		let observable = Observable<T>.create { [weak self] observer in
 			guard let strongself = self else {
@@ -51,32 +49,36 @@ public class RxGCF: GCF {
 				return Disposables.create()
 			}
 			
-			strongself.urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
-				guard let strongself = self else { return }
-				guard let data = data, error == nil else { return observer.onError(GCFError.requestError) }
-				
-				//plugins
-				do {
-					try strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest)
-				} catch GCFPluginError.failureAbortRequest {
-					observer.onError(GCFPluginError.failureAbortRequest)
-				} catch {
-					//continue
-				}
-				
-				//serialize data
-				do {
-					observer.onNext(try strongself.parseData(from: data))
-				} catch {
-					observer.onError(GCFError.parsingError)
-				}
-                
-                // The request is no longer in flight, so we can remove our saved observable
-                strongself.liveObservables.removeValue(forKey: urlRequest)
-				
-				observer.onCompleted()
-				
-			}.resume()
+			strongself.dispatchQueue.async {
+				strongself.plugin?.willSendRequest(&urlRequest)
+
+				strongself.urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
+					guard let strongself = self else { return }
+					guard let data = data, error == nil else { return observer.onError(GCFError.requestError) }
+					
+					//plugins
+					do {
+						try strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest)
+					} catch GCFError.PluginError.failureAbortRequest {
+						observer.onError(GCFError.PluginError.failureAbortRequest)
+					} catch {
+						//continue
+					}
+					
+					//serialize data
+					do {
+						observer.onNext(try strongself.parseData(from: data))
+					} catch {
+						observer.onError(GCFError.parsingError)
+					}
+					
+					// The request is no longer in flight, so we can remove our saved observable
+					strongself.liveObservables.removeValue(forKey: urlRequest)
+					
+					observer.onCompleted()
+					
+				}.resume()
+			}
 			
 			return Disposables.create()
 		}.share()
@@ -102,27 +104,28 @@ public class RxGCF: GCF {
 	}
 	
 	public func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void) {
-		var urlRequest = constructURLRequest(from: routable)
-		
-		plugin?.willSendRequest(&urlRequest)
-		
-		urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
-			guard let strongself = self else { return }
+		dispatchQueue.async {
+			var urlRequest = self.constructURLRequest(from: routable)
+			self.plugin?.willSendRequest(&urlRequest)
 			
-			do {
-				try strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest)
-			} catch GCFPluginError.failureAbortRequest {
-				completion(false, GCFError.pluginError)
-			} catch {
-				//continue
-			}
-			
-			if data != nil, error == nil {
-				completion(true, nil)
-			} else {
-				completion(false, error)
-			}
-		}.resume()
+			self.urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
+				guard let strongself = self else { return }
+				
+				do {
+					try strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest)
+				} catch GCFError.PluginError.failureAbortRequest {
+					completion(false, GCFError.pluginError)
+				} catch {
+					//continue
+				}
+				
+				if data != nil, error == nil {
+					completion(true, nil)
+				} else {
+					completion(false, error)
+				}
+			}.resume()
+		}
 	}
 }
 

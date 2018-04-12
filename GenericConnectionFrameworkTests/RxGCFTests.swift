@@ -18,6 +18,7 @@ class RxGCFTests: XCTestCase {
 		var headers: [String : String]?
 		var parameters: [String : String]?
 		var body: [String : Any]?
+		var needsAuthorization: Bool
 	}
 	
 	struct TestPost: Codable {
@@ -44,7 +45,7 @@ class RxGCFTests: XCTestCase {
 	}
 	
 	func testSendRequestGET() {
-		let route = TestRoutable(path: "/posts/1", method: .get, headers: nil, parameters: nil, body: nil)
+		let route = TestRoutable(path: "/posts/1", method: .get, headers: nil, parameters: nil, body: nil, needsAuthorization: false)
 		let exp = expectation(description: "observable get")
 		
 		let observable: Observable<TestPost> = gcf!.sendRequest(for: route)
@@ -64,7 +65,7 @@ class RxGCFTests: XCTestCase {
 	}
 	
 	func testSendRequestPOST() {
-		let route = TestRoutable(path: "/posts", method: .post, headers: nil, parameters: nil, body: ["title": "test", "body": "test", "userId": 1])
+		let route = TestRoutable(path: "/posts", method: .post, headers: nil, parameters: nil, body: ["title": "test", "body": "test", "userId": 1], needsAuthorization: false)
 		
 		let exp = expectation(description: "post request")
 		gcf!.sendRequest(for: route) { (success, error) in
@@ -77,7 +78,7 @@ class RxGCFTests: XCTestCase {
 	}
 	
 	func testSendRequestPUT() {
-		let route = TestRoutable(path: "/posts", method: .put, headers: nil, parameters: nil, body: ["title": "test", "body": "test", "userId": 1])
+		let route = TestRoutable(path: "/posts", method: .put, headers: nil, parameters: nil, body: ["title": "test", "body": "test", "userId": 1], needsAuthorization: false)
 		
 		let exp = expectation(description: "put request")
 		gcf!.sendRequest(for: route) { (success, error) in
@@ -90,7 +91,7 @@ class RxGCFTests: XCTestCase {
 	}
 	
 	func testSendRequestParsingError() {
-		let route = TestRoutable(path: "/posts", method: .post, headers: nil, parameters: nil, body: nil)
+		let route = TestRoutable(path: "/posts", method: .post, headers: nil, parameters: nil, body: nil, needsAuthorization: false)
 		let exp = expectation(description: "post request")
 
 		let observable: Observable<TestPost> = gcf!.sendRequest(for: route)
@@ -109,7 +110,7 @@ class RxGCFTests: XCTestCase {
 	}
 	
 	func testSendRequestCompletion() {
-		let route = TestRoutable(path: "/posts/1", method: .get, headers: nil, parameters: nil, body: nil)
+		let route = TestRoutable(path: "/posts/1", method: .get, headers: nil, parameters: nil, body: nil, needsAuthorization: false)
 		
 		let exp = expectation(description: "get request")
 		gcf!.sendRequest(for: route) { (post: TestPost?, error) in

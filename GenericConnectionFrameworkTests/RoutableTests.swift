@@ -72,4 +72,8 @@ enum Router: Routable {
             return nil
         }
     }
+	
+	var needsAuthorization: Bool {
+		return false
+	}
 }

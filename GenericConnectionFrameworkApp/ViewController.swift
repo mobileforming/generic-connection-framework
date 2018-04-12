@@ -15,6 +15,7 @@ struct TestRoute: Routable {
 	var headers: [String : String]?
 	var parameters: [String : String]?
 	var body: [String : Any]?
+	var needsAuthorization: Bool
 }
 
 struct Product: Codable {
@@ -36,7 +37,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		let vend = TestRoute(path: "", method: .get, headers: nil, parameters: nil, body: nil)
+		let vend = TestRoute(path: "", method: .get, headers: nil, parameters: nil, body: nil, needsAuthorization: false)
 		gcf.sendRequest(for: vend) { (result: [Product]?, error) in
 			print(result)
 		}

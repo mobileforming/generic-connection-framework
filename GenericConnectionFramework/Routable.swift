@@ -15,6 +15,7 @@ public protocol Routable {
     var headers: [String : String]? { get }
     var parameters: [String : String]? { get }
     var body: [String : Any]? { get }
+	var needsAuthorization: Bool { get }
     
     // To be overriden...
     var defaultTimeout: TimeInterval { get }
