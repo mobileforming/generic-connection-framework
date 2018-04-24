@@ -21,7 +21,7 @@ gem 'danger-prose'
 gem 'fastlane'
 
 # cocoapods
-gem 'cocoapods', '1.1.1'
+gem 'cocoapods', '1.4.0'
 
 # Danger for Jenkins
 gem "danger-jenkins"
