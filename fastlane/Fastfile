@@ -1,4 +1,4 @@
-# Customise this file, documentation can be found here:
+0# Customise this file, documentation can be found here:
 # https://github.com/fastlane/fastlane/tree/master/fastlane/docs
 # All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
 # can also be listed using the `fastlane actions` command
@@ -92,6 +92,10 @@ platform :ios do
       path: options[:framework],
       output_path: "#{options[:framework]}.zip"
     )
+    
+    add_git_tag(tag: version)
+    push_git_tags
+    
     nexus_upload(
       verbose: true,
       file: "#{options[:framework]}.zip",
