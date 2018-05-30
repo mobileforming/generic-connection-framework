@@ -12,9 +12,9 @@ import GenericConnectionFramework
 struct TestRoute: Routable {
 	var path: String
 	var method: HTTPMethod
-	var headers: [String : String]?
-	var parameters: [String : String]?
-	var body: [String : Any]?
+	var headers: [String:String]?
+	var parameters: [String:String]?
+	var body: [String:Any]?
 	var needsAuthorization: Bool
 }
 
@@ -32,7 +32,7 @@ struct Product: Codable {
 
 class ViewController: UIViewController {
 	
-	let gcf = RxGCF(baseURL: "http://172.33.22.42:9000/api/poc/square/products")
+	let gcf = APIClient(baseURL: "http://172.33.22.42:9000/api/poc/square/products")
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -7,11 +7,10 @@
 //
 
 import XCTest
-import RxSwift
 @testable import GenericConnectionFramework
 
 class RxGCFTests: XCTestCase {
-	
+
 	struct TestRoutable: Routable {
 		var path: String
 		var method: HTTPMethod
@@ -20,98 +19,86 @@ class RxGCFTests: XCTestCase {
 		var body: [String : Any]?
 		var needsAuthorization: Bool
 	}
-	
+
 	struct TestPost: Codable {
 		var title: String
 	}
-    
-	var gcf: RxGCF?
+
+	var gcf: APIClient?
 	let urlSession = MockURLSession()
-	let disposeBag = DisposeBag()
-	
+
 	override func setUp() {
 		super.setUp()
-		gcf = RxGCF(baseURL: "https://jsonplaceholder.typicode.com")
+		gcf = APIClient(baseURL: "https://jsonplaceholder.typicode.com")
 	}
-	
+
 	override func tearDown() {
 		gcf = nil
 		super.tearDown()
 	}
-	
+
 	func testInit() {
 		XCTAssertEqual(gcf!.baseURL, "https://jsonplaceholder.typicode.com")
 		XCTAssertNil(gcf!.plugin)
 	}
-	
+
 	func testSendRequestGET() {
 		let route = TestRoutable(path: "/posts/1", method: .get, headers: nil, parameters: nil, body: nil, needsAuthorization: false)
 		let exp = expectation(description: "observable get")
 		
-		let observable: Observable<TestPost> = gcf!.sendRequest(for: route)
-		observable.subscribe { (event) in
-			switch event {
-			case .next(let post):
-				XCTAssertNotNil(post)
-				XCTAssertTrue(post.title.contains("sunt aut"))
-			case .error(let error):
-				XCTFail(error.localizedDescription)
-			case .completed:
-				exp.fulfill()
-			}
-			}.disposed(by: disposeBag)
-		
+		gcf!.sendRequest(for: route, completion: { (result: TestPost?, error) in
+			XCTAssertNotNil(result)
+			XCTAssertTrue(result!.title.contains("sunt aut"))
+			exp.fulfill()
+		})
+
 		waitForExpectations(timeout: 10, handler: nil)
 	}
-	
+
 	func testSendRequestPOST() {
 		let route = TestRoutable(path: "/posts", method: .post, headers: nil, parameters: nil, body: ["title": "test", "body": "test", "userId": 1], needsAuthorization: false)
-		
+
 		let exp = expectation(description: "post request")
 		gcf!.sendRequest(for: route) { (success, error) in
 			XCTAssertNil(error)
 			XCTAssertTrue(success)
 			exp.fulfill()
 		}
-		
+
 		waitForExpectations(timeout: 10, handler: nil)
 	}
-	
+
 	func testSendRequestPUT() {
 		let route = TestRoutable(path: "/posts", method: .put, headers: nil, parameters: nil, body: ["title": "test", "body": "test", "userId": 1], needsAuthorization: false)
-		
+
 		let exp = expectation(description: "put request")
 		gcf!.sendRequest(for: route) { (success, error) in
 			XCTAssertNil(error)
 			XCTAssertTrue(success)
 			exp.fulfill()
 		}
-		
+
 		waitForExpectations(timeout: 10, handler: nil)
 	}
-	
+
 	func testSendRequestParsingError() {
 		let route = TestRoutable(path: "/posts", method: .post, headers: nil, parameters: nil, body: nil, needsAuthorization: false)
 		let exp = expectation(description: "post request")
-
-		let observable: Observable<TestPost> = gcf!.sendRequest(for: route)
-		observable.subscribe { (event) in
-			switch event {
-			case .next(_):
-				XCTFail()
-			case .error(_):
-				exp.fulfill()
-			case .completed:
-				XCTFail()
-			}
-			}.disposed(by: disposeBag)
 		
+		gcf!.sendRequest(for: route) { (result: TestPost?, error) in
+			if result != nil {
+				XCTFail()
+			} else if error != nil {
+				exp.fulfill()
+			}
+		}
+
 		waitForExpectations(timeout: 10, handler: nil)
 	}
-	
+
 	func testSendRequestCompletion() {
 		let route = TestRoutable(path: "/posts/1", method: .get, headers: nil, parameters: nil, body: nil, needsAuthorization: false)
-		
+
 		let exp = expectation(description: "get request")
 		gcf!.sendRequest(for: route) { (post: TestPost?, error) in
 			XCTAssertNotNil(post)
@@ -119,15 +106,10 @@ class RxGCFTests: XCTestCase {
 			XCTAssertTrue(post!.title.contains("sunt aut"))
 			exp.fulfill()
 		}
-		
+
 		waitForExpectations(timeout: 10, handler: nil)
 	}
-    
-    func testConfigurePlugin() {
-        gcf!.configurePlugin(MockGCFPlugin())
-        XCTAssertNotNil(gcf!.plugin)
-    }
-    
+
     func testConfigurePlugins() {
         gcf!.configurePlugins([MockGCFPlugin(), MockGCFPlugin()])
         XCTAssertNotNil(gcf!.plugin)

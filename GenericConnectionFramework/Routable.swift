@@ -12,9 +12,9 @@ import Foundation
 public protocol Routable {
     var path: String { get }
     var method: HTTPMethod { get }
-    var headers: [String : String]? { get }
-    var parameters: [String : String]? { get }
-    var body: [String : Any]? { get }
+    var headers: [String:String]? { get }
+    var parameters: [String:String]? { get }
+    var body: [String:Any]? { get }
 	var needsAuthorization: Bool { get }
     
     // To be overriden...
