@@ -746,8 +746,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = CommonCrypto;
-				"SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" = CommonCrypto/iphoneos;
-				"SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]" = CommonCrypto/iphonesimulator;
 			};
 			name = Debug;
 		};
@@ -773,8 +771,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = CommonCrypto;
-				"SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" = CommonCrypto/iphoneos;
-				"SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]" = CommonCrypto/iphonesimulator;
 			};
 			name = Release;
 		};
