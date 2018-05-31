@@ -81,13 +81,6 @@ platform :ios do
       f.write(changeArtifact)
     end
     
-    # Modify mofo podspec with version number
-    spec = File.read("../MF#{options[:podspec]}")
-    changeVersion = spec.gsub("projectVersion", version)
-    File.open("../MF#{options[:podspec]}", "w") do |f|
-      f.write(changeVersion)
-    end
-    
     xcodebuild(
       clean: true,
       scheme: options[:scheme],
@@ -99,6 +92,10 @@ platform :ios do
       path: options[:framework],
       output_path: "#{options[:framework]}.zip"
     )
+    
+    add_git_tag(tag: version)
+    push_git_tags
+    
     nexus_upload(
       verbose: true,
       file: "#{options[:framework]}.zip",
