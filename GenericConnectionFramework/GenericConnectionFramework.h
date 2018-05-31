@@ -15,5 +15,3 @@ FOUNDATION_EXPORT double GenericConnectionFrameworkVersionNumber;
 FOUNDATION_EXPORT const unsigned char GenericConnectionFrameworkVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <GenericConnectionFramework/PublicHeader.h>
-
-

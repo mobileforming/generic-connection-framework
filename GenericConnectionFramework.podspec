@@ -9,10 +9,10 @@ Pod::Spec.new do |s|
   s.author       = "mobileforming LLC"
   s.platform     = :ios, "9.0"
   
-  s.dependency "RxSwift", "~> 4.0"
-
   s.source 		 = { :http => 'https://nexus.mobileforming.com/content/repositories/staging/com/mobileforming/ios/module/nexusArtifact/projectVersion/nexusArtifact-projectVersion.zip' }
   s.vendored_frameworks = 'GenericConnectionFramework.framework'
-	
+
+  s.preserve_paths = 'CommonCrypto/module.modulemap'
+  s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(PODS_ROOT)/GenericConnectionFramework/CommonCrypto' }
 
 end

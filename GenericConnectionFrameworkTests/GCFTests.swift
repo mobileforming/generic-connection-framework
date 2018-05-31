@@ -14,9 +14,9 @@ class GCFTests: XCTestCase {
 	struct TestRoutable: Routable {
 		var path: String
 		var method: HTTPMethod
-		var headers: [String : String]?
-		var parameters: [String : String]?
-		var body: [String : Any]?
+		var headers: [String:String]?
+		var parameters: [String:String]?
+		var body: [String:Any]?
 		var needsAuthorization: Bool
 	}
 	
@@ -25,12 +25,12 @@ class GCFTests: XCTestCase {
 	}
 	
 	var gcf: MockGCF?
-    
+	
     override func setUp() {
         super.setUp()
 		gcf = MockGCF(baseURL: "https://google.com")
     }
-    
+	
     override func tearDown() {
         gcf = nil
         super.tearDown()
