@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.0.0] 
+### Changed
+ - Plugin interface, added support for auth handling
+
 ## [3.0.0]
 ### Added
  - Support for graphQL through extending the routable 
