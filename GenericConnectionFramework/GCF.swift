@@ -12,7 +12,7 @@ protocol GCF: class {
 	var baseURL: String { get }
 	var urlSession: URLSession { get }
 	var decoder: JSONDecoder { get set }
-	var plugin: GCFPlugin? { get set }
+	var plugin: AggregatePlugin? { get set }
 	
 	init(baseURL: String, decoder: JSONDecoder, pinPublicKey: String?)
 	func sendRequest<T: Codable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void)

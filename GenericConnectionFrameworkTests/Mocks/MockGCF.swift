@@ -10,11 +10,11 @@ import Foundation
 @testable import GenericConnectionFramework
 
 open class MockGCF: GCF {
-	
+
 	public var baseURL: String
 	public var urlSession: URLSession
 	public var decoder: JSONDecoder
-	public var plugin: GCFPlugin?
+	public var plugin: AggregatePlugin?
 	
 	public required init(baseURL: String, decoder: JSONDecoder = JSONDecoder(), pinPublicKey: String? = nil) {
         guard !baseURL.isEmpty else { fatalError("invalid base url") }

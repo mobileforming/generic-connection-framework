@@ -35,7 +35,7 @@ class GCFPluginTests: XCTestCase {
 		gcfPlugin = AggregatePlugin(plugins: [MockGCFPlugin()])
 		
 		var request = URLRequest(url: URL(string: "http://google.com")!)
-		gcfPlugin!.willSendRequest(&request)
+        gcfPlugin!.willSendRequest(&request, needsAuthorization: true)
 		
 		let plugin = gcfPlugin!.plugins.first! as! MockGCFPlugin
 		XCTAssertEqual(plugin.willSendCalledCount, 1)

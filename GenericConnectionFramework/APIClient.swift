@@ -12,7 +12,7 @@ public class APIClient: GCF {
 	
 	var baseURL: String
 	var urlSession: URLSession
-	var plugin: GCFPlugin?
+    var plugin: AggregatePlugin?
 	var decoder: JSONDecoder
 	let dispatchQueue = DispatchQueue.global(qos: .default)
 	var pinningDelegate: URLSessionDelegate?
@@ -32,19 +32,28 @@ public class APIClient: GCF {
 	public func configurePlugins(_ plugins: [GCFPlugin]) {
 		self.plugin = AggregatePlugin(plugins: plugins)
 	}
+
+    public func appendPlugin(_ plugin: GCFPlugin) {
+        guard let aggregate = self.plugin else {
+            return configurePlugins([plugin])
+        }
+
+       aggregate.plugins.append(plugin)
+    }
 	
 	public func sendRequest<T: Codable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void) {
 		var urlRequest = constructURLRequest(from: routable)
-		
 		dispatchQueue.async {
-			self.plugin?.willSendRequest(&urlRequest)
+			self.plugin?.willSendRequest(&urlRequest, needsAuthorization: routable.needsAuthorization)
 			self.urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
 				guard let strongself = self else { return }
 				
 				do {
 					try strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest)
 				} catch GCFError.PluginError.failureAbortRequest {
-					completion(nil, GCFError.pluginError)
+					return completion(nil, GCFError.pluginError)
+                } catch GCFError.authError(let error) {
+                    return completion(nil, error)
 				} catch {
 					//continue
 				}
@@ -57,7 +66,7 @@ public class APIClient: GCF {
 					}
 					
 				} else {
-					completion(nil,GCFError.requestError)
+					completion(nil, GCFError.requestError)
 				}
 				}.resume()
 		}
@@ -66,7 +75,7 @@ public class APIClient: GCF {
 	public func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void) {
 		dispatchQueue.async {
 			var urlRequest = self.constructURLRequest(from: routable)
-			self.plugin?.willSendRequest(&urlRequest)
+			self.plugin?.willSendRequest(&urlRequest, needsAuthorization: routable.needsAuthorization)
 			
 			self.urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
 				guard let strongself = self else { return }

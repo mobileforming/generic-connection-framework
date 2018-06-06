@@ -12,6 +12,7 @@ public enum GCFError: Error {
 	case parsingError
 	case requestError
 	case pluginError
+    case authError(error: Error)
 	
 	public enum PluginError: Error {
 		case failureAbortRequest		//fail entire request

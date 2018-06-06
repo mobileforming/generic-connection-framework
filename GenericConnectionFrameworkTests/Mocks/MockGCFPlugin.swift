@@ -10,10 +10,11 @@ import Foundation
 @testable import GenericConnectionFramework
 
 class MockGCFPlugin: GCFPlugin {
+
 	var willSendCalledCount = 0
 	var didReceiveCalledCount = 0
 	
-	func willSendRequest(_ request: inout URLRequest) {
+	func willSendRequest(_ request: inout URLRequest, needsAuthorization: Bool) {
 		willSendCalledCount += 1
 	}
 	
