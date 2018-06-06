@@ -114,4 +114,13 @@ class RxGCFTests: XCTestCase {
         gcf!.configurePlugins([MockGCFPlugin(), MockGCFPlugin()])
         XCTAssertNotNil(gcf!.plugin)
     }
+
+    func testAppendPlugins() {
+        gcf?.appendPlugin(MockGCFPlugin())
+        XCTAssertNotNil(gcf?.plugin)
+        XCTAssertEqual(gcf!.plugin!.plugins.count, 1)
+
+        gcf?.appendPlugin(MockGCFPlugin())
+        XCTAssertEqual(gcf!.plugin!.plugins.count, 2)
+    }
 }

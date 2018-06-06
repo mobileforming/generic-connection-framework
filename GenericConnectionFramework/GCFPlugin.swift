@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol GCFPlugin {
-	func willSendRequest(_ request: inout URLRequest)
+    func willSendRequest(_ request: inout URLRequest, needsAuthorization: Bool)
 	func didReceive(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) throws
 }
 
@@ -20,8 +20,8 @@ class AggregatePlugin: GCFPlugin {
 		self.plugins = plugins
 	}
 	
-	func willSendRequest(_ request: inout URLRequest) {
-		plugins.forEach({ $0.willSendRequest(&request) })
+	func willSendRequest(_ request: inout URLRequest, needsAuthorization: Bool) {
+		plugins.forEach({ $0.willSendRequest(&request, needsAuthorization: needsAuthorization) })
 	}
 	
 	func didReceive(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) throws {
