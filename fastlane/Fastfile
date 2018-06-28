@@ -10,8 +10,9 @@
 # update_fastlane
 
 # Update this, if you use features of a newer version
-fastlane_version "1.105.0"
+fastlane_version "2.96.1"
 
+require 'open3'
 
 # Pull in MF commonly used lanes
 import_from_git(url: 'git@gitlab.mobileforming.com:commons/ios-fastlane.git', branch: 'master', path: 'fastlane/Fastfile')
@@ -20,7 +21,9 @@ default_platform :ios
 
 platform :ios do
   before_all do
-    cocoapods
+    cocoapods(
+      try_repo_update_on_error: true
+    )
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
   end
   
@@ -32,6 +35,31 @@ platform :ios do
         UI.error("fastlane/keys file not found. To use this Fastfile, copy fastlane/keys.template into fastlane/keys and fill in the values")
         raise exception
       end
+  end
+  
+  ################################################################################  
+  # Method to determine a repo name from a URL.
+  # Used for pod repo add if the podspec repo hasn't previously been used on a server.
+  ################################################################################
+  def determineRepoName (repoURL)
+    begin
+      last = repoURL.split("/").last
+      final = last.split(".").last
+      tempRepoName = last.chomp("." + final)
+      return tempRepoName
+    rescue => exception
+      puts "ERROR parsing repo name from repo URL"
+    end
+  end
+  
+  ################################################################################  
+  # Method to get branch name from origin/branchName 
+  ################################################################################
+
+  def modifyBranch(gitBranch)
+    git_branch = "#{gitBranch}"
+    puts "Full branch path is: " + git_branch
+    baseBranch = git_branch.reverse.chomp('/nigiro').reverse
   end
   
   ################################################################################
@@ -55,70 +83,87 @@ platform :ios do
   end
   
   ################################################################################
-  # Nexus upload lane - Upload to staging repo in Nexus
+  # Upload podspec - source for internal repo
   ################################################################################
-  desc "Build framework and upload to Nexus"
-  lane :artifactUploadNexus do |options|
+  desc "Lane to upload podspec to internal source podspec repos"
+  lane :distributionUploadInternalPods do |options|
     load_keys
     
+    # Determine where to push changes back to
+    pushBranch = modifyBranch(options[:gitBranch])
+  
     # Get version from plist
     version = get_info_plist_value(path: options[:plistPath], key: "CFBundleShortVersionString")
-    
-    # Parse group name and articaft from bundle ID
-    identifier = ENV["BUNDLE_ID"]
-    artifact = identifier.split(".").last
-    group = identifier.chomp("." + artifact)
-    
-    # Modify binary podspec with version number and artifact
-    spec = File.read("../#{options[:podspec]}")
-    changeVersion = spec.gsub("projectVersion", version)
-    File.open("../#{options[:podspec]}", "w") do |f|
-      f.write(changeVersion)
-    end
-    spec = File.read("../#{options[:podspec]}")
-    changeArtifact = spec.gsub("nexusArtifact", artifact)
-    File.open("../#{options[:podspec]}", "w") do |f|
-      f.write(changeArtifact)
-    end
-    
-    xcodebuild(
-      clean: true,
+  
+    # Replace version in podspec
+    text = File.read("../#{options[:podspecFilePath]}")
+    newVersion = text.gsub(/^  s.version.*$/, '  s.version      = "' + version + '"')
+    File.open("../#{options[:podspecFilePath]}", "w") {|file| file.puts newVersion }
+  
+    gym(
       scheme: options[:scheme],
       configuration: options[:configuration],
-      workspace: options[:workspace],
-      build: true
+      skip_archive: true,
+      skip_package_ipa: true
     )
-    zip(
-      path: options[:framework],
-      output_path: "#{options[:framework]}.zip"
-    )
-    
+  
+    git_add
+    git_commit(path: "*.*", message: "Version bump")
     add_git_tag(tag: version)
-    push_git_tags
-    
-    nexus_upload(
-      verbose: true,
-      file: "#{options[:framework]}.zip",
-      repo_id: "staging",
-      repo_group_id: group,
-      repo_project_name: artifact,
-      repo_project_version: version,
-      mount_path: "",
-      endpoint: ENV["NEXUS_PATH"],
-      username: ENV["NEXUS_USERNAME"],
-      password: ENV["NEXUS_PASSWORD"]
+    #push_git_tags
+    push_to_git_remote(
+      local_branch: "HEAD",
+      remote_branch: pushBranch,
+      tags: true,
+      force: false
     )
-    
-    # Upload podspecs to their respective repos
-    mofo_urls = options[:mofoRepos].split(",")
-    client_repos = options[:clientRepos].split(",")
-    for clientUrl in client_repos
-      sh "pod repo push #{clientUrl} ../#{options[:podspec]}"
+  
+    existingPodRepos = Open3.capture3("pod repo list").to_s
+    podspecURLS = options[:podspecRepoURLS].split(",")
+    sourceURLS = options[:sourceURLS].split(",")
+    for url in podspecURLS
+      if !existingPodRepos.include? url
+        repoName = determineRepoName(url)
+        sh "pod repo add #{repoName} #{url}"
+      end
+      text = File.read("../#{options[:podspecFilePath]}")
+      source = "s.source       = { :git => '" + sourceURLS[podspecURLS.index(url)] + "', :tag => '#{version}' }"
+      puts "New source = #{source}"
+      newSource = text.gsub(/^.*s.source\ .*$/, "  " + source)
+      File.open("../#{options[:podspecFilePath]}", "w") {|file| file.puts newSource }
+      sh "pod repo push #{url} ../#{options[:podspecFilePath]}"
     end
-    sh "rm ../#{options[:podspec]}"
-    sh "mv ../MF#{options[:podspec]} ../#{options[:podspec]}"
-    for url in mofo_urls
-      sh "pod repo push #{url} ../#{options[:podspec]}"
+  end
+  
+  ################################################################################
+  # Upload podspec - source for client repos
+  ################################################################################
+  desc "Lane to upload podspec to client source podspec repos"
+  lane :distributionUploadClientPods do |options|
+    load_keys
+  
+    # Get version from plist
+    version = get_info_plist_value(path: options[:plistPath], key: "CFBundleShortVersionString")
+  
+    # Replace version in podspec
+    text = File.read("../#{options[:podspecFilePath]}")
+    newVersion = text.gsub(/^  s.version.*$/, '  s.version      = "' + version + '"')
+    File.open("../#{options[:podspecFilePath]}", "w") {|file| file.puts newVersion }
+  
+    existingPodRepos = Open3.capture3("pod repo list").to_s
+    podspecURLS = options[:podspecRepoURLS].split(",")
+    sourceURLS = options[:sourceURLS].split(",")
+    for url in podspecURLS
+      if !existingPodRepos.include? url
+        repoName = determineRepoName(url)
+        sh "pod repo add #{repoName} #{url}"
+      end
+      text = File.read("../#{options[:podspecFilePath]}")
+      source = "s.source       = { :git => '" + sourceURLS[podspecURLS.index(url)] + "', :tag => '#{version}' }"
+      puts "New source = #{source}"
+      newSource = text.gsub(/^.*s.source\ .*$/, "  " + source)
+      File.open("../#{options[:podspecFilePath]}", "w") {|file| file.puts newSource }
+      sh "pod repo push #{url} ../#{options[:podspecFilePath]}"
     end
   end
  
