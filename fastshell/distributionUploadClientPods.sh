@@ -20,7 +20,7 @@ SOURCE_URLS="https://jira.hilton.com/stash/scm/hm/mobileforming-ios-module-gcf.g
 ################################################################################
 # Optional parameters
 ################################################################################
-_MF_BRANCH_JOB_CREATE="master"
+_MF_BRANCH_JOB_CREATE="dev"
 _MF_EMAIL_LIST="alan.downs@mobileforming.com bret.seemann@mobileforming.com"
 _MF_QUIET_PERIOD=360
 
