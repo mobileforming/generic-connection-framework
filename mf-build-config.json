@@ -1,5 +1,5 @@
 {
-  "seedJobName":"seed-jobs/seed-fastlane-ios-build-job-v001-lab",
+  "seedJobName":"seed-jobs/seed-fastlane-ios-build-job-v002-lab",
   "executeLane":"coverageModule",
   "sonarQubeScannerName":"sonar",
   "fastlaneKeysName":"mf-ios-gcf-keys",
