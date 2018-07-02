@@ -14,7 +14,6 @@ class GraphRoutableTests: XCTestCase {
 	struct TestGraphRoute: GraphRoutable {
 		var query: String
 		var variables: [String:Any]?
-		var path: String
 		var method: HTTPMethod
 		var headers: [String:String]?
 		var parameters: [String:String]?
@@ -22,7 +21,7 @@ class GraphRoutableTests: XCTestCase {
 	}
     
 	func testQueryData() {
-		let route = TestGraphRoute(query: "testquery", variables: nil, path: "/none", method: .get, headers: nil, parameters: nil, needsAuthorization: false)
+		let route = TestGraphRoute(query: "testquery", variables: nil, method: .get, headers: nil, parameters: nil, needsAuthorization: false)
 		
 		let body = route.body
 		XCTAssertNotNil(body)
@@ -32,7 +31,7 @@ class GraphRoutableTests: XCTestCase {
 	}
 	
 	func testQueryAndVariableData() {
-		let route = TestGraphRoute(query: "testquery", variables: ["testvar": 1], path: "/none", method: .get, headers: nil, parameters: nil, needsAuthorization: false)
+		let route = TestGraphRoute(query: "testquery", variables: ["testvar": 1], method: .get, headers: nil, parameters: nil, needsAuthorization: false)
 		
 		let body = route.body
 		XCTAssertNotNil(body)
@@ -43,5 +42,9 @@ class GraphRoutableTests: XCTestCase {
 		XCTAssertNotNil(variables)
 		XCTAssertEqual(variables!["testvar"] as! Int, 1)
 	}
-    
+	
+	func testPath() {
+		let route = TestGraphRoute(query: "testquery", variables: ["testvar": 1], method: .get, headers: nil, parameters: nil, needsAuthorization: false)
+		XCTAssertTrue(route.path.isEmpty)
+	}
 }

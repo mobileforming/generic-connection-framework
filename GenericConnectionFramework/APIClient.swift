@@ -17,6 +17,16 @@ public class APIClient: GCF {
 	let dispatchQueue = DispatchQueue.global(qos: .default)
 	var pinningDelegate: URLSessionDelegate?
 	
+	public required init(configuration: RemoteConfiguration) {
+		baseURL = configuration.baseURL
+		
+		let urlConfig = URLSessionConfiguration.default
+		urlConfig.httpAdditionalHeaders = configuration.defaultHeaders
+		
+		urlSession = URLSession(configuration: urlConfig)
+		decoder = JSONDecoder()
+	}
+	
 	public required init(baseURL: String, decoder: JSONDecoder = JSONDecoder(), pinPublicKey: String? = nil) {
 		guard !baseURL.isEmpty else { fatalError("invalid base url") }
 		

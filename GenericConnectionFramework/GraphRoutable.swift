@@ -24,4 +24,8 @@ public extension GraphRoutable {
 		
 		return data
 	}
+	
+	public var path: String {
+		return ""
+	}
 }

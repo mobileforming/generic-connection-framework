@@ -16,6 +16,12 @@ open class MockGCF: GCF {
 	public var decoder: JSONDecoder
 	public var plugin: AggregatePlugin?
 	
+	public required init(configuration: RemoteConfiguration) {
+		self.baseURL = configuration.baseURL
+		urlSession = MockURLSession()
+		self.decoder = JSONDecoder()
+	}
+	
 	public required init(baseURL: String, decoder: JSONDecoder = JSONDecoder(), pinPublicKey: String? = nil) {
         guard !baseURL.isEmpty else { fatalError("invalid base url") }
 		
