@@ -9,7 +9,7 @@
 import Foundation
 
 public class APIClient: GCF {
-	
+	var remoteConfiguration: RemoteConfiguration?
 	var baseURL: String
 	var urlSession: URLSession
     var plugin: AggregatePlugin?
@@ -18,6 +18,8 @@ public class APIClient: GCF {
 	var pinningDelegate: URLSessionDelegate?
 	
 	public required init(configuration: RemoteConfiguration) {
+		remoteConfiguration = configuration
+		
 		baseURL = configuration.baseURL
 		
 		let urlConfig = URLSessionConfiguration.default

@@ -13,7 +13,17 @@ public protocol RemoteConfiguration {
 	var defaultHeaders: [String:String]? { get }
 }
 
+public protocol GraphRemoteConfiguration: RemoteConfiguration {
+	var graphURL: String { get }
+}
+public extension GraphRemoteConfiguration {
+	var baseURL: String {
+		return graphURL
+	}
+}
+
 protocol GCF: class {
+	var remoteConfiguration: RemoteConfiguration? { get }
 	var baseURL: String { get }
 	var urlSession: URLSession { get }
 	var decoder: JSONDecoder { get set }
@@ -30,7 +40,7 @@ protocol GCF: class {
 
 extension GCF {
 	
-	internal func constructURLRequest(from routable: Routable) -> URLRequest {
+	func constructURLRequest(from routable: Routable) -> URLRequest {
 		let url = constructURL(from: routable)
 		
 		var urlRequest = URLRequest(url: url, cachePolicy: routable.cachePolicy, timeoutInterval: routable.defaultTimeout)
@@ -38,18 +48,21 @@ extension GCF {
 		routable.headers?.forEach({ urlRequest.addValue($1, forHTTPHeaderField: $0) })
 		
 		if let body = routable.body, (routable.method == .post || routable.method == .put) {
-			urlRequest.httpBody = try! JSONSerialization.data(withJSONObject: body, options: [])
+			urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
 		}
 		
 		return urlRequest
 	}
 	
-	internal func constructURL(from routable: Routable) -> URL {
+	func constructURL(from routable: Routable) -> URL {
 		if var urlComponents = URLComponents(string: baseURL) {
 			
 			if !(routable is GraphRoutable) {
 				urlComponents.path = routable.path
 			}
+//			else if let remoteConfiguration = remoteConfiguration as? GraphRemoteConfiguration {
+//				urlComponents.path = remoteConfiguration.graphPath
+//			}
 			
 			if let parameters = routable.parameters, parameters.keys.count > 0 {
 				urlComponents.queryItems = parameters.map({ URLQueryItem(name: $0.0, value: $0.1) })
@@ -59,7 +72,7 @@ extension GCF {
 		fatalError("cant construct url")
 	}
 	
-	internal func parseData<T: Codable>(from data: Data) throws -> T {
+	func parseData<T: Codable>(from data: Data) throws -> T {
 		do {
 			return try decoder.decode(T.self, from: data)
 		} catch DecodingError.dataCorrupted(let error) {

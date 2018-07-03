@@ -10,7 +10,8 @@ import Foundation
 @testable import GenericConnectionFramework
 
 open class MockGCF: GCF {
-
+	
+	public var remoteConfiguration: RemoteConfiguration?
 	public var baseURL: String
 	public var urlSession: URLSession
 	public var decoder: JSONDecoder
