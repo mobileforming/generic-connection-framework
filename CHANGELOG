@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.1.0]
+### Added
+ - remote configuration and graph remote config
+ - apiclient constructor using config
+
+### Changed
+ - Graph routable returns empty string for path
+ - Json serialization of request body will fail silently now
+
 ## [4.0.0] 
 ### Changed
  - Plugin interface, added support for auth handling
