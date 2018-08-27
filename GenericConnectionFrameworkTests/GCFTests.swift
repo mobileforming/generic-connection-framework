@@ -18,6 +18,7 @@ class GCFTests: XCTestCase {
 		var parameters: [String:String]?
 		var body: [String:Any]?
 		var needsAuthorization: Bool
+		var defaultTimeout: TimeInterval
 	}
 	
 	struct TestObject: Codable {
@@ -37,7 +38,7 @@ class GCFTests: XCTestCase {
     }
 	
 	func testConstructURLNoParams() {
-		let routable = TestRoutable(path: "/noparams", method: .get, headers: nil, parameters: nil, body: nil, needsAuthorization: false)
+		let routable = TestRoutable(path: "/noparams", method: .get, headers: nil, parameters: nil, body: nil, needsAuthorization: false, defaultTimeout: 100)
 		let url = gcf!.constructURL(from: routable)
 		
 		XCTAssertTrue(url.absoluteString.contains(gcf!.baseURL))
@@ -47,7 +48,7 @@ class GCFTests: XCTestCase {
 	}
 	
 	func testConstructURLNilParams() {
-		let routable = TestRoutable(path: "/noparams", method: .get, headers: nil, parameters: [:], body: nil, needsAuthorization: false)
+		let routable = TestRoutable(path: "/noparams", method: .get, headers: nil, parameters: [:], body: nil, needsAuthorization: false, defaultTimeout: 100)
 		let url = gcf!.constructURL(from: routable)
 		
 		XCTAssertTrue(url.absoluteString.contains(gcf!.baseURL))
@@ -57,7 +58,7 @@ class GCFTests: XCTestCase {
 	}
 	
 	func testConstructURLSingleParam() {
-		let routable = TestRoutable(path: "/singleparam,", method: .get, headers: nil, parameters: ["test":"true"], body: nil, needsAuthorization: false)
+		let routable = TestRoutable(path: "/singleparam,", method: .get, headers: nil, parameters: ["test":"true"], body: nil, needsAuthorization: false, defaultTimeout: 100)
 		let url = gcf!.constructURL(from: routable)
 		
 		XCTAssertTrue(url.absoluteString.contains(gcf!.baseURL))
@@ -68,7 +69,7 @@ class GCFTests: XCTestCase {
 	}
 	
 	func testConstructURLMultipleParams() {
-		let routable = TestRoutable(path: "/multipleparams,", method: .get, headers: nil, parameters: ["test": "true", "test2": "false"], body: nil, needsAuthorization: false)
+		let routable = TestRoutable(path: "/multipleparams,", method: .get, headers: nil, parameters: ["test": "true", "test2": "false"], body: nil, needsAuthorization: false, defaultTimeout: 100)
 		let url = gcf!.constructURL(from: routable)
 		
 		XCTAssertTrue(url.absoluteString.contains(gcf!.baseURL))
@@ -77,6 +78,13 @@ class GCFTests: XCTestCase {
 		XCTAssertTrue(url.absoluteString.contains("test=true"))
 		XCTAssertTrue(url.absoluteString.contains("&"))
 		XCTAssertTrue(url.absoluteString.contains("test2=false"))
+	}
+	
+	func testDefaultTimeout() {
+		let routable = TestRoutable(path: "/timeout", method: .get, headers: nil, parameters: nil, body: nil, needsAuthorization: false, defaultTimeout: 33)
+		let request = gcf!.constructURLRequest(from: routable)
+		
+		XCTAssertEqual(request.timeoutInterval, routable.defaultTimeout)
 	}
 	
 	func testParseDataEmpty() {
