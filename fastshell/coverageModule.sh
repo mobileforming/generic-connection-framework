@@ -12,6 +12,7 @@ RUNLANE="coverageModule"
 
 
 echo "## Jenkins Build shell execution for ${WORKSPACE}"
+export FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT=20
 
 echo "## Moving the keys to the Fastlane directory"
 mv keys/${BUILD_KEYS} fastlane/keys || echo WARNING: No secret keys found...continuing
