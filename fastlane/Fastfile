@@ -104,7 +104,8 @@ platform :ios do
       scheme: options[:scheme],
       configuration: options[:configuration],
       skip_archive: true,
-      skip_package_ipa: true
+      skip_package_ipa: true,
+      xcargs: "-UseNewBuildSystem=NO"
     )
   
     git_add
