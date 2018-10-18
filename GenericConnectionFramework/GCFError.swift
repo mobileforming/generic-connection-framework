@@ -15,9 +15,10 @@ public enum GCFError: Error {
     case authError(error: Error)
 	
 	public enum PluginError: Error {
-		case failureAbortRequest		//fail entire request
-		case failureCompleteRequest		//don't process remaining plugins, finish the request
-		case failureContinue			//continue with remaining plugins
+		case failureAbortRequest		// don't process remaining plugins, fail entire request
+		case failureCompleteRequest		// don't process remaining plugins, finish the request
+		case failureContinue			// continue with remaining plugins
+        case failureRetryRequest        // don't process remaining plugins, retry the request
 	}
 	
 	public enum RoutableError: Error {

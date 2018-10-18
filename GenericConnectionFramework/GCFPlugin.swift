@@ -9,8 +9,8 @@
 import Foundation
 
 public protocol GCFPlugin {
-    func willSendRequest(_ request: inout URLRequest, needsAuthorization: Bool)
-	func didReceive(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) throws
+    func willSendRequest(_ request: inout URLRequest, needsAuthorization: Bool) -> Error?
+	func didReceive(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) -> Error?
 }
 
 class AggregatePlugin: GCFPlugin {
@@ -20,11 +20,31 @@ class AggregatePlugin: GCFPlugin {
 		self.plugins = plugins
 	}
 	
-	func willSendRequest(_ request: inout URLRequest, needsAuthorization: Bool) {
-		plugins.forEach({ $0.willSendRequest(&request, needsAuthorization: needsAuthorization) })
+	func willSendRequest(_ request: inout URLRequest, needsAuthorization: Bool) -> Error? {
+		for plugin in plugins {
+            if let error = plugin.willSendRequest(&request, needsAuthorization: needsAuthorization) {
+                switch error {
+                case GCFError.PluginError.failureContinue:
+                    break
+                default:
+                    return error
+                }
+            }
+        }
+        return nil
 	}
 	
-	func didReceive(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) throws {
-		try plugins.reversed().forEach({ try $0.didReceive(data: data, response: response, error: error, forRequest: &request) })
+	func didReceive(data: Data?, response: URLResponse?, error: Error?, forRequest request: inout URLRequest) -> Error? {
+		for plugin in plugins.reversed() {
+            if let error = plugin.didReceive(data: data, response: response, error: error, forRequest: &request) {
+                switch error {
+                case GCFError.PluginError.failureContinue:
+                    break
+                default:
+                    return error
+                }
+            }
+        }
+        return nil
 	}
 }

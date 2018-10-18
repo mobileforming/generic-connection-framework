@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased (6.0.0)]
+### Added
+- sendRequest function that returns a dictionary
+- GCFError.PluginError.failedRetryRequest error case
+- Optional parameter numAuthRetries in sendRequest functions along with logic to retry
+
+### Changed
+- willSend and didReceive now return Error?
+- logic in AggregatePlugin to handle different responses from plugins
+
+## [5.0.0] 09-25-2018
+### Removed
+- CommonCrypto
+
 ## [4.2.0]
 ### Added
  - request timeout support

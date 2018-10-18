@@ -31,8 +31,9 @@ protocol GCF: class {
 	
 	init(configuration: RemoteConfiguration)
 	init(baseURL: String, decoder: JSONDecoder, pinPublicKey: String?)
-	func sendRequest<T: Codable>(for routable: Routable, completion: @escaping (T?, Error?) -> Void)
-	func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void)
+    func sendRequest<T: Codable>(for routable: Routable, numAuthRetries: Int, completion: @escaping (T?, Error?) -> Void)
+	func sendRequest(for routable: Routable, numAuthRetries: Int, completion: @escaping (Bool, Error?) -> Void)
+    func sendRequest(for routable: Routable, numAuthRetries: Int, completion: @escaping ([String: Any]?, Error?) -> Void)
 	func constructURL(from routable: Routable) -> URL
 	func parseData<T: Codable>(from data: Data) throws -> T
 	func configurePlugins(_ plugins: [GCFPlugin])

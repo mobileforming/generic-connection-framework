@@ -31,13 +31,17 @@ open class MockGCF: GCF {
         self.decoder = JSONDecoder()
     }
 	
-	public func sendRequest<T>(for routable: Routable, completion: @escaping (T?, Error?) -> Void) where T : Decodable, T : Encodable {
+	public func sendRequest<T>(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (T?, Error?) -> Void) where T : Decodable, T : Encodable {
 		completion(nil, nil)
 	}
 	
-	public func sendRequest(for routable: Routable, completion: @escaping (Bool, Error?) -> Void) {
+	public func sendRequest(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (Bool, Error?) -> Void) {
 		completion(false, nil)
 	}
+    
+    public func sendRequest(for routable: Routable, numAuthRetries: Int, completion: @escaping ([String: Any]?, Error?) -> Void) {
+        completion(nil, nil)
+    }
 	
 	public func configurePlugins(_ plugins: [GCFPlugin]) {
 		

@@ -59,7 +59,7 @@ class RxGCFTests: XCTestCase {
 		let route = TestRoutable(path: "/posts", method: .post, headers: nil, parameters: nil, body: ["title": "test", "body": "test", "userId": 1], needsAuthorization: false)
 
 		let exp = expectation(description: "post request")
-		gcf!.sendRequest(for: route) { (success, error) in
+        gcf!.sendRequest(for: route) { (success: Bool, error) in
 			XCTAssertNil(error)
 			XCTAssertTrue(success)
 			exp.fulfill()
@@ -72,7 +72,7 @@ class RxGCFTests: XCTestCase {
 		let route = TestRoutable(path: "/posts", method: .put, headers: nil, parameters: nil, body: ["title": "test", "body": "test", "userId": 1], needsAuthorization: false)
 
 		let exp = expectation(description: "put request")
-		gcf!.sendRequest(for: route) { (success, error) in
+        gcf!.sendRequest(for: route) { (success: Bool, error) in
 			XCTAssertNil(error)
 			XCTAssertTrue(success)
 			exp.fulfill()

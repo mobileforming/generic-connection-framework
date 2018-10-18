@@ -42,12 +42,19 @@ class GCFPinningDelegate: NSObject, URLSessionDelegate {
 				if(errSecSuccess == status) {
 					print(SecTrustGetCertificateCount(serverTrust))
 					if let serverCertificate = SecTrustGetCertificateAtIndex(serverTrust, 0) {
-						let serverPublicKey = SecCertificateCopyPublicKey(serverCertificate)
-						let serverPublicKeyData:NSData = SecKeyCopyExternalRepresentation(serverPublicKey!, nil )!
-						let keyHash = sha256(data: serverPublicKeyData as Data)
-						if (keyHash == publicKeyHash) {
-							return completionHandler(.useCredential, URLCredential(trust:serverTrust))
-						}
+                        var serverPublicKeyData: NSData?
+                        if #available(iOS 10.3, *) {
+                            let serverPublicKey = SecCertificateCopyPublicKey(serverCertificate)
+                            serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey!, nil )!
+                        } else {
+                            serverPublicKeyData = SecCertificateCopyData(serverCertificate) // TODO: make sure this is correct
+                        }
+                        if let data = serverPublicKeyData {
+                            let keyHash = sha256(data: data as Data)
+                            if (keyHash == publicKeyHash) {
+                                return completionHandler(.useCredential, URLCredential(trust:serverTrust))
+                            }
+                        }
 					}
 				}
 			}
