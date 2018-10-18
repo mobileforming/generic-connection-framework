@@ -44,6 +44,8 @@
 		654CB7FA1F2AC61000419E17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654CB7F81F2AC61000419E17 /* Main.storyboard */; };
 		654CB7FC1F2AC61000419E17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654CB7FB1F2AC61000419E17 /* Assets.xcassets */; };
 		654CB7FF1F2AC61000419E17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654CB7FD1F2AC61000419E17 /* LaunchScreen.storyboard */; };
+		65FC00E62178094B007B3043 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FC00E52178094B007B3043 /* APIClientTests.swift */; };
+		65FC00E8217809F2007B3043 /* MockRoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FC00E7217809F2007B3043 /* MockRoutable.swift */; };
 		6C7B1355585C69DB758E9872 /* Pods_GenericConnectionFrameworkApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29C41B6148E885343B1F9AC5 /* Pods_GenericConnectionFrameworkApp.framework */; };
 		83BCB6D51F4779F9005241EA /* RoutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB6D41F4779F9005241EA /* RoutableTests.swift */; };
 		DF46FAEE1F1FF4F0008641A2 /* GenericConnectionFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46FAE41F1FF4F0008641A2 /* GenericConnectionFramework.framework */; };
@@ -97,6 +99,8 @@
 		654CB8001F2AC61000419E17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		654CB80B1F2AC61000419E17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		654CB8161F2AC61000419E17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65FC00E52178094B007B3043 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
+		65FC00E7217809F2007B3043 /* MockRoutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRoutable.swift; sourceTree = "<group>"; };
 		79CDBDB0B484D6724F08D6D7 /* Pods-GenericConnectionFrameworkApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFrameworkApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFrameworkApp/Pods-GenericConnectionFrameworkApp.release.xcconfig"; sourceTree = "<group>"; };
 		83BCB6D41F4779F9005241EA /* RoutableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutableTests.swift; sourceTree = "<group>"; };
 		9AFFEBB3F52C3C65E9DD969F /* Pods-GenericConnectionFrameworkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericConnectionFrameworkTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GenericConnectionFrameworkTests/Pods-GenericConnectionFrameworkTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 				343921B11F572113008ED5CC /* MockURLSession.swift */,
 				343921B61F57225D008ED5CC /* MockGCF.swift */,
 				34F29BCA1FB21CCE00E08975 /* MockGCFPlugin.swift */,
+				65FC00E7217809F2007B3043 /* MockRoutable.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -241,6 +246,7 @@
 				343921B41F572228008ED5CC /* GCFTests.swift */,
 				34EDA5051F82BA81009DA63C /* RxGCFTests.swift */,
 				34F29BC81FB21C6D00E08975 /* GCFPluginTests.swift */,
+				65FC00E52178094B007B3043 /* APIClientTests.swift */,
 				343921B31F572182008ED5CC /* Mocks */,
 			);
 			path = GenericConnectionFrameworkTests;
@@ -517,7 +523,9 @@
 				34F29BCB1FB21CCE00E08975 /* MockGCFPlugin.swift in Sources */,
 				343921B21F572113008ED5CC /* MockURLSession.swift in Sources */,
 				343921B71F57225D008ED5CC /* MockGCF.swift in Sources */,
+				65FC00E8217809F2007B3043 /* MockRoutable.swift in Sources */,
 				34EDA5061F82BA81009DA63C /* RxGCFTests.swift in Sources */,
+				65FC00E62178094B007B3043 /* APIClientTests.swift in Sources */,
 				342686EA20BE386E004814A3 /* GraphRoutableTests.swift in Sources */,
 				83BCB6D51F4779F9005241EA /* RoutableTests.swift in Sources */,
 			);
