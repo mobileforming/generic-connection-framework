@@ -747,7 +747,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = GenericConnectionFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-driver-show-incremental\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobileforming.ios.module.gcf;
@@ -772,7 +772,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = GenericConnectionFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-driver-show-incremental\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobileforming.ios.module.gcf;
