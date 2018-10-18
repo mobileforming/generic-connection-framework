@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.author       = "mobileforming LLC"
   s.platform     = :ios, "9.0"
   
-  s.ios.deployment_target = '10.3'
+  s.ios.deployment_target = '10.2'
   s.swift_version = '4.0'
   
   s.source 		 = { :git => 'https://gitlab.mobileforming.com/mp/mobileforming-ios-module-gcf.git', :tag => "#{s.version}" }
