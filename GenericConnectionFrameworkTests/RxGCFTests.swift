@@ -55,6 +55,19 @@ class RxGCFTests: XCTestCase {
 		waitForExpectations(timeout: 10, handler: nil)
 	}
 
+	func testSendRequestGETData() {
+		let route = TestRoutable(path: "/posts/1", method: .get, headers: nil, parameters: nil, body: nil, needsAuthorization: false)
+		let exp = expectation(description: "observable get")
+
+		gcf!.sendRequest(for: route, completion: { (data: Data?, error) in
+			XCTAssertNotNil(data)
+			XCTAssertTrue(String(data: data!, encoding: .utf8)?.contains("sunt aut") ?? false)
+			exp.fulfill()
+		})
+
+		waitForExpectations(timeout: 10, handler: nil)
+	}
+
 	func testSendRequestPOST() {
 		let route = TestRoutable(path: "/posts", method: .post, headers: nil, parameters: nil, body: ["title": "test", "body": "test", "userId": 1], needsAuthorization: false)
 

@@ -199,4 +199,50 @@ public class APIClient: GCF {
                 }.resume()
         }
     }
+
+    public func sendRequest(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (Data?, Error?) -> Void) {
+        dispatchQueue.async {
+            var urlRequest = self.constructURLRequest(from: routable)
+
+            if let willSendError = self.plugin?.willSendRequest(&urlRequest, needsAuthorization: routable.needsAuthorization) {
+                switch willSendError {
+                case GCFError.authError(let error):
+                    return completion(nil, error)
+                case GCFError.PluginError.failureAbortRequest:
+                    return completion(nil, GCFError.pluginError)
+                default:
+                    break
+                }
+            }
+
+            self.urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
+                guard let strongself = self else { return }
+
+                if let didReceiveError = strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest) {
+
+                    switch didReceiveError {
+                    case GCFError.PluginError.failureAbortRequest:
+                        return completion(nil, GCFError.pluginError)
+                    case GCFError.PluginError.failureRetryRequest:
+                        guard numAuthRetries > 0 else {
+                            return completion(nil, GCFError.pluginError)
+                        }
+                        strongself.sendRequest(for: routable, numAuthRetries: numAuthRetries - 1, completion: completion)
+                        return
+                    case GCFError.authError(let error):
+                        return completion(nil, error)
+                    default:
+                        break
+                    }
+                }
+
+                if let data = data, error == nil {
+                    completion(data, nil)
+                } else {
+                    completion(nil, GCFError.requestError)
+                }
+
+                }.resume()
+        }
+    }
 }

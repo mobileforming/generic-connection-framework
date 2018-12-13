@@ -59,7 +59,7 @@ query getStays($guestId: BigInt!) {
 		
 		let route = StaysGraphRoute(query: query, variables: ["guestId": 1516564425], path: "/v2/graphql/customer", method: .post, headers: ["Content-Type": "application/json"], parameters: nil, needsAuthorization: false)
 		
-		gcf.sendRequest(for: route) { (success, error) in
+		gcf.sendRequest(for: route) { (success: Bool, error) in
 			print(error?.localizedDescription ?? "")
 		}
     }
