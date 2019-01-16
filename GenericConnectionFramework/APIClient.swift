@@ -71,12 +71,14 @@ public class APIClient: GCF {
     var inFlightGenericRequests: [String: [RequestThing]]
     
     func executeGenericCompletions(forKey key: String, result: Codable? /*T?*/, error: Error?) {
-        guard let requestThings = inFlightGenericRequests[key] else { return }
-        for requestThing in requestThings {
-            requestThing.completion(result, error)
-        }
+        dispatchQueue.async {
+            guard let requestThings = self.inFlightGenericRequests[key] else { return }
+            for requestThing in requestThings {
+                requestThing.completion(result, error)
+            }
         
-        inFlightGenericRequests[key] = nil
+            self.inFlightGenericRequests[key] = nil
+        }
     }
     
     func sendRequest<T: Codable>(for routable: Routable, numAuthRetries: Int, isRetrying: Bool, completion: @escaping (T?, Error?) -> Void) {
