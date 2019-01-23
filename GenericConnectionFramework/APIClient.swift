@@ -93,9 +93,11 @@ public class APIClient: GCF {
 				if let data = data, error == nil {
 					do {
 						completion(try strongself.parseData(from: data), nil)
-					} catch {
-						completion(nil, GCFError.parsingError)
-					}
+					} catch let error as GCFError {
+						completion(nil, error)
+                    } catch {
+                        completion(nil, GCFError.parsingError)
+                    }
 					
 				} else {
 					completion(nil, GCFError.requestError)
