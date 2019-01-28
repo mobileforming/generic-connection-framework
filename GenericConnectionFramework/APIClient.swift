@@ -17,6 +17,8 @@ public class APIClient: GCF {
 	let dispatchQueue = DispatchQueue.global(qos: .default)
 	var pinningDelegate: URLSessionDelegate?
 	
+	let inFlightRequests = RequestThing()
+	
 	public required init(configuration: RemoteConfiguration) {
 		remoteConfiguration = configuration
 		
@@ -58,50 +60,24 @@ public class APIClient: GCF {
         sendRequest(for: routable, numAuthRetries: numAuthRetries, isRetrying: false, completion: completion)
     }
     
-    
-    func key(for request: URLRequest, numAuthRetries: Int) -> String {
-        return "\(request.hashValue + numAuthRetries)"
-    }
-    
-
-// This doesn't work
-    struct RequestThing {
-        var completion: (Codable?, Error?) -> Void
-    }
-    var inFlightGenericRequests: [String: [RequestThing]]
-    
-    func executeGenericCompletions(forKey key: String, result: Codable? /*T?*/, error: Error?) {
-        dispatchQueue.async {
-            guard let requestThings = self.inFlightGenericRequests[key] else { return }
-            for requestThing in requestThings {
-                requestThing.completion(result, error)
-            }
-        
-            self.inFlightGenericRequests[key] = nil
-        }
-    }
-    
     func sendRequest<T: Codable>(for routable: Routable, numAuthRetries: Int, isRetrying: Bool, completion: @escaping (T?, Error?) -> Void) {
 		var urlRequest = constructURLRequest(from: routable)
 		dispatchQueue.async {
-            
-            var shouldSendRequest = isRetrying
-            let requestKey = self.key(for: urlRequest, numAuthRetries: numAuthRetries)
-            if self.inFlightGenericRequests[requestKey] == nil {
-                self.inFlightGenericRequests[requestKey] = []
-                shouldSendRequest = true
-            }
-            self.inFlightGenericRequests[requestKey]?.append(RequestThing(completion: completion))
-            
-            if (!shouldSendRequest) { return }
-            
+			
+			//check and queue same requests
+			let requestKey = self.inFlightRequests.key(for: urlRequest, numAuthRetries: numAuthRetries)
+            let shouldSendRequest = isRetrying || self.inFlightRequests.shouldRequestContinue(forKey: requestKey, completion: completion)
+			guard shouldSendRequest else { return }
+			
             
             if let willSendError = self.plugin?.willSendRequest(&urlRequest, needsAuthorization: routable.needsAuthorization) {
                 switch willSendError {
                 case GCFError.authError(let error):
-                    return self.executeGenericCompletions(forKey: requestKey, result: nil, error: error)
+					self.inFlightRequests.processCompletions(forKey: requestKey, result: nil as T?, error: error)
+					return
                 case GCFError.PluginError.failureAbortRequest:
-                    return self.executeGenericCompletions(forKey: requestKey, result: nil, error: GCFError.pluginError)
+					self.inFlightRequests.processCompletions(forKey: requestKey, result: nil as T?, error: GCFError.pluginError)
+					return
                 default:
                     break
                 }
@@ -114,16 +90,16 @@ public class APIClient: GCF {
                     
                     switch didReceiveError {
                     case GCFError.PluginError.failureAbortRequest:
-                        return strongself.executeGenericCompletions(forKey: requestKey, result: nil, error: GCFError.pluginError)
+						return strongself.inFlightRequests.processCompletions(forKey: requestKey, result: nil as T?, error: GCFError.pluginError)
                     case GCFError.PluginError.failureRetryRequest:
                         guard numAuthRetries > 0 else {
-                            return strongself.executeGenericCompletions(forKey: requestKey, result: nil, error: GCFError.pluginError)
+							return strongself.inFlightRequests.processCompletions(forKey: requestKey, result: nil as T?, error: GCFError.pluginError)
                         }
                         strongself.sendRequest(for: routable, numAuthRetries: numAuthRetries - 1, isRetrying: true, completion: completion)
                         return
                         
                     case GCFError.authError(let error):
-                        return strongself.executeGenericCompletions(forKey: requestKey, result: nil, error: error)
+						return strongself.inFlightRequests.processCompletions(forKey: requestKey, result: nil as T?, error: error)
                     default:
                         break
                     }
@@ -131,14 +107,13 @@ public class APIClient: GCF {
 				
 				if let data = data, error == nil {
 					do {
-                        strongself.executeGenericCompletions(forKey: requestKey, result: try strongself.parseData(from: data), error: nil)
-//                        completion(try strongself.parseData(from: data), nil)
+						strongself.inFlightRequests.processCompletions(forKey: requestKey, result: try strongself.parseData(from: data) as T, error: nil)
 					} catch {
-                        strongself.executeGenericCompletions(forKey: requestKey, result: nil, error: GCFError.parsingError)
+                        strongself.inFlightRequests.processCompletions(forKey: requestKey, result: nil as T?, error: GCFError.parsingError)
 					}
 					
 				} else {
-                    strongself.executeGenericCompletions(forKey: requestKey, result: nil, error: GCFError.requestError)
+                    strongself.inFlightRequests.processCompletions(forKey: requestKey, result: nil as T?, error: GCFError.requestError)
 				}
 				}.resume()
 		}
