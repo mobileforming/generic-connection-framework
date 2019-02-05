@@ -28,12 +28,15 @@ class RequestThing {
 	}
 	
 	func shouldRequestContinue<T: Codable>(forKey key: String, completion: @escaping (T?, Error?) -> Void) -> Bool {
+		lock.wait()
 		guard inFlightRequests[key] != nil else {
 			inFlightRequests[key] = [completion]
+			lock.signal()
 			return true
 		}
 		
 		inFlightRequests[key]!.append(completion)
+		lock.signal()
 		return false
 	}
 	

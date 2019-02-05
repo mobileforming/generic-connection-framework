@@ -115,7 +115,7 @@ public class APIClient: GCF {
 				} else {
                     strongself.inFlightRequests.processCompletions(forKey: requestKey, result: nil as T?, error: GCFError.requestError)
 				}
-				}.resume()
+			}.resume()
 		}
 	}
 	
