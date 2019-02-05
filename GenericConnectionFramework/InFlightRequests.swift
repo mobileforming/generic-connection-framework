@@ -45,9 +45,9 @@ class RequestThing {
 	}
 	
 	func processCompletions<T: Codable>(forKey key: String, result: T?, error: Error?) {
-		lock.wait()
-		
+	
 		dispatchQueue.async {
+			self.lock.wait()
 			guard let completions = self.inFlightRequests[key] as! [(T?, Error?) -> Void]? else {
 				self.lock.signal()
 				return
