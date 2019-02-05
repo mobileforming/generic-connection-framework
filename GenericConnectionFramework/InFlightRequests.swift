@@ -8,8 +8,7 @@
 
 import Foundation
 
-//call this something better
-class RequestThing {
+class CompletionQueue {
 	
 	private var inFlightRequests = [String: [Any]]()
 	private var dispatchQueue: DispatchQueue

@@ -17,7 +17,7 @@ public class APIClient: GCF {
 	let dispatchQueue = DispatchQueue.global(qos: .default)
 	var pinningDelegate: URLSessionDelegate?
 	
-	let inFlightRequests = RequestThing()
+	let inFlightRequests = CompletionQueue()
 	
 	public required init(configuration: RemoteConfiguration) {
 		remoteConfiguration = configuration
