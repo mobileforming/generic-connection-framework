@@ -9,14 +9,19 @@
 import XCTest
 @testable import GenericConnectionFramework
 
-
+struct MockCodable: Codable {
+    var key: String?
+}
 
 class APIClientTests: XCTestCase {
     
     let client = APIClient(baseURL: "www.google.com")
-
+    var session = MockURLSession()
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        session.dataTaskCount = 0
+        client.urlSession = session
     }
 
     override func tearDown() {
@@ -51,4 +56,29 @@ class APIClientTests: XCTestCase {
         waitForExpectations(timeout: 10.0)        
     }
 
+    func testConcurrentEqualRequests() {
+        let routable = MockRoutable()
+        let dispatchGroup = DispatchGroup()
+        var resultCount = 0
+        
+        for _ in 0...9 {
+            dispatchGroup.enter()
+            client.sendRequest(for: routable) { (mockCodable: MockCodable?, error) in
+                resultCount += 1
+                dispatchGroup.leave()
+            }
+        }
+        
+        let result = dispatchGroup.wait(timeout: .now() + 10.0)
+        
+        XCTAssertEqual(resultCount, 10)
+        switch result {
+        case .success:
+            XCTAssertEqual(session.dataTaskCount, 1)
+        case .timedOut:
+            XCTFail("Data tasks timed out for some reason")
+        }
+        
+    }
 }
+
