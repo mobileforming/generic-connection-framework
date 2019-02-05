@@ -35,7 +35,7 @@
 		34BF37F21F5609AC0045613A /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F11F5609AC0045613A /* Routable.swift */; };
 		34BF37F41F560ECE0045613A /* GCFPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F31F560ECE0045613A /* GCFPlugin.swift */; };
 		34BF37F61F5610ED0045613A /* GCF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF37F51F5610ED0045613A /* GCF.swift */; };
-		34D7819321FF86B700CE6515 /* InFlightRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D7819221FF86B700CE6515 /* InFlightRequests.swift */; };
+		34D7819321FF86B700CE6515 /* CompletionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D7819221FF86B700CE6515 /* CompletionQueue.swift */; };
 		34EDA5061F82BA81009DA63C /* RxGCFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EDA5051F82BA81009DA63C /* RxGCFTests.swift */; };
 		34F29BC91FB21C6D00E08975 /* GCFPluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F29BC81FB21C6D00E08975 /* GCFPluginTests.swift */; };
 		34F29BCB1FB21CCE00E08975 /* MockGCFPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F29BCA1FB21CCE00E08975 /* MockGCFPlugin.swift */; };
@@ -87,7 +87,7 @@
 		34BF37F11F5609AC0045613A /* Routable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routable.swift; sourceTree = "<group>"; };
 		34BF37F31F560ECE0045613A /* GCFPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCFPlugin.swift; sourceTree = "<group>"; };
 		34BF37F51F5610ED0045613A /* GCF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCF.swift; sourceTree = "<group>"; };
-		34D7819221FF86B700CE6515 /* InFlightRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InFlightRequests.swift; sourceTree = "<group>"; };
+		34D7819221FF86B700CE6515 /* CompletionQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionQueue.swift; sourceTree = "<group>"; };
 		34EDA5051F82BA81009DA63C /* RxGCFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxGCFTests.swift; sourceTree = "<group>"; };
 		34F29BC81FB21C6D00E08975 /* GCFPluginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCFPluginTests.swift; sourceTree = "<group>"; };
 		34F29BCA1FB21CCE00E08975 /* MockGCFPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGCFPlugin.swift; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 			children = (
 				34904E811F99011400998A5D /* ios-strip-framework.sh */,
 				3443B79920B4DB8500389973 /* APIClient.swift */,
-				34D7819221FF86B700CE6515 /* InFlightRequests.swift */,
+				34D7819221FF86B700CE6515 /* CompletionQueue.swift */,
 				3464CE4520585EB8000C6944 /* GCFError.swift */,
 				342686E520BDCB02004814A3 /* GCFPinningDelegate.swift */,
 				34BF37F51F5610ED0045613A /* GCF.swift */,
@@ -509,7 +509,7 @@
 			files = (
 				34BF37F61F5610ED0045613A /* GCF.swift in Sources */,
 				3443B79A20B4DB8500389973 /* APIClient.swift in Sources */,
-				34D7819321FF86B700CE6515 /* InFlightRequests.swift in Sources */,
+				34D7819321FF86B700CE6515 /* CompletionQueue.swift in Sources */,
 				342686E620BDCB02004814A3 /* GCFPinningDelegate.swift in Sources */,
 				3464CE4620585EB8000C6944 /* GCFError.swift in Sources */,
 				34BF37F41F560ECE0045613A /* GCFPlugin.swift in Sources */,
