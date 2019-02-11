@@ -20,18 +20,6 @@ class CompletionQueueTests: XCTestCase {
     override func tearDown() {
         completionQueue = nil
     }
-
-//    func testExample() {
-//        // This is an example of a functional test case.
-//        // Use XCTAssert and related functions to verify your tests produce the correct results.
-//    }
-//
-//    func testPerformanceExample() {
-//        // This is an example of a performance test case.
-//        self.measure {
-//            // Put the code you want to measure the time of here.
-//        }
-//    }
 	
 	func testKey() {
 		let request = URLRequest(url: URL(string: "https://google.com")!)
@@ -41,7 +29,7 @@ class CompletionQueueTests: XCTestCase {
 	func testShouldRequestContinue() {
 		let request = URLRequest(url: URL(string: "https://google.com")!)
 		var completed = 0
-		let completion: (MockCodable?, Error?) -> Void = { (result, error) in
+		let completion: (EmptyCodable?, Error?) -> Void = { (result, error) in
 			completed += 1
 		}
 
@@ -73,7 +61,7 @@ class CompletionQueueTests: XCTestCase {
 	func testProcessCompletions() {
 		let request = URLRequest(url: URL(string: "https://google.com")!)
 		var completed = 0
-		let completion: (MockCodable?, Error?) -> Void = { (result, error) in
+		let completion: (EmptyCodable?, Error?) -> Void = { (result, error) in
 			completed += 1
 		}
 		
@@ -97,7 +85,7 @@ class CompletionQueueTests: XCTestCase {
 		group.notify(queue: .main) { exp.fulfill() }
 		waitForExpectations(timeout: 10, handler: nil)
 		
-		completionQueue.processCompletions(forRequest: request, numAuthRetries: 99, result: MockCodable(), error: nil)
+		completionQueue.processCompletions(forRequest: request, numAuthRetries: 99, result: EmptyCodable(), error: nil)
 		let waitExp = expectation(description: "")
 		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
 			waitExp.fulfill()
@@ -113,4 +101,4 @@ class CompletionQueueTests: XCTestCase {
 	}
 }
 
-struct MockCodable: Codable {}
+struct EmptyCodable: Codable {}
