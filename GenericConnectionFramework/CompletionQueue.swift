@@ -1,5 +1,5 @@
 //
-//  InFlightRequests.swift
+//  CompletionQueue.swift
 //  GenericConnectionFramework
 //
 //  Created by Alan Downs on 1/28/19.
