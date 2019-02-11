@@ -22,10 +22,12 @@ class CompletionQueue {
 		return "\(request.hashValue + numAuthRetries)"
 	}
 	
+	@discardableResult
 	func shouldRequestContinue<T: Codable>(forRequest request: URLRequest, numAuthRetries: Int, completion: @escaping (T?, Error?) -> Void) -> Bool {
 		return shouldRequestContinue(forKey: key(for: request, numAuthRetries: numAuthRetries), completion: completion)
 	}
 	
+	@discardableResult
 	func shouldRequestContinue<T: Codable>(forKey key: String, completion: @escaping (T?, Error?) -> Void) -> Bool {
 		lock.wait()
 		guard inFlightRequests[key] != nil else {
