@@ -115,7 +115,8 @@ public class APIClient: GCF {
                         } else {
                             strongself.inFlightRequests.processCompletions(forKey: requestKey, result: try strongself.parseData(from: data) as T, error: nil)
                         }
-						
+                    } catch let error as GCFError {
+                        strongself.inFlightRequests.processCompletions(forKey: requestKey, result: nil as T?, error: error)
 					} catch {
                         strongself.inFlightRequests.processCompletions(forKey: requestKey, result: nil as T?, error: GCFError.parsingError)
 					}

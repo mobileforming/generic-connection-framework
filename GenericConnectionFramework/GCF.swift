@@ -74,18 +74,31 @@ extension GCF {
 	func parseData<T: Codable>(from data: Data) throws -> T {
 		do {
 			return try decoder.decode(T.self, from: data)
-		} catch DecodingError.dataCorrupted(let error) {
-			print(error)
-			throw GCFError.parsingError
-		} catch DecodingError.keyNotFound(let key, _) {
-			print("key not found: " + key.stringValue)
-			throw GCFError.parsingError
-		} catch DecodingError.typeMismatch(let type, _){
-			print("typemismatch: \(type)")
-			throw GCFError.parsingError
-		} catch {
-			print(error.localizedDescription)
-			throw GCFError.parsingError
-		}
+        } catch let error {
+            debugPrintError(error)
+            throw GCFError.parsingError(error as? DecodingError)
+        }
+        
 	}
+    
+    func debugPrintError(_ error: Error) {
+        
+        guard let decodingError = error as? DecodingError else {
+            print(error.localizedDescription)
+            return
+        }
+        
+        switch decodingError {
+        case .dataCorrupted(let context):
+            print(context)
+        case .keyNotFound(let key, _):
+            print("key not found: \(key.stringValue)")
+        case .typeMismatch(let type, _):
+            print("typemismatch: \(type)")
+        case .valueNotFound:
+            print(error.localizedDescription)
+        }
+        
+    }
+    
 }
