@@ -62,12 +62,9 @@ extension GCF {
 			if !(routable is GraphRoutable) {
 				urlComponents.path = routable.path
 			}
-//			else if let remoteConfiguration = remoteConfiguration as? GraphRemoteConfiguration {
-//				urlComponents.path = remoteConfiguration.graphPath
-//			}
 			
 			if let parameters = routable.parameters, parameters.keys.count > 0 {
-				urlComponents.queryItems = parameters.map({ URLQueryItem(name: $0.0, value: $0.1) })
+                urlComponents.queryItems = parameters.map({ URLQueryItem(name: $0.0, value: $0.1) }).sorted { $0.name < $1.name }
 			}
 			return urlComponents.url!
 		}
