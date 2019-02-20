@@ -109,7 +109,13 @@ public class APIClient: GCF {
 				
 				if let data = data, error == nil {
 					do {
-						strongself.inFlightRequests.processCompletions(forKey: requestKey, result: try strongself.parseData(from: data) as T, error: nil)
+                        // special case where T is Data (no need to parseData)
+                        if let genericData = data as? T {
+                            strongself.inFlightRequests.processCompletions(forKey: requestKey, result: genericData, error: nil)
+                        } else {
+                            strongself.inFlightRequests.processCompletions(forKey: requestKey, result: try strongself.parseData(from: data) as T, error: nil)
+                        }
+						
 					} catch {
                         strongself.inFlightRequests.processCompletions(forKey: requestKey, result: nil as T?, error: GCFError.parsingError)
 					}
@@ -243,49 +249,4 @@ public class APIClient: GCF {
         }
     }
     
-    public func sendRequest(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (Data?, Error?) -> Void) {
-        dispatchQueue.async {
-            var urlRequest = self.constructURLRequest(from: routable)
-
-            if let willSendError = self.plugin?.willSendRequest(&urlRequest, needsAuthorization: routable.needsAuthorization) {
-                switch willSendError {
-                case GCFError.authError(let error):
-                    return completion(nil, error)
-                case GCFError.PluginError.failureAbortRequest:
-                    return completion(nil, GCFError.pluginError)
-                default:
-                    break
-                }
-            }
-
-            self.urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
-                guard let strongself = self else { return }
-
-                if let didReceiveError = strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest) {
-
-                    switch didReceiveError {
-                    case GCFError.PluginError.failureAbortRequest:
-                        return completion(nil, GCFError.pluginError)
-                    case GCFError.PluginError.failureRetryRequest:
-                        guard numAuthRetries > 0 else {
-                            return completion(nil, GCFError.pluginError)
-                        }
-                        strongself.sendRequest(for: routable, numAuthRetries: numAuthRetries - 1, completion: completion)
-                        return
-                    case GCFError.authError(let error):
-                        return completion(nil, error)
-                    default:
-                        break
-                    }
-                }
-
-                if let data = data, error == nil {
-                    completion(data, nil)
-                } else {
-                    completion(nil, GCFError.requestError)
-                }
-
-                }.resume()
-        }
-    }
 }

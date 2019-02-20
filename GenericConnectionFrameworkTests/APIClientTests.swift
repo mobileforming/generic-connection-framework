@@ -27,6 +27,18 @@ class APIClientTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+    
+    func testDataAsCodable() {
+        let routable = MockRoutable()
+        
+        let exp = expectation(description: "wait for response yo")
+        client.sendRequest(for: routable) { (result: Data?, error) in
+            XCTAssertNotNil(result)
+            exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 2.0)
+    }
 
     func testRetry() {
         let plugin = MockGCFPlugin()
