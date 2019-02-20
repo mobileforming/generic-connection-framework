@@ -12,18 +12,29 @@ enum MockURLSessionError: Error {
 	case failure
 }
 
-class MockURLSession: URLSession {
+protocol MockURLSessionDelegate {
+    func didResumeTask(_ task: MockURLSessionDataTask)
+}
+
+class MockURLSession: URLSession, MockURLSessionDelegate {
 	
 	var failRequest = false
-	
+    var dataTaskCount = 0
+    
 	override func dataTask(with: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) -> MockURLSessionDataTask {
 		let dataTask = MockURLSessionDataTask(failRequest: failRequest, completionHandler: completionHandler)
+        dataTask.delegate = self
 		return dataTask
 	}
+    
+    func didResumeTask(_ task: MockURLSessionDataTask) {
+        dataTaskCount += 1
+    }
 }
 
 class MockURLSessionDataTask: URLSessionDataTask {
 	
+    var delegate: MockURLSessionDelegate?
 	var failRequest = false
 	var completionHandler: (Data?, URLResponse?, Error?) -> ()
 	
@@ -33,6 +44,9 @@ class MockURLSessionDataTask: URLSessionDataTask {
 	}
 	
 	override func resume() {
+        
+        delegate?.didResumeTask(self)
+        
 		if failRequest {
 			completionHandler(nil, nil, MockURLSessionError.failure)
 		} else {
