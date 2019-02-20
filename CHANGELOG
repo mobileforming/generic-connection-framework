@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased 6.2.0]
+### Changed
+- Now path parameters are sorted alphabetically before adding to the path
+
 ## [Unreleased 6.1.0]
 ### Added
 - sendRequest function that returns a Data object

@@ -75,9 +75,7 @@ class GCFTests: XCTestCase {
 		XCTAssertTrue(url.absoluteString.contains(gcf!.baseURL))
 		XCTAssertTrue(url.absoluteString.contains(routable.path))
 		XCTAssertTrue(url.absoluteString.contains("?"))
-		XCTAssertTrue(url.absoluteString.contains("test=true"))
-		XCTAssertTrue(url.absoluteString.contains("&"))
-		XCTAssertTrue(url.absoluteString.contains("test2=false"))
+		XCTAssertTrue(url.absoluteString.contains("test=true&test2=false"))
 	}
 	
 	func testDefaultTimeout() {
