@@ -14,7 +14,7 @@ public enum GCFError: Error {
 	case pluginError
     case authError(error: Error)
     
-    static var parsingError: GCFError {
+    public static var parsingError: GCFError {
         return .parsingError(nil)
     }
 	
