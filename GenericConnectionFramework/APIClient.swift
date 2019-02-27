@@ -29,7 +29,9 @@ public class APIClient: GCF {
 		
 		urlSession = URLSession(configuration: urlConfig)
 		decoder = JSONDecoder()
-        dispatchQueue = DispatchQueue(label: "gcf.queue.\(baseURL)")
+        let label = configuration.dispatchQueueLabel ?? "com.hilton.gcf.\(configuration.baseURL)"
+        dispatchQueue = DispatchQueue(label: label, attributes: .concurrent)
+        
 	}
 	
 	public required init(baseURL: String, decoder: JSONDecoder = JSONDecoder(), pinPublicKey: String? = nil) {
@@ -42,7 +44,7 @@ public class APIClient: GCF {
 		self.baseURL = baseURL
 		self.urlSession = URLSession(configuration: .default, delegate: pinningDelegate, delegateQueue: nil)
 		self.decoder = JSONDecoder()
-        dispatchQueue = DispatchQueue(label: "gcf.queue.\(baseURL)")
+        dispatchQueue = DispatchQueue(label: "com.hilton.gcf.\(baseURL)", attributes: .concurrent)
 	}
 	
 	public func configurePlugins(_ plugins: [GCFPlugin]) {
