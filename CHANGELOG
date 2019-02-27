@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [6.3.0] - 02-27-19
 ### Changed
-- APIClient now uses a private dispatch queue
+- optional dispatchQueueLabel field to RemoteConfiguration to allow for private dispatch queue for each APIClient
 
 ## [6.2.2] - 02-21-19
 ### Fixed
