@@ -14,6 +14,10 @@ public protocol RemoteConfiguration {
     var dispatchQueueLabel: String? { get }
 }
 
+public extension RemoteConfiguration {
+    var dispatchQueueLabel: String? { return nil }
+}
+
 public protocol GraphRemoteConfiguration: RemoteConfiguration {
 	var graphURL: String { get }
 }
