@@ -11,7 +11,6 @@ import Foundation
 public protocol RemoteConfiguration {
 	var baseURL: String { get }
 	var defaultHeaders: [String:String]? { get }
-    var dispatchQueueLabel: String? { get }
 }
 
 public protocol GraphRemoteConfiguration: RemoteConfiguration {
