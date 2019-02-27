@@ -14,7 +14,7 @@ public class APIClient: GCF {
 	var urlSession: URLSession
     var plugin: AggregatePlugin?
 	var decoder: JSONDecoder
-	let dispatchQueue = DispatchQueue.global(qos: .default)
+    let dispatchQueue: DispatchQueue
 	var pinningDelegate: URLSessionDelegate?
 	
 	let inFlightRequests = CompletionQueue()
@@ -29,6 +29,12 @@ public class APIClient: GCF {
 		
 		urlSession = URLSession(configuration: urlConfig)
 		decoder = JSONDecoder()
+        
+        if let label = configuration.dispatchQueueLabel {
+            dispatchQueue = DispatchQueue(label: label)
+        } else {
+            dispatchQueue = DispatchQueue.global(qos: .default)
+        }
 	}
 	
 	public required init(baseURL: String, decoder: JSONDecoder = JSONDecoder(), pinPublicKey: String? = nil) {
@@ -41,6 +47,7 @@ public class APIClient: GCF {
 		self.baseURL = baseURL
 		self.urlSession = URLSession(configuration: .default, delegate: pinningDelegate, delegateQueue: nil)
 		self.decoder = JSONDecoder()
+        dispatchQueue = DispatchQueue.global(qos: .default)
 	}
 	
 	public func configurePlugins(_ plugins: [GCFPlugin]) {
