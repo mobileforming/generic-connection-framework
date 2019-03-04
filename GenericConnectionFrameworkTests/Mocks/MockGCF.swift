@@ -39,7 +39,7 @@ open class MockGCF: GCF {
 		completion(false, nil)
 	}
     
-    public func sendRequest(for routable: Routable, numAuthRetries: Int, completion: @escaping ([String: Any]?, Error?) -> Void) {
+    public func sendRequest(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping ([String: Any]?, Error?) -> Void) {
         completion(nil, nil)
     }
 	

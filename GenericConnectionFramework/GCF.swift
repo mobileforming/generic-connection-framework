@@ -35,7 +35,7 @@ protocol GCF: class {
 	func sendRequest(for routable: Routable, numAuthRetries: Int, completion: @escaping (Bool, Error?) -> Void)
     func sendRequest(for routable: Routable, numAuthRetries: Int, completion: @escaping ([String: Any]?, Error?) -> Void)
 	func constructURL(from routable: Routable) -> URL
-	func parseData<T: Codable>(from data: Data) throws -> T
+	func parseData<T: Codable>(from data: Data?) throws -> T
 	func configurePlugins(_ plugins: [GCFPlugin])
 }
 
@@ -69,16 +69,6 @@ extension GCF {
 			return urlComponents.url!
 		}
 		fatalError("cant construct url")
-	}
-	
-	func parseData<T: Codable>(from data: Data) throws -> T {
-		do {
-			return try decoder.decode(T.self, from: data)
-        } catch let error {
-            debugPrintError(error)
-            throw GCFError.parsingError(error as? DecodingError)
-        }
-        
 	}
     
     func debugPrintError(_ error: Error) {

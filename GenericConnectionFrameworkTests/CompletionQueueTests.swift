@@ -23,7 +23,7 @@ class CompletionQueueTests: XCTestCase {
 	
 	func testKey() {
 		let request = URLRequest(url: URL(string: "https://google.com")!)
-        XCTAssertEqual(completionQueue.key(for: request, numAuthRetries: 99, completionType: .dictionary), "\(request.hashValue + 99):2")
+        XCTAssertEqual(completionQueue.key(for: request, numAuthRetries: 99, completionType: [String:Any].self), "\(request.hashValue + 99):Dictionary<String, Any>")
 	}
 	
     
@@ -40,7 +40,7 @@ class CompletionQueueTests: XCTestCase {
 		XCTAssertTrue(firstResult)
 		XCTAssertEqual(completed, 0)
 		
-		let secondResult = completionQueue.shouldRequestContinue(forKey: completionQueue.key(for: request, numAuthRetries: 99, completionType: .codable), completion: completion)
+		let secondResult = completionQueue.shouldRequestContinue(forKey: completionQueue.key(for: request, numAuthRetries: 99, completionType: EmptyCodable.self), completion: completion)
 		XCTAssertFalse(secondResult)
 		XCTAssertEqual(completed, 0)
 		
@@ -109,7 +109,7 @@ class CompletionQueueTests: XCTestCase {
     func testShouldRequestContinueBool() {
         let request = URLRequest(url: URL(string: "https://google.com")!)
         var completed = 0
-        let completion: (Bool, Error?) -> Void = { (result, error) in
+        let completion: (Bool?, Error?) -> Void = { (result, error) in
             completed += 1
         }
         
@@ -117,7 +117,7 @@ class CompletionQueueTests: XCTestCase {
         XCTAssertTrue(firstResult)
         XCTAssertEqual(completed, 0)
         
-        let secondResult = completionQueue.shouldRequestContinue(forKey: completionQueue.key(for: request, numAuthRetries: 99, completionType: .bool), completion: completion)
+        let secondResult = completionQueue.shouldRequestContinue(forKey: completionQueue.key(for: request, numAuthRetries: 99, completionType: Bool.self), completion: completion)
         XCTAssertFalse(secondResult)
         XCTAssertEqual(completed, 0)
         
@@ -141,7 +141,7 @@ class CompletionQueueTests: XCTestCase {
     func testProcessCompletionsBool() {
         let request = URLRequest(url: URL(string: "https://google.com")!)
         var completed = 0
-        let completion: (Bool, Error?) -> Void = { (result, error) in
+        let completion: (Bool?, Error?) -> Void = { (result, error) in
             completed += 1
         }
         
@@ -194,7 +194,7 @@ class CompletionQueueTests: XCTestCase {
         XCTAssertTrue(firstResult)
         XCTAssertEqual(completed, 0)
         
-        let secondResult = completionQueue.shouldRequestContinue(forKey: completionQueue.key(for: request, numAuthRetries: 99, completionType: .dictionary), completion: completion)
+        let secondResult = completionQueue.shouldRequestContinue(forKey: completionQueue.key(for: request, numAuthRetries: 99, completionType: [String:Any].self), completion: completion)
         XCTAssertFalse(secondResult)
         XCTAssertEqual(completed, 0)
         
