@@ -16,7 +16,7 @@ class CompletionQueue {
         case dictionary
     }
     
-	private var inFlightRequests = [String: [Any]]()
+    private var inFlightRequests = [String: [Any]]()
 	private var dispatchQueue: DispatchQueue
 	private let lock = DispatchSemaphore(value: 1)
 	
