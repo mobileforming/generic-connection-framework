@@ -16,8 +16,9 @@ extension DecodingError {
 }
 
 extension Decodable {
-    fileprivate static func openedJSONDecode(_ data: Data, using decoder: JSONDecoder = JSONDecoder()) throws -> Self {
-        return try decoder.decode(self, from: data)
+    
+    fileprivate static func openedJSONDecode(_ data: Data, using decoder: JSONDecoder = JSONDecoder()) throws -> Self? {
+        return try? decoder.decode(self, from: data)
     }
 }
 
@@ -48,23 +49,22 @@ extension JSONDecoder {
 extension GCF {
     
     func parseData<T>(from data: Data?) throws -> T {
+        
         do {
             switch T.self {
-                
-            case is Data.Type:
+            
+            case is Data.Type, is Optional<Data>.Type:
                 return try unwrap(data)
                 
-            case is Bool.Type:
+            case is Bool.Type, is Optional<Bool>.Type:
                 return try unwrap(data != nil)
                 
-            case is [String: Any].Type:
-                return try jsonParse(with: try unwrap(data))
+            case is [String: Any].Type, is Optional<[String: Any]>.Type:
+                return try unwrap(try? jsonParse(with: try unwrap(data)))
                 
-            case is Optional<Data>.Type:
-                return data as! T
-                
+            
             case is Decodable.Type:
-                return try JSONDecoder().decodeIfValid(T.self, with: try unwrap(data))
+                return try unwrap(try? JSONDecoder().decodeIfValid(T.self, with: try unwrap(data)))
                 
             default:
                 throw GCFError.parsingError
@@ -82,7 +82,7 @@ extension GCF {
     }
     
     private func jsonParse<T>(with data: Data) throws -> T {
-        let dict = try JSONSerialization.jsonObject(with: try unwrap(data) as Data, options: [])
+        let dict = try JSONSerialization.jsonObject(with: data, options: [])
         
         guard let typedDict = dict as? T else {
             throw GCFError.parsingError
@@ -93,14 +93,19 @@ extension GCF {
         
     }
     
+    // Mitigate the fact that we don't know anything
+    // about <T>'s optionality inside parseData(from:)
     private func unwrap<T>(_ data: Any?) throws -> T {
-        guard let unwrapped = data as? T else {
-            throw GCFError.requestError
-            
+
+        if let result = data as? T { // non-nil
+            return result
         }
         
-        return unwrapped
+        guard let nilReturn: T = nil else { // nil, non-optional
+            throw GCFError.parsingError
+        }
         
+        return nilReturn // nil, optional
     }
 
 }
