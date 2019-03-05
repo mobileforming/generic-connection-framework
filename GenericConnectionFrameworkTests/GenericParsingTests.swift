@@ -14,6 +14,14 @@ struct SampleCodable: Codable {
     var foo: String
 }
 
+struct CodableThatWillFail: Codable {
+    var somethingDifferent: Int
+}
+
+struct NotCodable {
+    var whatever: CGRect
+}
+
 class GenericParsingTests: XCTestCase {
     
     let gcf = MockGCF(baseURL: "www.my.homepage.geocities.com.gov/angelfire/yahoo.org.co.uk.wordpress.biz")
@@ -53,7 +61,7 @@ class GenericParsingTests: XCTestCase {
             
             XCTFail("failed to throw" )
         } catch let error {
-            XCTAssertTrue(error is GCFError)
+            XCTAssertTrue(error is GCFError.ParsingError)
         }
         
     }
@@ -92,7 +100,7 @@ class GenericParsingTests: XCTestCase {
             
             XCTFail("failed to throw" )
         } catch let error {
-            XCTAssertTrue(error is GCFError)
+            XCTAssertTrue(error is GCFError.ParsingError)
         }
 
     }
@@ -113,7 +121,7 @@ class GenericParsingTests: XCTestCase {
             
             XCTFail("failed to throw" )
         } catch let error {
-            XCTAssertTrue(error is GCFError)
+            XCTAssertTrue(error is GCFError.ParsingError)
         }
 
     }
@@ -174,17 +182,109 @@ class GenericParsingTests: XCTestCase {
         do {
             
             let parsed: SampleCodable? = try gcf.parseData(from: data)
-            
+
             XCTAssertEqual(parsed?.foo, testValue)
-            
+
             let parsedWithNil: SampleCodable? = try gcf.parseData(from: nil)
-            
+
             XCTAssertNil(parsedWithNil)
+
+            let wrongDecodable: CodableThatWillFail? = try gcf.parseData(from: data)
+            
+            XCTAssertNil(wrongDecodable)
             
         } catch let error {
             XCTFail(error.localizedDescription)
         }
         
+    }
+    
+    func testWrongCodableThrowsDecodingErrorWhenNonOptional() {
+        
+        do {
+            
+            let _: CodableThatWillFail = try gcf.parseData(from: data)
+            
+            XCTFail("should have thrown an error")
+            
+        } catch let error {
+            
+            guard
+                case GCFError.ParsingError.codable(let decodingError?) = error,
+                case .keyNotFound(let codingPath, let context) = decodingError
+            else {
+                XCTFail("wrong error was thrown: \(error.localizedDescription)")
+                return
+            }
+            
+            XCTAssertEqual(codingPath.stringValue, "somethingDifferent")
+            XCTAssertEqual(context.debugDescription, "No value associated with key CodingKeys(stringValue: \"somethingDifferent\", intValue: nil) (\"somethingDifferent\").")
+            
+        }
+        
+    }
+    
+    func testDictionaryThrowsCorrectErrorWhenNonOptional() {
+        
+        do {
+            
+            let _: [String:Any] = try gcf.parseData(from: Data())
+            
+            XCTFail("should have thrown an error")
+            
+        } catch let error {
+            
+            guard
+                case GCFError.ParsingError.jsonSerialization(let jsonError?) = error
+                else {
+                    XCTFail("wrong error was thrown: \(error.localizedDescription)")
+                    return
+            }
+            
+            XCTAssertEqual((jsonError as NSError).code, 3840)
+            
+        }
+        
+    }
+    
+    func testHandleUnexpectedType() {
+        
+        do {
+            let _: NotCodable = try gcf.parseData(from: data)
+        } catch let error {
+            
+            XCTAssertTrue(error is GCFError.ParsingError, "wrong error was thrown: \(error.localizedDescription)")
+            
+        }
+        
+        do {
+            let weirdType: NotCodable? = try gcf.parseData(from: data)
+            
+            XCTAssertNil(weirdType)
+        } catch let error {
+            
+            XCTFail("error was thrown but should have been ignored: \(error.localizedDescription)")
+            
+        }
+    }
+    
+    func testGetUnsafeTypeError() {
+        
+        do {
+            let _: NotCodable = try JSONDecoder().decodeIfValid(NotCodable.self, with: data)
+        } catch let error {
+            
+            guard
+                case GCFError.ParsingError.codable(let decodableError?) = error,
+                case DecodingError.dataCorrupted(let context) = decodableError
+            else {
+                XCTFail("wrong error was thrown: \(error.localizedDescription)")
+                return
+            }
+            
+            XCTAssertEqual(context.debugDescription, "Expected type NotCodable does not conform to protocol Decodable")
+            
+        }
     }
     
 }

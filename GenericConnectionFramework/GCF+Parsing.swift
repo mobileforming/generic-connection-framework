@@ -10,37 +10,76 @@ import Foundation
 
 extension DecodingError {
     fileprivate static func unsafeTypeError<T>(_ type: T.Type) -> DecodingError {
-        let description = "Expected type \(String(describing: T.self)) doess not conform to protocol Decodable"
+        let description = "Expected type \(String(describing: T.self)) does not conform to protocol Decodable"
         return .dataCorrupted(DecodingError.Context(codingPath: [], debugDescription: description))
     }
 }
 
 extension Decodable {
     
-    fileprivate static func openedJSONDecode(_ data: Data, using decoder: JSONDecoder = JSONDecoder()) throws -> Self? {
-        return try? decoder.decode(self, from: data)
+    fileprivate static func openedJSONDecode(_ data: Data, using decoder: JSONDecoder = JSONDecoder()) throws -> Self {
+            return try decoder.decode(self, from: data)
+
     }
 }
 
 
 extension JSONDecoder {
     
-    func decodeIfValid<T>(_ type: T.Type, with data: Data) throws -> T {
+    func decodeIfValid<T>(_ type: T.Type, with data: Data?) throws -> T {
+        
+        guard let data = data else {
+            throw GCFError.ParsingError.noData
+        }
         
         // Attempt to cast T as Decodable
         guard case let decodableType as Decodable.Type = T.self else {
-            throw DecodingError.unsafeTypeError(type)
+            throw GCFError.ParsingError.codable(.unsafeTypeError(type))
         }
         
-        // right now we know decodableType is Decodable, but we have lost all other insight into its metatype
+        // right now we know decodableType is Decodable, but we have lost all other insight into its metatype.
         // openedJSONDecode(data:using:) acts within a Decodable (static type) to return Self (metatype),
         // covertly creating the correct type. We don't know this from a compiler standpoint, however, so we
         // must optionally cast back to T in order to return a fully typed object
-        guard let typedDecodable = try decodableType.openedJSONDecode(data, using: self) as? T else {
-            throw DecodingError.unsafeTypeError(type)
+        do {
+            guard let typedDecodable = try decodableType.openedJSONDecode(data, using: self) as? T else {
+                throw GCFError.ParsingError.codable(.unsafeTypeError(type))
+            }
+            
+            return typedDecodable
+            
+        } catch let error {
+            
+            throw error as? GCFError.ParsingError ?? GCFError.ParsingError.codable(error as? DecodingError)
+            
         }
         
-        return typedDecodable
+    }
+    
+}
+
+extension JSONSerialization {
+    
+    fileprivate static func parse<T>(with data: Data?) throws -> T {
+        
+        do {
+            
+            guard let data = data else {
+                throw GCFError.ParsingError.noData
+            }
+            
+            let dict = try jsonObject(with: data, options: [])
+            
+            guard let typedDict = dict as? T else {
+                throw GCFError.ParsingError.jsonSerialization(nil)
+            }
+            
+            return typedDict
+            
+        } catch let error {
+            throw error as? GCFError.ParsingError ?? GCFError.ParsingError.jsonSerialization(error)
+            
+        }
         
     }
     
@@ -51,61 +90,52 @@ extension GCF {
     func parseData<T>(from data: Data?) throws -> T {
         
         do {
+
+            let parsed: T?
+            
             switch T.self {
             
             case is Data.Type, is Optional<Data>.Type:
-                return try unwrap(data)
+                parsed = data as? T
                 
             case is Bool.Type, is Optional<Bool>.Type:
-                return try unwrap(data != nil)
+                parsed = (data != nil) as? T
                 
             case is [String: Any].Type, is Optional<[String: Any]>.Type:
-                return try unwrap(try? jsonParse(with: try unwrap(data)))
+                parsed = try JSONSerialization.parse(with: data)
                 
-            
             case is Decodable.Type:
-                return try unwrap(try? JSONDecoder().decodeIfValid(T.self, with: try unwrap(data)))
+                parsed = try decoder.decodeIfValid(T.self, with: data)
                 
             default:
-                throw GCFError.parsingError
+                parsed = nil
                 
             }
             
-        } catch let error as GCFError {
-            throw error
+            return try unwrap(parsed)
             
         } catch let error {
-            throw GCFError.parsingError(error as? DecodingError)
+            let gcfError = error as? GCFError.ParsingError ?? .codable(error as? DecodingError)
+            return try unwrap(nil, error: gcfError)
             
         }
-        
-    }
-    
-    private func jsonParse<T>(with data: Data) throws -> T {
-        let dict = try JSONSerialization.jsonObject(with: data, options: [])
-        
-        guard let typedDict = dict as? T else {
-            throw GCFError.parsingError
-            
-        }
-        
-        return typedDict
         
     }
     
     // Mitigate the fact that we don't know anything
     // about <T>'s optionality inside parseData(from:)
-    private func unwrap<T>(_ data: Any?) throws -> T {
+    private func unwrap<T>(_ data: Any?, error: GCFError.ParsingError = .noData) throws -> T {
 
         if let result = data as? T { // non-nil
             return result
         }
         
         guard let nilReturn: T = nil else { // nil, non-optional
-            throw GCFError.parsingError
+            throw error
         }
         
         return nilReturn // nil, optional
+        
     }
 
 }
