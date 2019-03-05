@@ -9,11 +9,14 @@
 import Foundation
 
 public enum GCFError: Error {
-    indirect case parsingError(GCFError)
+	case parsingError(DecodingError?)
 	case requestError
 	case pluginError
     case authError(error: Error)
     
+    public static var parsingError: GCFError {
+        return .parsingError(nil)
+    }
 	
 	public enum PluginError: Error {
 		case failureAbortRequest		// don't process remaining plugins, fail entire request
