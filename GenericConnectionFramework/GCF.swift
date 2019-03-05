@@ -11,6 +11,11 @@ import Foundation
 public protocol RemoteConfiguration {
 	var baseURL: String { get }
 	var defaultHeaders: [String:String]? { get }
+    var dispatchQueueLabel: String? { get }
+}
+
+public extension RemoteConfiguration {
+    var dispatchQueueLabel: String? { return nil }
 }
 
 public protocol GraphRemoteConfiguration: RemoteConfiguration {
