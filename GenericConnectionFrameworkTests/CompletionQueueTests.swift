@@ -32,7 +32,7 @@ class CompletionQueueTests: XCTestCase {
 	func testShouldRequestContinueCodable() {
 		let request = URLRequest(url: URL(string: "https://google.com")!)
 		var completed = 0
-		let completion: (EmptyCodable?, Error?) -> Void = { (result, error) in
+		let completion: (ResponseHeader?, EmptyCodable?, Error?) -> Void = { (_, result, error) in
 			completed += 1
 		}
 
@@ -64,7 +64,7 @@ class CompletionQueueTests: XCTestCase {
 	func testProcessCompletionsCodable() {
 		let request = URLRequest(url: URL(string: "https://google.com")!)
 		var completed = 0
-		let completion: (EmptyCodable?, Error?) -> Void = { (result, error) in
+		let completion: (ResponseHeader?, EmptyCodable?, Error?) -> Void = { (_, result, error) in
 			completed += 1
 		}
 		
@@ -88,7 +88,7 @@ class CompletionQueueTests: XCTestCase {
 		group.notify(queue: .main) { exp.fulfill() }
 		waitForExpectations(timeout: 10, handler: nil)
 		
-		completionQueue.processCompletions(forRequest: request, numAuthRetries: 99, result: EmptyCodable(), error: nil)
+        completionQueue.processCompletions(forRequest: request, response: nil, numAuthRetries: 99, result: EmptyCodable(), error: nil)
 		let waitExp = expectation(description: "")
 		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
 			waitExp.fulfill()
@@ -109,7 +109,7 @@ class CompletionQueueTests: XCTestCase {
     func testShouldRequestContinueBool() {
         let request = URLRequest(url: URL(string: "https://google.com")!)
         var completed = 0
-        let completion: (Bool?, Error?) -> Void = { (result, error) in
+        let completion: (ResponseHeader?, Bool?, Error?) -> Void = { (_, result, error) in
             completed += 1
         }
         
@@ -141,7 +141,7 @@ class CompletionQueueTests: XCTestCase {
     func testProcessCompletionsBool() {
         let request = URLRequest(url: URL(string: "https://google.com")!)
         var completed = 0
-        let completion: (Bool?, Error?) -> Void = { (result, error) in
+        let completion: (ResponseHeader?, Bool?, Error?) -> Void = { (_, result, error) in
             completed += 1
         }
         
@@ -165,7 +165,7 @@ class CompletionQueueTests: XCTestCase {
         group.notify(queue: .main) { exp.fulfill() }
         waitForExpectations(timeout: 10, handler: nil)
         
-        completionQueue.processCompletions(forRequest: request, numAuthRetries: 99, result: true, error: nil)
+        completionQueue.processCompletions(forRequest: request, response: nil, numAuthRetries: 99, result: true as Bool?, error: nil)
         let waitExp = expectation(description: "")
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             waitExp.fulfill()
@@ -186,7 +186,7 @@ class CompletionQueueTests: XCTestCase {
     func testShouldRequestContinueDictionary() {
         let request = URLRequest(url: URL(string: "https://google.com")!)
         var completed = 0
-        let completion: ([String: Any]?, Error?) -> Void = { (result, error) in
+        let completion: (ResponseHeader?, [String: Any]?, Error?) -> Void = { (_, result, error) in
             completed += 1
         }
         
@@ -218,7 +218,7 @@ class CompletionQueueTests: XCTestCase {
     func testProcessCompletionsDictionary() {
         let request = URLRequest(url: URL(string: "https://google.com")!)
         var completed = 0
-        let completion: ([String: Any]?, Error?) -> Void = { (result, error) in
+        let completion: (ResponseHeader?, [String: Any]?, Error?) -> Void = { (_, result, error) in
             completed += 1
         }
         
@@ -242,7 +242,7 @@ class CompletionQueueTests: XCTestCase {
         group.notify(queue: .main) { exp.fulfill() }
         waitForExpectations(timeout: 10, handler: nil)
         
-        completionQueue.processCompletions(forRequest: request, numAuthRetries: 99, result: ["hello": "goodbye"] as [String: Any]?, error: nil)
+        completionQueue.processCompletions(forRequest: request, response: nil, numAuthRetries: 99, result: ["hello": "goodbye"] as [String: Any]?, error: nil)
         let waitExp = expectation(description: "")
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             waitExp.fulfill()
