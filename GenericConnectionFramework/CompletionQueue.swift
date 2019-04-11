@@ -25,9 +25,11 @@ class CompletionQueue {
 	}
 
     func key(for request: URLRequest, numAuthRetries: Int, completionType: CompletionType) -> String {
-        return "\(request.hashValue + numAuthRetries):\(completionType.rawValue)"
+		let absoluteStringHashValue = (request.url?.absoluteString ?? "").hashValue
+		let httpBodyHashValue = request.httpBody.hashValue
+		let httpMethodHashValue = (request.httpMethod ?? "").hashValue
+        return "\(absoluteStringHashValue + httpBodyHashValue + httpMethodHashValue + numAuthRetries):\(completionType.rawValue)"
 	}
-	
     
     // MARK - Codable
     
