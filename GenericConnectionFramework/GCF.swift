@@ -97,29 +97,3 @@ extension GCF {
     }
     
 }
-
-// Convenience methods to discard ResponseHeader capture
-
-extension GCF {
-
-    public func sendRequest<T: Codable>(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (T?, Error?) -> Void) {
-        sendRequest(for: routable, numAuthRetries: numAuthRetries) { (_, response: T?, error) in
-            completion(response, error)
-        }
-    }
-    
-    public func sendRequest(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (Bool, Error?) -> Void) {
-        sendRequest(for: routable, numAuthRetries: numAuthRetries) { (_, response: Bool, error) in
-            completion(response, error)
-        }
-
-    }
-    
-    public func sendRequest(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping ([String: Any]?, Error?) -> Void) {
-        sendRequest(for: routable, numAuthRetries: numAuthRetries) { (_, response: [String: Any]?, error) in
-            completion(response, error)
-        }
-
-    }
-
-}
