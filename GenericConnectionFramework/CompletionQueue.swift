@@ -28,7 +28,7 @@ class CompletionQueue {
 		let absoluteStringHashValue = (request.url?.absoluteString ?? "").hashValue
 		let httpBodyHashValue = request.httpBody.hashValue
 		let httpMethodHashValue = (request.httpMethod ?? "").hashValue
-        return "\(absoluteStringHashValue + httpBodyHashValue + httpMethodHashValue + numAuthRetries):\(completionType.rawValue)"
+        return "\(absoluteStringHashValue &+ httpBodyHashValue &+ httpMethodHashValue &+ numAuthRetries):\(completionType.rawValue)"
 	}
     
     // MARK - Codable

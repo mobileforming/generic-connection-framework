@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [x.x.x] - unreleased
+### Changed
+- Change completionQueue key generation to use hashValues from the requestUrl, httpBody, and httpMethod instead of just the request itself.
+
+
+
 
 ## [6.3.1] - 03-04-19
 ### Changed
