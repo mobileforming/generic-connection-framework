@@ -29,7 +29,7 @@ class CompletionQueue {
         let absoluteStringHashValue = (request.url?.absoluteString ?? "").hashValue
         let httpBodyHashValue = request.httpBody.hashValue
         let httpMethodHashValue = (request.httpMethod ?? "").hashValue
-        return "\(absoluteStringHashValue &+ httpBodyHashValue &+ httpMethodHashValue &+ numAuthRetries):\(String(describing:T.self)"
+        return "\(absoluteStringHashValue &+ httpBodyHashValue &+ httpMethodHashValue &+ numAuthRetries):\(String(describing:T.self))"
 	}
 	
 	@discardableResult
