@@ -23,7 +23,7 @@ class CompletionQueueTests: XCTestCase {
 	
 	func testKey() {
 		let request = URLRequest(url: URL(string: "https://google.com")!)
-        XCTAssertEqual(completionQueue.key(for: request, numAuthRetries: 99, completionType: [String:Any].self), "\(request.hashValue + 99):Dictionary<String, Any>")
+        XCTAssertEqual(completionQueue.key(for: request, numAuthRetries: 99, completionType: [String:Any].self), "\(request.url!.absoluteString.hashValue &+ request.httpBody.hashValue &+ request.httpMethod!.hashValue &+ 99):Dictionary<String, Any>")
 	}
 	
     

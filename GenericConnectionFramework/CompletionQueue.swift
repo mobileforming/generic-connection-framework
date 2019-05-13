@@ -26,7 +26,10 @@ class CompletionQueue {
 	}
 
     func key<T>(for request: URLRequest, numAuthRetries: Int, completionType: T.Type) -> RequestKey {
-        return "\(request.hashValue + numAuthRetries):\(String(describing:T.self))"
+        let absoluteStringHashValue = (request.url?.absoluteString ?? "").hashValue
+        let httpBodyHashValue = request.httpBody.hashValue
+        let httpMethodHashValue = (request.httpMethod ?? "").hashValue
+        return "\(absoluteStringHashValue &+ httpBodyHashValue &+ httpMethodHashValue &+ numAuthRetries):\(String(describing:T.self))"
 	}
 	
 	@discardableResult
