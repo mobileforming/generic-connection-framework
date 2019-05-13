@@ -36,11 +36,11 @@ protocol GCF: class {
 	
 	init(configuration: RemoteConfiguration)
 	init(baseURL: String, decoder: JSONDecoder, pinPublicKey: String?)
-    func sendRequest<T: Codable>(for routable: Routable, numAuthRetries: Int, completion: @escaping (T?, Error?) -> Void)
-	func sendRequest(for routable: Routable, numAuthRetries: Int, completion: @escaping (Bool, Error?) -> Void)
-    func sendRequest(for routable: Routable, numAuthRetries: Int, completion: @escaping ([String: Any]?, Error?) -> Void)
-	func constructURL(from routable: Routable) -> URL
-	func parseData<T: Codable>(from data: Data) throws -> T
+    func sendRequest<T: Codable>(for routable: Routable, numAuthRetries: Int, completion: @escaping (ResponseHeader?, T?, Error?) -> Void)
+    func sendRequest(for routable: Routable, numAuthRetries: Int, completion: @escaping (ResponseHeader?, Bool, Error?) -> Void)
+    func sendRequest(for routable: Routable, numAuthRetries: Int, completion: @escaping (ResponseHeader?, [String: Any]?, Error?) -> Void)
+    func constructURL(from routable: Routable) -> URL
+    func parseData<T>(from data: Data?) throws -> T
 	func configurePlugins(_ plugins: [GCFPlugin])
 }
 
@@ -74,16 +74,6 @@ extension GCF {
 			return urlComponents.url!
 		}
 		fatalError("cant construct url")
-	}
-	
-	func parseData<T: Codable>(from data: Data) throws -> T {
-		do {
-			return try decoder.decode(T.self, from: data)
-        } catch let error {
-            debugPrintError(error)
-            throw GCFError.parsingError(error as? DecodingError)
-        }
-        
 	}
     
     func debugPrintError(_ error: Error) {
