@@ -24,6 +24,12 @@ public enum GCFError: Error {
 		case failureContinue			// continue with remaining plugins
         case failureRetryRequest        // don't process remaining plugins, retry the request
 	}
+    
+    public enum ParsingError: Error {
+        case codable(DecodingError?)
+        case jsonSerialization(Error?)
+        case noData
+    }
 	
 	public enum RoutableError: Error {
 		case invalidURL(message: String)
