@@ -58,7 +58,42 @@ public class APIClient: GCF {
 
        aggregate.plugins.append(plugin)
     }
-    
+	
+	public func sendRequest(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping ResponseCompletion<[String: Any]?>) {
+		sendRequestInternal(for: routable, numAuthRetries: numAuthRetries, completion: completion)
+	}
+	
+	public func sendRequest(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping ResponseCompletion<Bool>) {
+		sendRequestInternal(for: routable, numAuthRetries: numAuthRetries) { (header, response: Bool?, error) in completion(header, response ?? false, error) }
+	}
+	
+	public func sendRequest<T: Codable>(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping ResponseCompletion<T?>) {
+		sendRequestInternal(for: routable, numAuthRetries: numAuthRetries, completion: completion)
+	}
+	
+	//MARK: - Convenience methods to discard ResponseHeader capture
+	public func sendRequest<T: Codable>(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (T?, Error?) -> Void) {
+		sendRequest(for: routable, numAuthRetries: numAuthRetries) { (_, response: T?, error) in
+			completion(response, error)
+		}
+	}
+	
+	public func sendRequest(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (Bool, Error?) -> Void) {
+		sendRequest(for: routable, numAuthRetries: numAuthRetries) { (_, response: Bool, error) in
+			completion(response, error)
+		}
+	}
+	
+	public func sendRequest(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping ([String: Any]?, Error?) -> Void) {
+		sendRequest(for: routable, numAuthRetries: numAuthRetries) { (_, response: [String: Any]?, error) in
+			completion(response, error)
+		}
+	}
+	
+}
+
+//MARK: - Internal/private methods
+extension APIClient {
     
     internal func sendRequestInternal<T>(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (T?, Error?) -> Void) {
         sendRequestInternal(for: routable, numAuthRetries: numAuthRetries) { (_, response: T?, error) in
@@ -130,48 +165,4 @@ public class APIClient: GCF {
     private func processCompletions<T>(forKey key: CompletionQueue.RequestKey, response: URLResponse? = nil, result: T?, error: Error?) {
         inFlightRequests.processCompletions(forKey: key, response: response, result: result, error: error)
     }
-    
-}
-
-extension APIClient {
-    
-    public func sendRequest(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping ResponseCompletion<[String: Any]?>) {
-        sendRequestInternal(for: routable, numAuthRetries: numAuthRetries, completion: completion)
-    }
-    
-    public func sendRequest(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping ResponseCompletion<Bool>) {
-        sendRequestInternal(for: routable, numAuthRetries: numAuthRetries) { (header, response: Bool?, error) in completion(header, response ?? false, error) }
-    }
-    
-    public func sendRequest<T: Codable>(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping ResponseCompletion<T?>) {
-        sendRequestInternal(for: routable, numAuthRetries: numAuthRetries, completion: completion)
-    }
-    
-}
-
-
-// Convenience methods to discard ResponseHeader capture
-
-extension APIClient {
-    
-    public func sendRequest<T: Codable>(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (T?, Error?) -> Void) {
-        sendRequest(for: routable, numAuthRetries: numAuthRetries) { (_, response: T?, error) in
-            completion(response, error)
-        }
-    }
-    
-    public func sendRequest(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (Bool, Error?) -> Void) {
-        sendRequest(for: routable, numAuthRetries: numAuthRetries) { (_, response: Bool, error) in
-            completion(response, error)
-        }
-        
-    }
-    
-    public func sendRequest(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping ([String: Any]?, Error?) -> Void) {
-        sendRequest(for: routable, numAuthRetries: numAuthRetries) { (_, response: [String: Any]?, error) in
-            completion(response, error)
-        }
-        
-    }
-    
 }
