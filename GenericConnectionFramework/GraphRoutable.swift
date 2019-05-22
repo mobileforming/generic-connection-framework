@@ -14,7 +14,7 @@ public protocol GraphRoutable: Routable {
 }
 
 public extension GraphRoutable {
-	public var body: [String:Any]? {
+	var body: [String:Any]? {
 		var data = [String:Any]()
 		data["query"] = query
 		
@@ -25,7 +25,7 @@ public extension GraphRoutable {
 		return data
 	}
 	
-	public var path: String {
+	var path: String {
 		return ""
 	}
 }
