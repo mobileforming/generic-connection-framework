@@ -387,6 +387,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -774,6 +775,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = CommonCrypto;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -799,6 +801,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = CommonCrypto;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

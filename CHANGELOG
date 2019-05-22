@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [6.4.1] - 05-17-19
+### Changed
+ - Swift 4 -> Swift 5
+ - Regorganized conveniance methods to main api client class, moved private/internal to an extension to support overriding (tests)
+
 ## [6.4.0] - 05-13-19
 ### Added
 - optional ResponseHeader capture in sendRequest methods
