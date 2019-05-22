@@ -132,7 +132,7 @@ platform :ios do
       puts "New source = #{source}"
       newSource = text.gsub(/^.*s.source\ .*$/, "  " + source)
       File.open("../#{options[:podspecFilePath]}", "w") {|file| file.puts newSource }
-      sh "pod repo push #{url} ../#{options[:podspecFilePath]}"
+      sh "pod repo push #{url} ../#{options[:podspecFilePath]} --allow-warnings"
     end
   end
   
@@ -164,7 +164,7 @@ platform :ios do
       puts "New source = #{source}"
       newSource = text.gsub(/^.*s.source\ .*$/, "  " + source)
       File.open("../#{options[:podspecFilePath]}", "w") {|file| file.puts newSource }
-      sh "pod repo push #{url} ../#{options[:podspecFilePath]}"
+      sh "pod repo push #{url} ../#{options[:podspecFilePath]} --allow-warnings"
     end
   end
  
