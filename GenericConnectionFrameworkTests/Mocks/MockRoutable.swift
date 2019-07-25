@@ -10,16 +10,10 @@ import Foundation
 import GenericConnectionFramework
 
 struct MockRoutable: Routable {
-    var path: String { return "" }
-    
-    var method: HTTPMethod { return .get }
-    
-    var headers: [String : String]? { return nil }
-    
-    var parameters: [String : String]? { return nil }
-    
-    var body: [String : Any]? { return nil}
-    
-    var needsAuthorization: Bool { return false }
-    
+    var path = ""
+    var method: HTTPMethod = .get
+    var headers: [String : String]?
+    var parameters: [String : String]?
+    var body: [String : AnyHashable]?
+    var needsAuthorization = false
 }

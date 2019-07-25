@@ -113,7 +113,7 @@ extension APIClient {
             var urlRequest = self.constructURLRequest(from: routable)
 			
 			//check and queue same requests
-            let requestKey = self.inFlightRequests.key(for: urlRequest, numAuthRetries: numAuthRetries, completionType: T.self)
+            let requestKey = self.inFlightRequests.key(for: routable, numAuthRetries: numAuthRetries, completionType: T.self)
             let shouldSendRequest = isRetrying || self.inFlightRequests.shouldRequestContinue(forKey: requestKey, completion: completion)
 			guard shouldSendRequest else { return }
             

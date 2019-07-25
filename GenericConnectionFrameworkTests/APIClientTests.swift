@@ -45,8 +45,22 @@ class APIClientTests: XCTestCase {
         plugin.didReceiveError = GCFError.PluginError.failureRetryRequest
         
         client.configurePlugins([plugin])
-
-        let routable = MockRoutable()
+        
+        // The reason for this (rather than using MockRoutable here) is to have a new dictionary created
+        // from a dictionary literal each time one of the dictionary properties (headers, parameters,
+        // body) is referenced. This will randomize the ordering of each dictionary's key/value pairs
+        // in the dictionary's internal storage, which is necessary to thoroughly test APIClient's
+        // retry handling mechanism.
+        struct CustomRoutable: Routable {
+            var path: String { return "/some/arbitrary/path" }
+            var method: HTTPMethod { return .post }
+            var headers: [String: String]? { return ["header1": "value1", "header2": "value2"] }
+            var parameters: [String: String]? { return ["parameter1": "value1", "parameter2": "value2"] }
+            var body: [String: AnyHashable]? { return ["key1": "value1", "key2": "value2", "key3": "value3"] }
+            var needsAuthorization: Bool { return false }
+        }
+        
+        let routable = CustomRoutable()
         let exp = expectation(description: "wait for response yo")
         client.sendRequest(for: routable, numAuthRetries: 2) { (dict: [String: Any]?, error) in
             

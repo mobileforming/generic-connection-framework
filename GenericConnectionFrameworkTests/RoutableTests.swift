@@ -66,7 +66,7 @@ enum Router: Routable {
         }
     }
     
-    var body: [String : Any]? {
+    var body: [String : AnyHashable]? {
         switch self {
         default:
             return nil
