@@ -10,12 +10,12 @@ import Foundation
 
 public protocol GraphRoutable: Routable {
 	var query: String { get }
-	var variables: [String:Any]? { get }
+	var variables: [String:AnyHashable]? { get }
 }
 
 public extension GraphRoutable {
-	var body: [String:Any]? {
-		var data = [String:Any]()
+	var body: [String:AnyHashable]? {
+		var data = [String:AnyHashable]()
 		data["query"] = query
 		
 		if let variables = variables {

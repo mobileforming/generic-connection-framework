@@ -13,7 +13,7 @@ class GraphRoutableTests: XCTestCase {
 	
 	struct TestGraphRoute: GraphRoutable {
 		var query: String
-		var variables: [String:Any]?
+		var variables: [String:AnyHashable]?
 		var method: HTTPMethod
 		var headers: [String:String]?
 		var parameters: [String:String]?
@@ -38,7 +38,7 @@ class GraphRoutableTests: XCTestCase {
 		XCTAssertNotNil(body!["query"])
 		XCTAssertEqual(body!["query"] as! String, "testquery")
 		
-		let variables = body!["variables"] as? [String:Any]
+		let variables = body!["variables"] as? [String:AnyHashable]
 		XCTAssertNotNil(variables)
 		XCTAssertEqual(variables!["testvar"] as! Int, 1)
 	}

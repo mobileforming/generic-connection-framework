@@ -14,7 +14,7 @@ public protocol Routable {
     var method: HTTPMethod { get }
     var headers: [String:String]? { get }
     var parameters: [String:String]? { get }
-    var body: [String:Any]? { get }
+    var body: [String:AnyHashable]? { get }
 	var needsAuthorization: Bool { get }
     
     // To be overriden...

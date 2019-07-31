@@ -16,7 +16,7 @@ class GCFTests: XCTestCase {
 		var method: HTTPMethod
 		var headers: [String:String]?
 		var parameters: [String:String]?
-		var body: [String:Any]?
+		var body: [String:AnyHashable]?
 		var needsAuthorization: Bool
 		var defaultTimeout: TimeInterval
 	}

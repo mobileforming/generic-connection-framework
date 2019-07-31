@@ -25,16 +25,13 @@ class CompletionQueue {
 		dispatchQueue = queue ?? DispatchQueue.global(qos: .default)
 	}
 
-    func key<T>(for request: URLRequest, numAuthRetries: Int, completionType: T.Type) -> RequestKey {
-        let absoluteStringHashValue = (request.url?.absoluteString ?? "").hashValue
-        let httpBodyHashValue = request.httpBody.hashValue
-        let httpMethodHashValue = (request.httpMethod ?? "").hashValue
-        return "\(absoluteStringHashValue &+ httpBodyHashValue &+ httpMethodHashValue &+ numAuthRetries):\(String(describing:T.self))"
+    func key<T>(for routable: Routable, numAuthRetries: Int, completionType: T.Type) -> RequestKey {
+        return "\(routable.hashValue &+ numAuthRetries):\(String(describing:T.self))"
 	}
 	
 	@discardableResult
-	func shouldRequestContinue<T>(forRequest request: URLRequest, numAuthRetries: Int, completion: @escaping ResponseCompletion<T?>) -> Bool {
-		return shouldRequestContinue(forKey: key(for: request, numAuthRetries: numAuthRetries, completionType: T.self), completion: completion)
+	func shouldRequestContinue<T>(forRoutable routable: Routable, numAuthRetries: Int, completion: @escaping ResponseCompletion<T?>) -> Bool {
+		return shouldRequestContinue(forKey: key(for: routable, numAuthRetries: numAuthRetries, completionType: T.self), completion: completion)
 	}
 	
 	@discardableResult
@@ -51,8 +48,8 @@ class CompletionQueue {
 		return false
 	}
 	
-    func processCompletions<T>(forRequest request: URLRequest, response: URLResponse? = nil, numAuthRetries: Int, result: T?, error: Error?) {
-        processCompletions(forKey: key(for: request, numAuthRetries: numAuthRetries, completionType: T.self), response: response, result: result, error: error)
+    func processCompletions<T>(forRoutable routable: Routable, response: URLResponse? = nil, numAuthRetries: Int, result: T?, error: Error?) {
+        processCompletions(forKey: key(for: routable, numAuthRetries: numAuthRetries, completionType: T.self), response: response, result: result, error: error)
     }
     
     func processCompletions<T>(forKey key: RequestKey, response: URLResponse? = nil, result: T?, error: Error?) {
@@ -77,6 +74,16 @@ private extension URLResponse {
     
     var headers: ResponseHeader? {
         return (self as? HTTPURLResponse)?.allHeaderFields
+    }
+    
+}
+
+private extension Routable {
+    
+    var hashValue: Int {
+        let hashableComponents: [AnyHashable?] = [path, method, parameters, body]
+        
+        return hashableComponents.compactMap { $0?.hashValue }.reduce(0, &+)
     }
     
 }
