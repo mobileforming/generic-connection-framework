@@ -7,7 +7,7 @@
 MOBILEOS="ios"       
 RUNLANE="distributionUploadInternalPods"  
 BUILD_KEYS="mf-ios-gcf-keys"   
-SCHEME="Framework"      
+SCHEME="GenericConnectionFramework"      
 CONFIGURATION="Debug"     
 PLIST_PATH="GenericConnectionFramework/Info.plist"
 FRAMEWORK_NAME="GenericConnectionFramework.framework"
