@@ -95,6 +95,13 @@ extension GCF {
             
             switch T.self {
             
+            case is String.Type, is Optional<String>.Type:
+               if let data = data {
+                   parsed = String(data: data, encoding: .utf8) as! T?
+               } else {
+                   parsed = nil
+               }
+
             case is Data.Type, is Optional<Data>.Type:
                 parsed = data as? T
                 

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [7.1.0] - 08-30-19
+### Added
+- Response Body can now accept String as Generic Type
+
 ## [7.0.0] - 07-31-19
 ### Changed
  - Routable body type to [String: AnyHashable]

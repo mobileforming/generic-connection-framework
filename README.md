@@ -30,7 +30,6 @@ The General Connection Framework (GCF) is part of mobileforming's modularization
 
 ## Dependencies
 
-- [RxSwift]
 
 ## Requirements
 
