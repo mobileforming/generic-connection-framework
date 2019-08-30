@@ -34,33 +34,44 @@ class GCFPinningDelegate: NSObject, URLSessionDelegate {
 
 	func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void) {
 
-		if (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
-			if let serverTrust = challenge.protectionSpace.serverTrust {
-				var secresult = SecTrustResultType.invalid
-				let status = SecTrustEvaluate(serverTrust, &secresult)
-
-				if(errSecSuccess == status) {
-					print(SecTrustGetCertificateCount(serverTrust))
-					if let serverCertificate = SecTrustGetCertificateAtIndex(serverTrust, 0) {
-                        var serverPublicKeyData: NSData?
-                        if #available(iOS 10.3, *) {
-                            let serverPublicKey = SecCertificateCopyPublicKey(serverCertificate)
-                            serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey!, nil )!
-                        } else {
-                            serverPublicKeyData = SecCertificateCopyData(serverCertificate) // TODO: make sure this is correct
-                        }
-                        if let data = serverPublicKeyData {
-                            let keyHash = sha256(data: data as Data)
-                            if (keyHash == publicKeyHash) {
-                                return completionHandler(.useCredential, URLCredential(trust:serverTrust))
-                            }
-                        }
-					}
-				}
-			}
+        if let serverTrust = checkNeedForPinning(challenge: challenge) {
+            print(SecTrustGetCertificateCount(serverTrust))
+            if let serverCertificate = SecTrustGetCertificateAtIndex(serverTrust, 0) {
+                var serverPublicKeyData: NSData?
+                if #available(iOS 10.3, *) {
+                    let serverPublicKey = SecCertificateCopyPublicKey(serverCertificate)
+                    serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey!, nil )!
+                } else {
+                    serverPublicKeyData = SecCertificateCopyData(serverCertificate) // TODO: make sure this is correct
+                }
+                if let data = serverPublicKeyData {
+                    let keyHash = sha256(data: data as Data)
+                    if (keyHash == publicKeyHash) {
+                        return completionHandler(.useCredential, URLCredential(trust:serverTrust))
+                    }
+                }
+            }
 		}
 
 		// Pinning failed
 		completionHandler(.cancelAuthenticationChallenge, nil)
 	}
+    
+    
+    func checkNeedForPinning(challenge: URLAuthenticationChallenge) -> SecTrust? {
+        guard challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust else {
+            return nil
+        }
+        
+        if let serverTrust = challenge.protectionSpace.serverTrust {
+            var secresult = SecTrustResultType.invalid
+            let status = SecTrustEvaluate(serverTrust, &secresult)
+            
+            if errSecSuccess == status {
+                return serverTrust
+            }
+        }
+        
+        return nil
+    }
 }
