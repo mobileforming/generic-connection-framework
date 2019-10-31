@@ -20,8 +20,8 @@ class GCFPinningDelegate: NSObject, URLSessionDelegate {
 		publicKeyHash = publicKey
 	}
 
-	private func sha256(data : Data) -> String {
-		var keyWithHeader = Data(bytes: rsa2048Asn1Header)
+	private func sha256(data: Data) -> String {
+		var keyWithHeader = Data(rsa2048Asn1Header)
 		keyWithHeader.append(data)
 		var hash = [UInt8](repeating: 0,  count: Int(CC_SHA256_DIGEST_LENGTH))
 
