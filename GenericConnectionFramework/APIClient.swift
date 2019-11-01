@@ -92,7 +92,7 @@ public class APIClient: GCF {
 	
 }
 
-//MARK: - Internal/private methods
+// MARK: - Internal/private methods
 extension APIClient {
     
     internal func sendRequestInternal<T>(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (T?, Error?) -> Void) {

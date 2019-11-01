@@ -37,13 +37,16 @@ class CompletionQueue {
 	@discardableResult
 	func shouldRequestContinue<T>(forKey key: RequestKey, completion: @escaping ResponseCompletion<T?>) -> Bool {
 		lock.wait()
-		guard inFlightRequests[key] != nil else {
+		guard
+            var value = inFlightRequests[key]
+        else {
 			inFlightRequests[key] = [completion]
 			lock.signal()
 			return true
 		}
 		
-		inFlightRequests[key]!.append(completion)
+		value.append(completion)
+        inFlightRequests[key] = value
 		lock.signal()
 		return false
 	}
