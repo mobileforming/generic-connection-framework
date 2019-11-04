@@ -71,7 +71,7 @@ public class APIClient: GCF {
 		sendRequestInternal(for: routable, numAuthRetries: numAuthRetries, completion: completion)
 	}
 	
-	//MARK: - Convenience methods to discard ResponseHeader capture
+	// MARK: - Convenience methods to discard ResponseHeader capture
 	public func sendRequest<T: Codable>(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (T?, Error?) -> Void) {
 		sendRequest(for: routable, numAuthRetries: numAuthRetries) { (_, response: T?, error) in
 			completion(response, error)

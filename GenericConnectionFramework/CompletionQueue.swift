@@ -26,7 +26,7 @@ class CompletionQueue {
 	}
 
     func key<T>(for routable: Routable, numAuthRetries: Int, completionType: T.Type) -> RequestKey {
-        return "\(routable.hashValue &+ numAuthRetries):\(String(describing:T.self))"
+        return "\(routable.hashVal &+ numAuthRetries):\(String(describing:T.self))"
 	}
 	
 	@discardableResult
@@ -83,7 +83,7 @@ private extension URLResponse {
 
 private extension Routable {
     
-    var hashValue: Int {
+    var hashVal: Int {
         let hashableComponents: [AnyHashable?] = [path, method, parameters, body]
         
         return hashableComponents.compactMap { $0?.hashValue }.reduce(0, &+)

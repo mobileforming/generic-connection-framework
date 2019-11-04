@@ -65,6 +65,27 @@ class GenericParsingTests: XCTestCase {
         }
     }
     
+    func testNoData() {
+        do {
+            let testData: Data? = nil
+            
+            let parsed: Data = try gcf.parseData(from: testData)
+            
+            XCTAssertEqual(data, parsed)
+            
+        } catch let error {
+            XCTFail(error.localizedDescription)
+        }
+        
+        do {
+            let _: Data = try gcf.parseData(from: nil)
+            
+            XCTFail("failed to throw" )
+        } catch let error {
+            XCTAssertTrue(error is GCFError.ParsingError)
+        }
+        
+    }
     func testData() {
         do {
             
@@ -89,7 +110,7 @@ class GenericParsingTests: XCTestCase {
     func testBool() {
         do {
             
-            let parsed: Bool = try gcf.parseData(from: data)
+            let parsed: Bool = try gcf.parseData(from: nil)
             
             XCTAssertTrue(parsed)
             
