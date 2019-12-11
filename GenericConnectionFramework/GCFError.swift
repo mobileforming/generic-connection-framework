@@ -43,7 +43,7 @@ extension GCFError: LocalizedError {
             guard
                 let desc = decodeError?.errorDescription
             else {
-                return NSLocalizedString(self.localizedDescription, comment: "")
+                return NSLocalizedString("Unknown reason", comment: "")
             }
             return NSLocalizedString(desc, comment: "")
             
@@ -51,14 +51,14 @@ extension GCFError: LocalizedError {
             guard
                 let desc = (nserror as? LocalizedError)?.errorDescription
                 else {
-                    return NSLocalizedString(self.localizedDescription, comment: "")
+                    return NSLocalizedString("Unknown reason", comment: "")
             }
             return NSLocalizedString(desc, comment: "")
         case .pluginError(nserror: let nserror):
             guard
                 let desc = (nserror as? LocalizedError)?.errorDescription
                 else {
-                    return NSLocalizedString(self.localizedDescription, comment: "")
+                    return NSLocalizedString("Unknown reason", comment: "")
             }
             return NSLocalizedString(desc, comment: "")
         case .authError(let error):
