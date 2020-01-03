@@ -121,13 +121,15 @@ class GCFPluginTests: XCTestCase {
         plugin.didReceiveError = merror
         
         gcfPlugin = AggregatePlugin(plugins: [plugin])
-        var request = URLRequest(url: URL(string: "http://google.com")!)
-        guard let error = gcfPlugin!.didReceive(data: nil, response: nil, error: merror, forRequest: &request)  else {
+        var request = URLRequest(url: URL(string: "https://hmsstg.hiltonapi.com/hms/v1/digitalkey/keyshare/accept")!)
+        guard let terror = gcfPlugin!.didReceive(data: nil, response: nil, error: merror, forRequest: &request)  else {
             XCTFail("wrong error type or no error returned")
             return
         }
-        
-        XCTAssertEqual(error.localizedDescription, "Bad PIN entered")
+    
+        print(merror)
+        let nserror = terror as? CustomNSError
+        XCTAssertEqual(merror.errorCode, nserror?.errorCode)
         
     }
 }

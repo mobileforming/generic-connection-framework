@@ -9,6 +9,16 @@
 import Foundation
 @testable import GenericConnectionFramework
 
+extension Encodable {
+  func asDictionary() throws -> [String: Any] {
+    let data = try JSONEncoder().encode(self)
+    guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+      throw NSError()
+    }
+    return dictionary
+  }
+}
+
 class MockGCFPlugin: GCFPlugin {
 
 	var willSendCalledCount = 0
@@ -27,104 +37,168 @@ class MockGCFPlugin: GCFPlugin {
 	}
 }
 
-public enum MockErrorCode: String, CaseIterable {
-    
-    case expiredHMAC =          "1"
-    case other =                "0"
+public enum MockErrorCode: Int, CaseIterable {
+    case expiredHMAC =          1
+    case other =                0
 }
 
 extension MockErrorCode: Comparable {
     
     static public func < (lhs: MockErrorCode, rhs: MockErrorCode) -> Bool {
-        guard
-            let left = Int(lhs.rawValue),
-            let right = Int(rhs.rawValue)
-        else {
-           return lhs < rhs  // should never execute with current enum values
-        }
+        let left = lhs.rawValue
+        let right = rhs.rawValue
         return left < right
     }
 
     static public func == (lhs: MockErrorCode, rhs: MockErrorCode) -> Bool {
-        guard
-            let left = Int(lhs.rawValue),
-            let right = Int(rhs.rawValue)
-        else {
-           return lhs.rawValue == rhs.rawValue // should never execute with current enum values
-        }
+        let left = lhs.rawValue
+        let right = rhs.rawValue
         return left == right
     }
     
     static public func < (lhs: String, rhs: MockErrorCode) -> Bool {
+        let right = rhs.rawValue
         guard
-            let left = Int(lhs),
-            let right = Int(rhs.rawValue)
+            let left = Int(lhs)
         else {
-           return lhs < rhs.rawValue
+           return false
         }
         return left < right
     }
 
     static public func == (lhs: String, rhs: MockErrorCode) -> Bool {
+        let right = rhs.rawValue
         guard
-            let left = Int(lhs),
-            let right = Int(rhs.rawValue)
+            let left = Int(lhs)
         else {
-           return lhs == rhs.rawValue
+           return false
         }
         return left == right
     }
     
     static public func < (lhs: MockErrorCode, rhs: String) -> Bool {
+        let left = lhs.rawValue
         guard
-            let left = Int(lhs.rawValue),
             let right = Int(rhs)
         else {
-            return lhs.rawValue < rhs
+            return false
         }
         return left < right
     }
 
     static public func == (lhs: MockErrorCode, rhs: String) -> Bool {
+        let left = lhs.rawValue
         guard
-            let left = Int(lhs.rawValue),
             let right = Int(rhs)
         else {
-            return lhs.rawValue == rhs
+            return false
         }
+        return left == right
+    }
+    
+    static public func < (lhs: Int, rhs: MockErrorCode) -> Bool {
+        let right = rhs.rawValue
+        let left = lhs
+        return left < right
+    }
+
+    static public func == (lhs: Int, rhs: MockErrorCode) -> Bool {
+        let right = rhs.rawValue
+        let left = lhs
+        return left == right
+    }
+    
+    static public func < (lhs: MockErrorCode, rhs: Int) -> Bool {
+        let left = lhs.rawValue
+        let right = rhs
+        return left < right
+    }
+
+    static public func == (lhs: MockErrorCode, rhs: Int) -> Bool {
+        let left = lhs.rawValue
+        let right = rhs
         return left == right
     }
     
 }
 
-public class MockError: Error {
+public class MockError: CustomNSError, Codable {
     
-    let errorCode: String
+    public var errorDomain: String = ""
+    public let errorDescription: String?
+    public var errorUserInfo: [String : Any] = [:]
+    public var errorCode: Int {
+        guard
+            let code = internalErrorCode
+        else {
+            return 0
+        }
+        return code
+    }
+    
     let errorType: String?
-    let errorDescription: String?
     let errorTrace: String?
+    let internalErrorCode: Int?
+    
+    private enum CodingKeys: String, CodingKey {
+        case errorCode = "ErrorCode"
+        case errorType = "ErrorType"
+        case errorDescription = "Description"
+        case errorTrace = "Trace"
+    }
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        if let errorString = try container.decodeIfPresent(String.self, forKey: .errorCode) {
+            self.internalErrorCode = Int(errorString) ?? 0
+        } else {
+            self.internalErrorCode = 0
+        }
+        self.errorType = try container.decodeIfPresent(String.self, forKey: .errorType)
+        self.errorDescription = try container.decodeIfPresent(String.self, forKey: .errorDescription)
+        self.errorTrace = try container.decodeIfPresent(String.self, forKey: .errorTrace)
+        
+        self.errorDomain = "Mock Error Domain"
+        
+        do {
+            self.errorUserInfo = try self.asDictionary()
+        } catch {
+            print("Error converting MockError to dictionary")
+        }
+        
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(errorCode, forKey: .errorCode)
+        try container.encode(errorDescription, forKey: .errorDescription)
+        try container.encode(errorType, forKey: .errorType)
+        try container.encode(errorTrace, forKey: .errorTrace)
+    }
     
     init(errorCode: MockErrorCode?, errorType: String?, errorDescription: String?, errorTrace: String?) {
-        self.errorCode = (errorCode ?? .other).rawValue
+        self.internalErrorCode = (errorCode ?? .other).rawValue
         self.errorType = errorType
         self.errorDescription = errorDescription
         self.errorTrace = errorTrace
     }
     
     init(errorCode: String, errorType: String?, errorDescription: String?, errorTrace: String?) {
-        self.errorCode = String(errorCode)
+        self.internalErrorCode = Int(errorCode) ?? 0
         self.errorType = errorType
         self.errorDescription = errorDescription
         self.errorTrace = errorTrace
     }
     
     static func error(from data: Data) -> MockError? {
-        guard let jsonDict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-            let dict = jsonDict as? [String: String] else {
-                return nil
+        let decoder = JSONDecoder()
+        do {
+            let parsed = try decoder.decode(MockError.self, from: data)
+            return parsed
+        } catch {
+           print("Error parsing data into MockError")
         }
-        
-        return MockError.error(from: dict)
+         return nil
     }
     
     static func error(from dict: [String: String]) -> MockError? {
@@ -132,8 +206,10 @@ public class MockError: Error {
         
         return MockError(errorCode: code, errorType: dict["ErrorType"], errorDescription: dict["Description"], errorTrace: dict["Trace"])
     }
+    
    
 }
+
 
 
 class MockGCFPluginCustom: GCFPlugin {
@@ -166,7 +242,7 @@ class MockGCFPluginCustom: GCFPlugin {
             
             if statusCode == 401 {
                 if let mockError = mockError,
-                    mockError.errorCode == "1" {
+                    mockError.errorCode == MockErrorCode.expiredHMAC {
                     isAuthError = true
                 } else {
                     returnError = mockError

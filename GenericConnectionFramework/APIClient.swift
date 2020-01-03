@@ -129,7 +129,9 @@ extension APIClient {
 			self.urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
 				guard let strongself = self else { return }
 				
-                switch strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest) {
+                let retError = strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest)
+                
+                switch retError {
                     
                 case GCFError.PluginError.failureAbortRequest?:
                     return strongself.processCompletions(forKey: requestKey, response: response, result: nil as T?, error: GCFError.pluginError(nil))
@@ -150,7 +152,7 @@ extension APIClient {
                         do {
                             let result: T = try strongself.parseData(from: data)
                             
-                            strongself.processCompletions(forKey: requestKey, response: response, result: result, error: nil)
+                            strongself.processCompletions(forKey: requestKey, response: response, result: result, error: retError)
                         } catch let error {
                             strongself.processCompletions(forKey: requestKey, response: response, result: nil as T?, error: (error as? GCFError) ?? .parsingError)
                         }
