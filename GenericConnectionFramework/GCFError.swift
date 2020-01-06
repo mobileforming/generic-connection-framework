@@ -66,6 +66,7 @@ extension GCFError: LocalizedError {
             return NSLocalizedString(desc, comment: "")
         }
     }
+    
     public var failureReason: String? {
         switch self {
         case .parsingError(decodingError: let decodeError):
@@ -98,6 +99,7 @@ extension GCFError: LocalizedError {
             return NSLocalizedString(desc, comment: "")
         }
     }
+    
     public var recoverySuggestion: String? {
         switch self {
         case .parsingError(decodingError: let decodeError):
