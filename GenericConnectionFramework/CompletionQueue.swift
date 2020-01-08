@@ -26,7 +26,7 @@ class CompletionQueue {
 	}
 
     func key<T>(for routable: Routable, numAuthRetries: Int, completionType: T.Type) -> RequestKey {
-        return "\(routable.hashValue &+ numAuthRetries):\(String(describing:T.self))"
+        return "\(routable.hashVal &+ numAuthRetries):\(String(describing:T.self))"
 	}
 	
 	@discardableResult
@@ -37,13 +37,16 @@ class CompletionQueue {
 	@discardableResult
 	func shouldRequestContinue<T>(forKey key: RequestKey, completion: @escaping ResponseCompletion<T?>) -> Bool {
 		lock.wait()
-		guard inFlightRequests[key] != nil else {
+		guard
+            var value = inFlightRequests[key]
+        else {
 			inFlightRequests[key] = [completion]
 			lock.signal()
 			return true
 		}
 		
-		inFlightRequests[key]!.append(completion)
+		value.append(completion)
+        inFlightRequests[key] = value
 		lock.signal()
 		return false
 	}
@@ -80,7 +83,7 @@ private extension URLResponse {
 
 private extension Routable {
     
-    var hashValue: Int {
+    var hashVal: Int {
         let hashableComponents: [AnyHashable?] = [path, method, parameters, body]
         
         return hashableComponents.compactMap { $0?.hashValue }.reduce(0, &+)

@@ -89,13 +89,13 @@ class GenericParsingTests: XCTestCase {
     func testBool() {
         do {
             
-            let parsed: Bool = try gcf.parseData(from: data)
+            let parsedWithData: Bool = try gcf.parseData(from: data)
             
-            XCTAssertTrue(parsed)
+            XCTAssertTrue(parsedWithData == true)
             
-            let parsedNil: Bool = try gcf.parseData(from: nil)
+            let parsedWithoutData: Bool = try gcf.parseData(from: nil)
             
-            XCTAssertFalse(parsedNil)
+            XCTAssertTrue(parsedWithoutData == true)
             
         } catch let error {
             XCTFail(error.localizedDescription)
@@ -190,7 +190,7 @@ class GenericParsingTests: XCTestCase {
             let parsedWithNil: Bool? = try gcf.parseData(from: nil)
             
             XCTAssertNotNil(parsedWithNil)
-            XCTAssertFalse(parsedWithNil ?? true)
+            XCTAssertTrue(parsedWithNil ?? true)
             
         } catch let error {
             XCTFail(error.localizedDescription)

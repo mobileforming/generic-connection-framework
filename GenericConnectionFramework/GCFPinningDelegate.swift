@@ -20,10 +20,10 @@ class GCFPinningDelegate: NSObject, URLSessionDelegate {
 		publicKeyHash = publicKey
 	}
 
-	private func sha256(data : Data) -> String {
-		var keyWithHeader = Data(bytes: rsa2048Asn1Header)
+	private func sha256(data: Data) -> String {
+		var keyWithHeader = Data(rsa2048Asn1Header)
 		keyWithHeader.append(data)
-		var hash = [UInt8](repeating: 0,  count: Int(CC_SHA256_DIGEST_LENGTH))
+		var hash = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
 
 		keyWithHeader.withUnsafeBytes {
 			_ = CC_SHA256($0, CC_LONG(keyWithHeader.count), &hash)
@@ -42,11 +42,11 @@ class GCFPinningDelegate: NSObject, URLSessionDelegate {
                     let serverPublicKey = SecCertificateCopyPublicKey(serverCertificate)
                     serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey!, nil )!
                 } else {
-                    serverPublicKeyData = SecCertificateCopyData(serverCertificate) // TODO: make sure this is correct
+                    serverPublicKeyData = SecCertificateCopyData(serverCertificate) // TECH DEBT: make sure this is correct
                 }
                 if let data = serverPublicKeyData {
                     let keyHash = sha256(data: data as Data)
-                    if (keyHash == publicKeyHash) {
+                    if keyHash == publicKeyHash {
                         return completionHandler(.useCredential, URLCredential(trust:serverTrust))
                     }
                 }

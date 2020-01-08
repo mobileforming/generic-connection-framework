@@ -95,7 +95,7 @@ class GCFTests: XCTestCase {
 	}
 	
 	func testParseDataCorrupted() {
-		let testData = Data(bytes: [1, 2, 3, 4, 5])
+		let testData = Data([1, 2, 3, 4, 5])
 
 		do {
 			let _ : TestObject = try gcf!.parseData(from: testData)

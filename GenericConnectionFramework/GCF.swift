@@ -92,6 +92,8 @@ extension GCF {
             print("typemismatch: \(type)")
         case .valueNotFound:
             print(error.localizedDescription)
+        @unknown default:
+            print(error.localizedDescription)
         }
         
     }

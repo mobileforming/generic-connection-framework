@@ -114,4 +114,22 @@ class GCFPluginTests: XCTestCase {
         
         XCTAssertEqual(error, GCFError.PluginError.failureAbortRequest)
     }
+    
+    func testDidReceiveGenericError() {
+        let plugin = MockGCFPluginCustom()
+        let merror = MockError(errorCode: "-11401", errorType: "KeyError", errorDescription: "Bad PIN entered", errorTrace: "FSIFBNSFNFNNF")
+        plugin.didReceiveError = merror
+        
+        gcfPlugin = AggregatePlugin(plugins: [plugin])
+        var request = URLRequest(url: URL(string: "https://hmsstg.hiltonapi.com/hms/v1/digitalkey/keyshare/accept")!)
+        guard let terror = gcfPlugin!.didReceive(data: nil, response: nil, error: merror, forRequest: &request)  else {
+            XCTFail("wrong error type or no error returned")
+            return
+        }
+    
+        print(merror)
+        let nserror = terror as? CustomNSError
+        XCTAssertEqual(merror.errorCode, nserror?.errorCode)
+        
+    }
 }

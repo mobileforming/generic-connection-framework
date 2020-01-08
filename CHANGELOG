@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.0.0] - 01-03-20
+### Changed
+- Ported to Swift 5
+- CustomNSErrors can be propogated from plugin processing to allow for business logic processing(response is also sent for extended processing if needed)
+- Bool requests now allow empty response bodies
+
 ## [7.1.0] - 08-30-19
 ### Added
 - Response Body can now accept String as Generic Type

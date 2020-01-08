@@ -71,7 +71,7 @@ public class APIClient: GCF {
 		sendRequestInternal(for: routable, numAuthRetries: numAuthRetries, completion: completion)
 	}
 	
-	//MARK: - Convenience methods to discard ResponseHeader capture
+	// MARK: - Convenience methods to discard ResponseHeader capture
 	public func sendRequest<T: Codable>(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (T?, Error?) -> Void) {
 		sendRequest(for: routable, numAuthRetries: numAuthRetries) { (_, response: T?, error) in
 			completion(response, error)
@@ -92,7 +92,7 @@ public class APIClient: GCF {
 	
 }
 
-//MARK: - Internal/private methods
+// MARK: - Internal/private methods
 extension APIClient {
     
     internal func sendRequestInternal<T>(for routable: Routable, numAuthRetries: Int = 3, completion: @escaping (T?, Error?) -> Void) {
@@ -105,7 +105,7 @@ extension APIClient {
         sendRequest(for: routable, numAuthRetries: numAuthRetries, retriesRemaining: numAuthRetries, completion: completion)
     }
     
-    private func sendRequest<T>(for routable: Routable, numAuthRetries: Int, retriesRemaining: Int, completion: @escaping ResponseCompletion<T?>) {
+    private func sendRequest<T>(for routable: Routable, numAuthRetries: Int, retriesRemaining: Int, completion: @escaping ResponseCompletion<T?>) { // swiftlint:disable:this cyclomatic_complexity
 		dispatchQueue.async {
             
             let isRetrying = numAuthRetries != retriesRemaining
@@ -121,7 +121,7 @@ extension APIClient {
             case GCFError.authError(let error)?:
                 return self.processCompletions(forKey: requestKey, result: nil as T?, error: error)
             case GCFError.PluginError.failureAbortRequest?:
-                return self.processCompletions(forKey: requestKey, result: nil as T?, error: GCFError.pluginError)
+                return self.processCompletions(forKey: requestKey, result: nil as T?, error: GCFError.pluginError(nil))
             default:
                 break
             }
@@ -129,32 +129,37 @@ extension APIClient {
 			self.urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
 				guard let strongself = self else { return }
 				
-                switch strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest) {
+                let retError = strongself.plugin?.didReceive(data: data, response: response, error: error, forRequest: &urlRequest)
+                
+                switch retError {
                     
                 case GCFError.PluginError.failureAbortRequest?:
-                    return strongself.processCompletions(forKey: requestKey, response: response, result: nil as T?, error: GCFError.pluginError)
+                    return strongself.processCompletions(forKey: requestKey, response: response, result: nil as T?, error: GCFError.pluginError(nil))
                     
                 case GCFError.PluginError.failureRetryRequest? where retriesRemaining > 0:
                     
                     return strongself.sendRequest(for: routable, numAuthRetries: numAuthRetries, retriesRemaining: retriesRemaining - 1, completion: completion)
                     
                 case GCFError.PluginError.failureRetryRequest?:
-                    return strongself.processCompletions(forKey: requestKey, response: response, result: nil as T?, error: GCFError.pluginError)
+                    return strongself.processCompletions(forKey: requestKey, response: response, result: nil as T?, error: GCFError.pluginError(nil))
                     
-                case GCFError.authError(let error)?:
-                    return strongself.processCompletions(forKey: requestKey, response: response, result: nil as T?, error: error)
+                case GCFError.authError(let aerror)?:
+                    return strongself.processCompletions(forKey: requestKey, response: response, result: nil as T?, error: aerror)
                     
-                case _ where error == nil:
-                    do {
-                        let result: T = try strongself.parseData(from: data)
-                        
-                        strongself.processCompletions(forKey: requestKey, response: response, result: result, error: nil)
-                    } catch let error {
-                        strongself.processCompletions(forKey: requestKey, response: response, result: nil as T?, error: (error as? GCFError) ?? .parsingError)
-                    }
-                    
+                // LocalizedError here
                 default:
-                    strongself.processCompletions(forKey: requestKey, response: response, result: nil as T?, error: GCFError.requestError)
+                    if error == nil {
+                        do {
+                            let result: T = try strongself.parseData(from: data)
+                            
+                            strongself.processCompletions(forKey: requestKey, response: response, result: result, error: retError)
+                        } catch let error {
+                            strongself.processCompletions(forKey: requestKey, response: response, result: nil as T?, error: (error as? GCFError) ?? .parsingError)
+                        }
+                    } else {
+                    
+                        strongself.processCompletions(forKey: requestKey, response: response, result: nil as T?, error: GCFError.requestError(error as NSError?))
+                    }
                     
                 }
                 

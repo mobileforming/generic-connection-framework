@@ -105,8 +105,8 @@ extension GCF {
             case is Data.Type, is Optional<Data>.Type:
                 parsed = data as? T
                 
-            case is Bool.Type, is Optional<Bool>.Type:
-                parsed = (data != nil) as? T
+            case is Bool.Type, is Optional<Bool>.Type: // don't care about response contents
+                parsed = true as? T
                 
             case is [String: Any].Type, is Optional<[String: Any]>.Type:
                 parsed = try JSONSerialization.parse(with: data)

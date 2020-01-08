@@ -37,6 +37,21 @@ class CompletionQueueTests: XCTestCase {
         let expectedKey = "\(routableHash &+ 99):Dictionary<String, Any>"
         
         XCTAssertEqual(key, expectedKey)
+
+        var routable1 = MockRoutable()
+        routable1.path = "/some/path/arbitrary"
+        routable1.headers = ["header1": "value1", "header2": "value2"]
+        routable1.parameters = ["parameter1": "value1", "parameter2": "value2"]
+        routable1.body = ["key1": "value1", "key2": "value2", "key3": "value3"]
+        
+        let key1 = completionQueue.key(for: routable, numAuthRetries: 99, completionType: [String:Any].self)
+        let key2 = completionQueue.key(for: routable, numAuthRetries: 99, completionType: [String:Any].self)
+        let key3 = completionQueue.key(for: routable, numAuthRetries: 97, completionType: [String:Any].self)
+        let key4 = completionQueue.key(for: routable1, numAuthRetries: 99, completionType: [String:Any].self)
+        
+        XCTAssertEqual(key1, key2)
+        XCTAssertNotEqual(key1, key3)
+        XCTAssertNotEqual(key1, key4)
 	}
 	
     

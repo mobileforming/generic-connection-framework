@@ -316,6 +316,7 @@
 			buildPhases = (
 				27B9094F1A6573A453A86D3B /* [CP] Check Pods Manifest.lock */,
 				DF46FADF1F1FF4F0008641A2 /* Sources */,
+				14B78284236A5DB90099C497 /* SwiftLint */,
 				DF46FAE01F1FF4F0008641A2 /* Frameworks */,
 				DF46FAE11F1FF4F0008641A2 /* Headers */,
 				DF46FAE21F1FF4F0008641A2 /* Resources */,
@@ -377,7 +378,7 @@
 					DF46FAEC1F1FF4F0008641A2 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 45BQ97BH8P;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1100;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -450,6 +451,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		14B78284236A5DB90099C497 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		27B9094F1A6573A453A86D3B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -817,6 +836,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobileforming.ios.GenericConnectionFrameworkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -830,6 +850,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobileforming.ios.GenericConnectionFrameworkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
