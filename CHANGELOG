@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Ported to Swift 5
 - CustomNSErrors can be propogated from plugin processing to allow for business logic processing(response is also sent for extended processing if needed)
 - Bool requests now allow empty response bodies
+- Updated to CP 1.7.4
 
 ## [7.1.0] - 08-30-19
 ### Added
