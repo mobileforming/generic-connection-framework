@@ -146,9 +146,12 @@ extension APIClient {
                 case GCFError.authError(let aerror)?:
                     return strongself.processCompletions(forKey: requestKey, response: response, result: nil as T?, error: aerror)
                     
+                case GCFError.requestError(let reqError)?:
+                    strongself.processCompletions(forKey: requestKey, response: response, result: nil as T?, error: GCFError.requestError(reqError))
+                    
                 // LocalizedError here
                 default:
-                    if error == nil {
+                    if error == nil && retError == nil {
                         do {
                             let result: T = try strongself.parseData(from: data)
                             

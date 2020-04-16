@@ -24,6 +24,7 @@
 		160F2E1383AAB455FBEEBF1E /* Pods_GenericConnectionFrameworkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8827F205C029CDDBE0B0FBD /* Pods_GenericConnectionFrameworkTests.framework */; };
 		342686E620BDCB02004814A3 /* GCFPinningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342686E520BDCB02004814A3 /* GCFPinningDelegate.swift */; };
 		342686EA20BE386E004814A3 /* GraphRoutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342686E920BE386E004814A3 /* GraphRoutableTests.swift */; };
+		342860C82448D982004AC1CE /* BoolTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342860C72448D982004AC1CE /* BoolTypeTests.swift */; };
 		3430ACB22211FCC700C082E4 /* CompletionQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3430ACB12211FCC700C082E4 /* CompletionQueueTests.swift */; };
 		343921B21F572113008ED5CC /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921B11F572113008ED5CC /* MockURLSession.swift */; };
 		343921B51F572228008ED5CC /* GCFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343921B41F572228008ED5CC /* GCFTests.swift */; };
@@ -79,6 +80,7 @@
 		342133181F55E9180046BC62 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		342686E520BDCB02004814A3 /* GCFPinningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCFPinningDelegate.swift; sourceTree = "<group>"; };
 		342686E920BE386E004814A3 /* GraphRoutableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphRoutableTests.swift; sourceTree = "<group>"; };
+		342860C72448D982004AC1CE /* BoolTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolTypeTests.swift; sourceTree = "<group>"; };
 		3430ACB12211FCC700C082E4 /* CompletionQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionQueueTests.swift; sourceTree = "<group>"; };
 		343921B11F572113008ED5CC /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		343921B41F572228008ED5CC /* GCFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCFTests.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				65FC00E52178094B007B3043 /* APIClientTests.swift */,
 				343921B31F572182008ED5CC /* Mocks */,
 				3430ACB12211FCC700C082E4 /* CompletionQueueTests.swift */,
+				342860C72448D982004AC1CE /* BoolTypeTests.swift */,
 			);
 			path = GenericConnectionFrameworkTests;
 			sourceTree = "<group>";
@@ -559,6 +562,7 @@
 				343921B21F572113008ED5CC /* MockURLSession.swift in Sources */,
 				343921B71F57225D008ED5CC /* MockGCF.swift in Sources */,
 				3430ACB22211FCC700C082E4 /* CompletionQueueTests.swift in Sources */,
+				342860C82448D982004AC1CE /* BoolTypeTests.swift in Sources */,
 				65FC00E8217809F2007B3043 /* MockRoutable.swift in Sources */,
 				34EDA5061F82BA81009DA63C /* RxGCFTests.swift in Sources */,
 				65FC00E62178094B007B3043 /* APIClientTests.swift in Sources */,
@@ -789,7 +793,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 7.1.0;
+				MARKETING_VERSION = 8.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-driver-show-incremental\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobileforming.ios.module.gcf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -816,7 +820,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 7.1.0;
+				MARKETING_VERSION = 8.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-driver-show-incremental\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobileforming.ios.module.gcf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
