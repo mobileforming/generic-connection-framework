@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.0.1] - 04-16-20
+### Fixed
+ - Handling non plugin errors from didRecieve properly
+
 ## [8.0.0] - 01-03-20
 ### Changed
 - Ported to Swift 5
