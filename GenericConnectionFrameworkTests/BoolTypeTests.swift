@@ -13,7 +13,7 @@ class BoolTypeTests: XCTestCase {
     
     var apiClient: APIClient!
     
-    override func setUpWithError() throws {
+    override func setUp() {
         apiClient = APIClient(baseURL: "https://httpstat.us")
 
         let plugin = ErrorPlugin()
