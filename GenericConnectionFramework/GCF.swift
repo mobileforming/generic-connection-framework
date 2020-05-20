@@ -52,11 +52,14 @@ extension GCF {
 		var urlRequest = URLRequest(url: url, cachePolicy: routable.cachePolicy, timeoutInterval: routable.defaultTimeout)
 		urlRequest.httpMethod = routable.method.rawValue
 		urlRequest.timeoutInterval = routable.defaultTimeout
-		routable.headers?.forEach({ urlRequest.addValue($1, forHTTPHeaderField: $0) })
-		
-        if let body = routable.body, (routable.method == .post || routable.method == .put || routable.method == .patch) {
-			urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
-		}
+        routable.headers?.forEach({ urlRequest.addValue($1, forHTTPHeaderField: $0) })
+        
+        if urlRequest.allHTTPHeaderFields?["Content-Type"]?.contains("multipart/form-data") ?? false,
+            let data = routable.body?["asset"] as? Data {
+            urlRequest.httpBody = data
+        } else if let body = routable.body, (routable.method == .post || routable.method == .put || routable.method == .patch) {
+            urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+        }
 		
 		return urlRequest
 	}
