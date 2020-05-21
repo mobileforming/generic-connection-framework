@@ -54,7 +54,7 @@ extension GCF {
 		urlRequest.timeoutInterval = routable.defaultTimeout
 		routable.headers?.forEach({ urlRequest.addValue($1, forHTTPHeaderField: $0) })
 		
-		if let body = routable.body, (routable.method == .post || routable.method == .put) {
+        if let body = routable.body, (routable.method == .post || routable.method == .put || routable.method == .patch) {
 			urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
 		}
 		
