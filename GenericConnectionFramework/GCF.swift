@@ -53,10 +53,16 @@ extension GCF {
 		urlRequest.httpMethod = routable.method.rawValue
 		urlRequest.timeoutInterval = routable.defaultTimeout
 		routable.headers?.forEach({ urlRequest.addValue($1, forHTTPHeaderField: $0) })
-		
-        if let body = routable.body, (routable.method == .post || routable.method == .put || routable.method == .patch) {
+        
+        guard (routable.method == .post || routable.method == .put || routable.method == .patch) else { return urlRequest }
+        if let body = routable.body {
+             // This first condition is deprecated, remove when routable body is deleted
 			urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
-		}
+        } else if case let RoutableBodyData.jsonObject(object) = routable.bodyData  {
+            urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: object, options: [])
+        } else if case let RoutableBodyData.jsonArray(array) = routable.bodyData {
+            urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: array, options: [])
+        }
 		
 		return urlRequest
 	}
