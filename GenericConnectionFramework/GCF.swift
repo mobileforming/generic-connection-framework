@@ -62,6 +62,15 @@ extension GCF {
             urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: object, options: [])
         } else if case let RoutableBodyData.jsonArray(array) = routable.bodyData {
             urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: array, options: [])
+        } else if case let RoutableBodyData.data(data) = routable.bodyData {
+            urlRequest.httpBody = data
+        }
+        
+    
+        // Remove this after photo upload is finished converting to the body data property
+        if urlRequest.allHTTPHeaderFields?["Content-Type"]?.contains("multipart/form-data") ?? false,
+            let data = routable.body?["asset"] as? Data {
+            urlRequest.httpBody = data
         }
 		
 		return urlRequest

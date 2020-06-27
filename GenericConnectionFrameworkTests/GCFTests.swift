@@ -126,7 +126,16 @@ class GCFTests: XCTestCase {
         XCTAssertEqual(request.httpMethod, HTTPMethod.post.rawValue)
         XCTAssertNotNil(request.httpBody)
     }
-	
+    
+    func testConstructURLRequestBodyDataAsData() {
+        let data = Data(base64Encoded: "asdf")!
+        let routable = TestRoutable(path: "/bodydata", method: .post, headers: nil, parameters: nil, body: nil, bodyData: .data(data), needsAuthorization: false, defaultTimeout: 100)
+        let request = gcf!.constructURLRequest(from: routable)
+        
+        XCTAssertEqual(request.httpMethod, HTTPMethod.post.rawValue)
+        XCTAssertNotNil(request.httpBody)
+    }
+
 	func testDefaultTimeout() {
 		let routable = TestRoutable(path: "/timeout", method: .get, headers: nil, parameters: nil, body: nil, needsAuthorization: false, defaultTimeout: 33)
 		let request = gcf!.constructURLRequest(from: routable)

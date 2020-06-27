@@ -51,4 +51,5 @@ public enum RoutableBodyData {
     case none
     case jsonObject(_ object: [String: AnyHashable])
     case jsonArray(_ array: [AnyHashable])
+    case data(_ data: Data)
 }
