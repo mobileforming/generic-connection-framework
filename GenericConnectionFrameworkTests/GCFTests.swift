@@ -17,6 +17,7 @@ class GCFTests: XCTestCase {
 		var headers: [String:String]?
 		var parameters: [String:String]?
 		var body: [String:AnyHashable]?
+        var bodyData: RoutableBodyData = .none
 		var needsAuthorization: Bool
 		var defaultTimeout: TimeInterval
 	}
@@ -77,7 +78,64 @@ class GCFTests: XCTestCase {
 		XCTAssertTrue(url.absoluteString.contains("?"))
 		XCTAssertTrue(url.absoluteString.contains("test=true&test2=false"))
 	}
-	
+    
+    func testConstructURLRequestWithBody() {
+        let routable = TestRoutable(path: "/withbodypost", method: .post, headers: nil, parameters: nil, body: ["test": "test"], needsAuthorization: false, defaultTimeout: 100)
+        let request = gcf!.constructURLRequest(from: routable)
+        
+        XCTAssertEqual(request.httpMethod, HTTPMethod.post.rawValue)
+        XCTAssertNotNil(request.httpBody)
+    }
+    
+    func testConstructURLRequestWithBodyGET() {
+        let routable = TestRoutable(path: "/withbodyget", method: .get, headers: nil, parameters: nil, body: ["test": "test"], needsAuthorization: false, defaultTimeout: 100)
+        let request = gcf!.constructURLRequest(from: routable)
+        
+        XCTAssertEqual(request.httpMethod, HTTPMethod.get.rawValue)
+        XCTAssertNil(request.httpBody)
+    }
+    
+    func testConstructURLRequestBodyDataNone() {
+        let routable = TestRoutable(path: "/bodydatanone", method: .get, headers: nil, parameters: nil, body: nil, bodyData: .none, needsAuthorization: false, defaultTimeout: 100)
+        let request = gcf!.constructURLRequest(from: routable)
+        
+        XCTAssertEqual(request.httpMethod, HTTPMethod.get.rawValue)
+        XCTAssertNil(request.httpBody)
+    }
+    
+    func testConstructURLRequestBodyDataJSONObjectPOST() {
+        let routable = TestRoutable(path: "/bodydatajsonobject", method: .post, headers: nil, parameters: nil, body: nil, bodyData: .jsonObject(["test": "test"]), needsAuthorization: false, defaultTimeout: 100)
+        let request = gcf!.constructURLRequest(from: routable)
+
+        XCTAssertEqual(request.httpMethod, HTTPMethod.post.rawValue)
+        XCTAssertNotNil(request.httpBody)
+    }
+    
+    func testConstructURLRequestBodyDataJSONObjectGET() {
+        let routable = TestRoutable(path: "/bodydatajsonobject", method: .get, headers: nil, parameters: nil, body: nil, bodyData: .jsonObject(["test": "test"]), needsAuthorization: false, defaultTimeout: 100)
+        let request = gcf!.constructURLRequest(from: routable)
+
+        XCTAssertEqual(request.httpMethod, HTTPMethod.get.rawValue)
+        XCTAssertNil(request.httpBody)
+    }
+        
+    func testConstructURLRequestBodyDataJSONArrayPOST() {
+        let routable = TestRoutable(path: "/bodydatajsonobject", method: .post, headers: nil, parameters: nil, body: nil, bodyData: .jsonArray([["test": "test"], ["test": "test"]]), needsAuthorization: false, defaultTimeout: 100)
+        let request = gcf!.constructURLRequest(from: routable)
+
+        XCTAssertEqual(request.httpMethod, HTTPMethod.post.rawValue)
+        XCTAssertNotNil(request.httpBody)
+    }
+    
+    func testConstructURLRequestBodyDataAsData() {
+        let data = Data(base64Encoded: "asdf")!
+        let routable = TestRoutable(path: "/bodydata", method: .post, headers: nil, parameters: nil, body: nil, bodyData: .data(data), needsAuthorization: false, defaultTimeout: 100)
+        let request = gcf!.constructURLRequest(from: routable)
+        
+        XCTAssertEqual(request.httpMethod, HTTPMethod.post.rawValue)
+        XCTAssertNotNil(request.httpBody)
+    }
+
 	func testDefaultTimeout() {
 		let routable = TestRoutable(path: "/timeout", method: .get, headers: nil, parameters: nil, body: nil, needsAuthorization: false, defaultTimeout: 33)
 		let request = gcf!.constructURLRequest(from: routable)
