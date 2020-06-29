@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.1.0] - 06-29-20
+### Added
+ - Support for data, form, json array request body types
+
+### Changed
+ - Routable.body deprecated, use Routable.bodyData with the appropriate type
+
 ## [8.0.1] - 04-16-20
 ### Fixed
  - Handling non plugin errors from didRecieve properly
