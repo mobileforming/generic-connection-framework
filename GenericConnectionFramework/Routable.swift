@@ -34,6 +34,10 @@ extension Routable {
         return .useProtocolCachePolicy
     }
     
+    public var body: [String: AnyHashable]? {
+        return nil
+    }
+    
     public var bodyData: RoutableBodyData {
         return .none
     }
