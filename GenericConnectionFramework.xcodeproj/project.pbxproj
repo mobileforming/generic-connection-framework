@@ -780,6 +780,7 @@
 			baseConfigurationReference = ADFBD69ED063BF99166FC2AB /* Pods-GenericConnectionFramework.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 45BQ97BH8P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -805,6 +806,7 @@
 			baseConfigurationReference = 119097E46CDD01C26C1ECEF5 /* Pods-GenericConnectionFramework.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 45BQ97BH8P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
