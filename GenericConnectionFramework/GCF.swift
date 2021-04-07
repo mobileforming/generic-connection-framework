@@ -54,24 +54,7 @@ extension GCF {
 		urlRequest.timeoutInterval = routable.defaultTimeout
 		routable.headers?.forEach({ urlRequest.addValue($1, forHTTPHeaderField: $0) })
         
-        guard (routable.method == .post || routable.method == .put || routable.method == .patch) else { return urlRequest }
-        if let body = routable.body {
-             // This first condition is deprecated, remove when routable body is deleted
-			urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
-        } else if case let RoutableBodyData.jsonObject(object) = routable.bodyData  {
-            urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: object, options: [])
-        } else if case let RoutableBodyData.jsonArray(array) = routable.bodyData {
-            urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: array, options: [])
-        } else if case let RoutableBodyData.data(data) = routable.bodyData {
-            urlRequest.httpBody = data
-        }
-        
-    
-        // Remove this after photo upload is finished converting to the body data property
-        if urlRequest.allHTTPHeaderFields?["Content-Type"]?.contains("multipart/form-data") ?? false,
-            let data = routable.body?["asset"] as? Data {
-            urlRequest.httpBody = data
-        }
+        routable.configureHttpBody(urlRequest: &urlRequest)
 		
 		return urlRequest
 	}
@@ -86,7 +69,9 @@ extension GCF {
 			if let parameters = routable.parameters, parameters.keys.count > 0 {
                 urlComponents.queryItems = parameters.map({ URLQueryItem(name: $0.0, value: $0.1) }).sorted { $0.name < $1.name }
 			}
-			return urlComponents.url!
+            if let url = urlComponents.url {
+                return url
+            }
 		}
 		fatalError("cant construct url")
 	}

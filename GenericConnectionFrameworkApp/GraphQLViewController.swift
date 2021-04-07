@@ -10,13 +10,15 @@ import UIKit
 import GenericConnectionFramework
 
 struct StaysGraphRoute: GraphRoutable {
-	var query: String
-	var variables: [String:Any]?
+    var query: String
+    var variables: [String : AnyHashable]?
 	var path: String
 	var method: HTTPMethod
 	var headers: [String:String]?
 	var parameters: [String:String]?
+    
 	var needsAuthorization: Bool
+    
 }
 
 class GraphQLViewController: UIViewController {

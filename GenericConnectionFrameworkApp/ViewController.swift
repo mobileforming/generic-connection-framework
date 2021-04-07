@@ -39,7 +39,12 @@ class ViewController: UIViewController {
 		
 		let vend = TestRoute(path: "", method: .get, headers: nil, parameters: nil, body: nil, needsAuthorization: false)
 		gcf.sendRequest(for: vend) { (result: [Product]?, error) in
-			print(result)
+            if let error = error {
+                print("Localized Error Description: \(error.localizedDescription)")
+                return
+            }
+            
+			print(result ?? "Empty Product Array Received")
 		}
     }
 }
