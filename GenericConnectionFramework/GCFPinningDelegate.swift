@@ -38,7 +38,7 @@ class GCFPinningDelegate: NSObject, URLSessionDelegate {
             print(SecTrustGetCertificateCount(serverTrust))
             if let serverCertificate = SecTrustGetCertificateAtIndex(serverTrust, 0) {
                 var serverPublicKeyData: NSData?
-                if #available(iOS 10.3, *) {
+                if #available(iOS 12.0, *) {
                     if let serverPublicKey = SecCertificateCopyKey(serverCertificate) {
                         serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil )
                     }
