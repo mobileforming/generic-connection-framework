@@ -26,7 +26,7 @@ class GCFPinningDelegate: NSObject, URLSessionDelegate {
 		var hash = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
 
 		keyWithHeader.withUnsafeBytes {
-			_ = CC_SHA256($0, CC_LONG(keyWithHeader.count), &hash)
+            _ = CC_SHA256($0.baseAddress, CC_LONG(keyWithHeader.count), &hash)
 		}
 
 		return Data(hash).base64EncodedString()
@@ -38,9 +38,10 @@ class GCFPinningDelegate: NSObject, URLSessionDelegate {
             print(SecTrustGetCertificateCount(serverTrust))
             if let serverCertificate = SecTrustGetCertificateAtIndex(serverTrust, 0) {
                 var serverPublicKeyData: NSData?
-                if #available(iOS 10.3, *) {
-                    let serverPublicKey = SecCertificateCopyPublicKey(serverCertificate)
-                    serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey!, nil )!
+                if #available(iOS 12.0, *) {
+                    if let serverPublicKey = SecCertificateCopyKey(serverCertificate) {
+                        serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil )
+                    }
                 } else {
                     serverPublicKeyData = SecCertificateCopyData(serverCertificate) // TECH DEBT: make sure this is correct
                 }
@@ -65,13 +66,23 @@ class GCFPinningDelegate: NSObject, URLSessionDelegate {
         
         if let serverTrust = challenge.protectionSpace.serverTrust {
             var secresult = SecTrustResultType.invalid
-            let status = SecTrustEvaluate(serverTrust, &secresult)
             
-            if errSecSuccess == status {
-                return serverTrust
+
+            if #available(iOS 12, *) {
+                var error: CFError?
+                if SecTrustEvaluateWithError(serverTrust, &error) {
+                    return serverTrust
+                } else {
+                    // Diagnostic?
+                }
+            } else {
+                let status = SecTrustEvaluate(serverTrust, &secresult)
+                if errSecSuccess == status {
+                    return serverTrust
+                }
             }
         }
-        
+            
         return nil
     }
 }

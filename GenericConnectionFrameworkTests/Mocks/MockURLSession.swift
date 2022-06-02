@@ -21,6 +21,10 @@ class MockURLSession: URLSession, MockURLSessionDelegate {
 	var failRequest = false
     var dataTaskCount = 0
     
+    override init() {
+        // This should block the warning of it being deprecated.
+    }
+    
 	override func dataTask(with: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) -> MockURLSessionDataTask {
 		let dataTask = MockURLSessionDataTask(failRequest: failRequest, completionHandler: completionHandler)
         dataTask.delegate = self

@@ -9,14 +9,18 @@
 //
 import Foundation
 
-public protocol Routable {
+public protocol DeprecatedRoutableCheatCode {
+    var body: [String: AnyHashable]? { get }
+}
+
+public protocol Routable: DeprecatedRoutableCheatCode {
     var path: String { get }
     var method: HTTPMethod { get }
     var headers: [String :String]? { get }
     var parameters: [String: String]? { get }
     var needsAuthorization: Bool { get }
     
-    @available(*, deprecated, renamed: "bodyData")
+    @available(*, deprecated, message: "please use bodyData")
     var body: [String: AnyHashable]? { get }
     var bodyData: RoutableBodyData { get }
     
@@ -24,6 +28,8 @@ public protocol Routable {
     var defaultTimeout: TimeInterval { get }
     var cachePolicy: URLRequest.CachePolicy { get }
 }
+
+
 
 extension Routable {
     public var defaultTimeout: TimeInterval {
@@ -40,6 +46,33 @@ extension Routable {
     
     public var bodyData: RoutableBodyData {
         return .none
+    }
+    
+    public func configureHttpBody(urlRequest: inout URLRequest) {
+        guard method == .post || method == .put || method == .patch else {
+            return
+        }
+        
+        // Cheap dirty hack to silence the warnings...
+        // Handle Body Data
+        if let body = (self as DeprecatedRoutableCheatCode).body {
+             // This first condition is deprecated, remove when routable body is deleted
+            urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+        } else if case let RoutableBodyData.jsonObject(object) = bodyData  {
+            urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: object, options: [])
+        } else if case let RoutableBodyData.jsonArray(array) = bodyData {
+            urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: array, options: [])
+        } else if case let RoutableBodyData.data(data) = bodyData {
+            urlRequest.httpBody = data
+        }
+        
+        // Cheap dirty hack to silence the warnings...
+        // Remove this after photo upload is finished converting to the body data property
+        if urlRequest.allHTTPHeaderFields?["Content-Type"]?.contains("multipart/form-data") ?? false,
+            let data = (self as DeprecatedRoutableCheatCode).body?["asset"] as? Data {
+            urlRequest.httpBody = data
+        }
+        
     }
 }
 

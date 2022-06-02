@@ -84,8 +84,9 @@ private extension URLResponse {
 private extension Routable {
     
     var hashVal: Int {
-        let hashableComponents: [AnyHashable?] = [path, method, parameters, body]
-        
+        // Do we want body to be hashable, not bodyData?
+        // Also Cheaters to get away from the Warnings...
+        let hashableComponents: [AnyHashable?] = [path, method, parameters, (self as DeprecatedRoutableCheatCode).body]
         return hashableComponents.compactMap { $0?.hashValue }.reduce(0, &+)
     }
     
